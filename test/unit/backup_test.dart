@@ -438,31 +438,76 @@ void main() {
       await expectRejected(path, contains('damaged'));
     });
 
-    test('restores a version 1 backup made before titleLocked', () async {
-      final path = await exportOne();
-      await _rewriteZip(path, (f) {
-        if (f.name != BackupCodec.manifestName &&
-            f.name != BackupCodec.dataName) {
-          return _copy(f);
-        }
-        final body =
-            jsonDecode(utf8.decode(f.readBytes()!)) as Map<String, Object?>;
-        if (f.name == BackupCodec.manifestName) {
-          body['schemaVersion'] = 1;
-        } else {
-          for (final s in body['screenshots']! as List<Object?>) {
-            ((s! as Map<String, Object?>)['row']! as Map<String, Object?>)
-                .remove('titleLocked');
+    // Screenshot fields each older backup version lacks.
+    const v3Fields = [
+      'memoryType',
+      'mimeType',
+      'description',
+      'sourceUrl',
+      'pageCount',
+      'durationMs',
+      'eventAt',
+    ];
+    for (final (version, missing) in [
+      (1, ['titleLocked', ...v3Fields]),
+      (2, v3Fields),
+    ]) {
+      test('restores a version $version backup', () async {
+        final path = await exportOne();
+        await _rewriteZip(path, (f) {
+          if (f.name != BackupCodec.manifestName &&
+              f.name != BackupCodec.dataName) {
+            return _copy(f);
           }
-        }
-        return ArchiveFile.string(f.name, jsonEncode(body));
+          final body =
+              jsonDecode(utf8.decode(f.readBytes()!)) as Map<String, Object?>;
+          if (f.name == BackupCodec.manifestName) {
+            body['schemaVersion'] = version;
+          } else {
+            for (final s in body['screenshots']! as List<Object?>) {
+              final row =
+                  (s! as Map<String, Object?>)['row']! as Map<String, Object?>;
+              missing.forEach(row.remove);
+            }
+          }
+          return ArchiveFile.string(f.name, jsonEncode(body));
+        });
+        final target = await _Library.create();
+        addTearDown(target.dispose);
+        final report = await target.backup.restore(path);
+        expect(report.restored, 1);
+        final row = await target.db.select(target.db.screenshots).getSingle();
+        expect(row.titleLocked, isFalse);
+        expect(row.memoryType, MemoryType.screenshot);
+        expect(row.description, isNull);
+        expect(row.eventAt, isNull);
       });
+    }
+
+    test('keeps schema-3 memory fields through export and restore', () async {
+      final id = await source.addScreenshot([1, 2, 3]);
+      final eventAt = DateTime(2026, 12, 1, 9);
+      await (source.db.update(
+        source.db.screenshots,
+      )..where((s) => s.id.equals(id))).write(
+        ScreenshotsCompanion(
+          memoryType: const Value(MemoryType.image),
+          mimeType: const Value('image/png'),
+          description: const Value('Gate change photo'),
+          sourceUrl: const Value('https://example.com/a'),
+          eventAt: Value(eventAt),
+        ),
+      );
+      final path = (await source.backup.export(ExportKind.zip)).file.path;
       final target = await _Library.create();
       addTearDown(target.dispose);
-      final report = await target.backup.restore(path);
-      expect(report.restored, 1);
+      expect((await target.backup.restore(path)).restored, 1);
       final row = await target.db.select(target.db.screenshots).getSingle();
-      expect(row.titleLocked, isFalse);
+      expect(row.memoryType, MemoryType.image);
+      expect(row.mimeType, 'image/png');
+      expect(row.description, 'Gate change photo');
+      expect(row.sourceUrl, 'https://example.com/a');
+      expect(row.eventAt, eventAt);
     });
 
     test('rejects a backup from a newer app version', () async {

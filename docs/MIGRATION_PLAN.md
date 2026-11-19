@@ -1,7 +1,8 @@
 # Migration plan: screenshots to memories (schema 3)
 
-Status: **design approved for implementation in Phase 1; not yet coded.**
-Current schema: version 2 (Drift, `snapaction.sqlite`, WAL).
+Status: **implemented 19 November 2026** (schema 3, `lib/core/database/`).
+Tests: `test/unit/migration_test.dart` and `test/unit/backup_test.dart`; see
+"Implementation notes" at the end for where the code differs from this plan.
 
 ## Goals
 
@@ -136,3 +137,50 @@ after restore.
 - No change to `applicationId`, signing or the database file name.
 - No deletion or recreation of the database.
 - No dependency on any ML model during migration.
+
+## Implementation notes (19 November 2026)
+
+What was built, and where it differs from the design above:
+
+- Columns and tables are as designed. The Dart class is still `Screenshots`
+  (`ScreenshotRow`); the rename to `Memories` is left for a separate,
+  mechanical commit so this one only changes the schema.
+  `memory_relationships.type` is `relationship_type` and
+  `model_registry.type` is `model_type` (`type` is too generic to grep).
+- Drift writes `user_version` only after `onUpgrade` returns, outside any
+  transaction. A crash between the commit and that write reruns the
+  upgrade, so every step is guarded: columns are added only if
+  `pragma_table_info` lacks them, tables and indexes use `IF NOT EXISTS`.
+  The old schema-2 step (`title_locked`) is guarded the same way.
+- The snapshot (`VACUUM INTO <db dir>/snapshots/pre_v3.sqlite`) runs before
+  the transaction. An existing snapshot is kept (it is older than a retry).
+  A failed snapshot does not block the upgrade. It is deleted on the fourth
+  start on schema 3 (counter `pre_v3_snapshot_starts` in `app_settings`).
+- The in-transaction check compares the row count of every legacy table
+  and the number of `PRAGMA foreign_key_check` violations before and after.
+  Any difference throws, which rolls everything back. Violations that
+  already existed do not block the upgrade; only new ones do.
+- Chunk jobs are not enqueued yet: chunking arrives in Phase 2.
+- Backups: format version 3. Restoring a version 1 or 2 backup fills
+  `titleLocked = false` and `memoryType = screenshot`; the other new
+  fields are nullable.
+
+Test status (numbers refer to the list above):
+
+1. Done. `test/fixtures/db/schema_v2.sqlite` was written by the schema-2
+   code (`generate_schema_v2_test.dart`) with a row in every table. The
+   schema-1 case is derived from it by dropping `title_locked` and setting
+   `user_version = 1` (the schema-1 code is no longer in the tree).
+2. Done, two ways: a forced failure partway through (a view where a new
+   table belongs makes an index fail) leaves the database untouched at
+   version 2 and the next open completes; and a committed upgrade whose
+   version write was lost reruns without changes.
+3. Done, comparing columns (by name), indexes and foreign keys of every
+   table rather than `sqlite_master` text, since `ALTER TABLE` appends
+   columns in a different order from a fresh `CREATE TABLE`.
+4. Done on the host (notification id, time, zone, linked memory; delete
+   cascades). Not checked on the device: the emulator library had no
+   reminders at upgrade time.
+5. Done (v1, v2 restore; v3 round trip keeps the new fields).
+6. Done on the emulator, except the reminder and notification tap (see 4).
+   See TEST_REPORT.md.

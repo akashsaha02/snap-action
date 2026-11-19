@@ -18,7 +18,7 @@ abstract final class BackupCodec {
   // Internal identifier, unchanged by the app's rename so older backups
   // keep restoring.
   static const format = 'snapaction-backup';
-  static const schemaVersion = 2;
+  static const schemaVersion = 3;
   static const manifestName = 'manifest.json';
   static const dataName = 'data.json';
 
@@ -463,9 +463,15 @@ class BackupData {
       BackupCodec.checkEntryName(image, isFile: true);
       if (thumb is String) BackupCodec.checkEntryName(thumb, isFile: true);
       return BackupScreenshot(
-        // Version 1 backups predate titleLocked; like the database
-        // migration, their titles count as generated.
-        row: ScreenshotRow.fromJson({'titleLocked': false, ...row}),
+        // Fill what older backups lack, as the database migration does:
+        // version 1 predates titleLocked (titles count as generated) and
+        // versions 1-2 hold only screenshots. Schema-3 fields that are
+        // nullable read as null when absent.
+        row: ScreenshotRow.fromJson({
+          'titleLocked': false,
+          'memoryType': MemoryType.screenshot.name,
+          ...row,
+        }),
         image: image,
         thumbnail: thumb as String?,
       );

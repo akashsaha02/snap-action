@@ -136,9 +136,27 @@ Done 19 November 2026 (see `docs/`).
   `docs/SECURITY_AND_PRIVACY.md`, `docs/IMPLEMENTATION_ROADMAP.md`;
   `ARCHITECTURE.md` moved to `docs/`.
 - Feature flags (`FeatureFlag`, all off by default) with tests.
-- Waiting on the owner before Phase 1: product name, design tokens,
-  navigation, and whether model downloads may add the INTERNET permission
-  (open decisions in the product spec).
+- Owner decisions (19 November 2026): name Mindtiq, keep the Acid Pop
+  tokens, new navigation behind `newNavigation`, bundle one small
+  embedding model in V1 with no INTERNET permission.
+
+## RecallOS programme — Phase 1 (foundation)
+
+- [x] Schema 3 migration (`docs/MIGRATION_PLAN.md`): `memory_type` and
+      related columns on `screenshots`; job progress and checkpoints; new
+      tables `memory_chunks`, `embeddings`, `spaces`, `space_memberships`,
+      `memory_relationships`, `model_registry`. Guarded, transactional,
+      verified, with a pre-upgrade snapshot kept for three starts.
+- [x] Migration tests against a real schema-2 fixture (8 tests) and
+      backup format 3 with v1/v2 restore (3 new tests).
+- [x] Upgrade verified on the emulator over the installed schema-2 release
+      (TEST_REPORT.md).
+- [ ] Rename the Dart model to `Memories` (mechanical commit).
+- [ ] Navigation (Home, Memories, Recall, Connections, Profile) behind
+      `newNavigation`.
+- [ ] Capture Hub: photo picker, share, note, paste, link.
+- [ ] Unified library with type filters.
+- [ ] WorkManager host for jobs; analysis on a background isolate.
 
 ## Not in this version
 

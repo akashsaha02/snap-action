@@ -165,6 +165,31 @@ x86_64 38.4 MB. The universal APK was 103.6 MB.
 Not checked on a device: Google Calendar's own save screen (the emulator
 asks for a Google account first), a physical phone for this build.
 
+## Schema 3 upgrade on the emulator (19 November 2026)
+
+The installed schema-2 release (versionCode 4001, the 12-screenshot test
+library) was replaced with `adb install -r` by the schema-3 x86_64 release
+build, then started.
+
+| Check | Result |
+| --- | --- |
+| Home screen (counts, upcoming items, recent) | identical to before, apart from the new name |
+| Library list (11 items in the default view) | identical |
+| `user_version` | 2 → 3 |
+| Rows: screenshots, OCR results, entities, suggested actions | 12, 12, 28, 21 before and after |
+| `memory_type` | `screenshot` for all 12 |
+| New tables | all 6 present, empty |
+| `foreign_key_check` / `integrity_check` | 0 violations / ok |
+| Snapshot `files/snapshots/pre_v3.sqlite` | present, `user_version` 2, same row counts |
+| Errors in logcat | none |
+
+Databases were read by pulling them with `adb root` (emulator only).
+Not checked on the device: reminders and a notification tap, because the
+library had no reminders; these are covered by host tests.
+
+Host suite after the migration: 254 passed, 1 skipped (the fixture
+generator).
+
 ## Not measured
 
 - A physical phone. Every device number above is from the emulator.

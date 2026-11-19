@@ -776,6 +776,82 @@ class $ScreenshotsTable extends Screenshots
     defaultValue: currentDateAndTime,
   );
   @override
+  late final GeneratedColumnWithTypeConverter<MemoryType, String> memoryType =
+      GeneratedColumn<String>(
+        'memory_type',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+        defaultValue: Constant(MemoryType.screenshot.name),
+      ).withConverter<MemoryType>($ScreenshotsTable.$convertermemoryType);
+  static const VerificationMeta _mimeTypeMeta = const VerificationMeta(
+    'mimeType',
+  );
+  @override
+  late final GeneratedColumn<String> mimeType = GeneratedColumn<String>(
+    'mime_type',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+    'description',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _sourceUrlMeta = const VerificationMeta(
+    'sourceUrl',
+  );
+  @override
+  late final GeneratedColumn<String> sourceUrl = GeneratedColumn<String>(
+    'source_url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _pageCountMeta = const VerificationMeta(
+    'pageCount',
+  );
+  @override
+  late final GeneratedColumn<int> pageCount = GeneratedColumn<int>(
+    'page_count',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _durationMsMeta = const VerificationMeta(
+    'durationMs',
+  );
+  @override
+  late final GeneratedColumn<int> durationMs = GeneratedColumn<int>(
+    'duration_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _eventAtMeta = const VerificationMeta(
+    'eventAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> eventAt = GeneratedColumn<DateTime>(
+    'event_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  @override
   List<GeneratedColumn> get $columns => [
     id,
     originalFilename,
@@ -803,6 +879,13 @@ class $ScreenshotsTable extends Screenshots
     imageHeight,
     createdAt,
     updatedAt,
+    memoryType,
+    mimeType,
+    description,
+    sourceUrl,
+    pageCount,
+    durationMs,
+    eventAt,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1004,6 +1087,45 @@ class $ScreenshotsTable extends Screenshots
         updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
       );
     }
+    if (data.containsKey('mime_type')) {
+      context.handle(
+        _mimeTypeMeta,
+        mimeType.isAcceptableOrUnknown(data['mime_type']!, _mimeTypeMeta),
+      );
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
+          _descriptionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('source_url')) {
+      context.handle(
+        _sourceUrlMeta,
+        sourceUrl.isAcceptableOrUnknown(data['source_url']!, _sourceUrlMeta),
+      );
+    }
+    if (data.containsKey('page_count')) {
+      context.handle(
+        _pageCountMeta,
+        pageCount.isAcceptableOrUnknown(data['page_count']!, _pageCountMeta),
+      );
+    }
+    if (data.containsKey('duration_ms')) {
+      context.handle(
+        _durationMsMeta,
+        durationMs.isAcceptableOrUnknown(data['duration_ms']!, _durationMsMeta),
+      );
+    }
+    if (data.containsKey('event_at')) {
+      context.handle(
+        _eventAtMeta,
+        eventAt.isAcceptableOrUnknown(data['event_at']!, _eventAtMeta),
+      );
+    }
     return context;
   }
 
@@ -1121,6 +1243,36 @@ class $ScreenshotsTable extends Screenshots
         DriftSqlType.dateTime,
         data['${effectivePrefix}updated_at'],
       )!,
+      memoryType: $ScreenshotsTable.$convertermemoryType.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}memory_type'],
+        )!,
+      ),
+      mimeType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}mime_type'],
+      ),
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      ),
+      sourceUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}source_url'],
+      ),
+      pageCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}page_count'],
+      ),
+      durationMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}duration_ms'],
+      ),
+      eventAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}event_at'],
+      ),
     );
   }
 
@@ -1135,6 +1287,8 @@ class $ScreenshotsTable extends Screenshots
   $converterprocessingStatus = const EnumNameConverter<ProcessingStatus>(
     ProcessingStatus.values,
   );
+  static JsonTypeConverter2<MemoryType, String, String> $convertermemoryType =
+      const EnumNameConverter<MemoryType>(MemoryType.values);
 }
 
 class ScreenshotRow extends DataClass implements Insertable<ScreenshotRow> {
@@ -1174,6 +1328,15 @@ class ScreenshotRow extends DataClass implements Insertable<ScreenshotRow> {
   final int? imageHeight;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final MemoryType memoryType;
+  final String? mimeType;
+  final String? description;
+  final String? sourceUrl;
+  final int? pageCount;
+  final int? durationMs;
+
+  /// An event date the user confirmed, for the timeline. Never guessed.
+  final DateTime? eventAt;
   const ScreenshotRow({
     required this.id,
     this.originalFilename,
@@ -1201,6 +1364,13 @@ class ScreenshotRow extends DataClass implements Insertable<ScreenshotRow> {
     this.imageHeight,
     required this.createdAt,
     required this.updatedAt,
+    required this.memoryType,
+    this.mimeType,
+    this.description,
+    this.sourceUrl,
+    this.pageCount,
+    this.durationMs,
+    this.eventAt,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1261,6 +1431,29 @@ class ScreenshotRow extends DataClass implements Insertable<ScreenshotRow> {
     }
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
+    {
+      map['memory_type'] = Variable<String>(
+        $ScreenshotsTable.$convertermemoryType.toSql(memoryType),
+      );
+    }
+    if (!nullToAbsent || mimeType != null) {
+      map['mime_type'] = Variable<String>(mimeType);
+    }
+    if (!nullToAbsent || description != null) {
+      map['description'] = Variable<String>(description);
+    }
+    if (!nullToAbsent || sourceUrl != null) {
+      map['source_url'] = Variable<String>(sourceUrl);
+    }
+    if (!nullToAbsent || pageCount != null) {
+      map['page_count'] = Variable<int>(pageCount);
+    }
+    if (!nullToAbsent || durationMs != null) {
+      map['duration_ms'] = Variable<int>(durationMs);
+    }
+    if (!nullToAbsent || eventAt != null) {
+      map['event_at'] = Variable<DateTime>(eventAt);
+    }
     return map;
   }
 
@@ -1312,6 +1505,25 @@ class ScreenshotRow extends DataClass implements Insertable<ScreenshotRow> {
           : Value(imageHeight),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
+      memoryType: Value(memoryType),
+      mimeType: mimeType == null && nullToAbsent
+          ? const Value.absent()
+          : Value(mimeType),
+      description: description == null && nullToAbsent
+          ? const Value.absent()
+          : Value(description),
+      sourceUrl: sourceUrl == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sourceUrl),
+      pageCount: pageCount == null && nullToAbsent
+          ? const Value.absent()
+          : Value(pageCount),
+      durationMs: durationMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(durationMs),
+      eventAt: eventAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(eventAt),
     );
   }
 
@@ -1357,6 +1569,15 @@ class ScreenshotRow extends DataClass implements Insertable<ScreenshotRow> {
       imageHeight: serializer.fromJson<int?>(json['imageHeight']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      memoryType: $ScreenshotsTable.$convertermemoryType.fromJson(
+        serializer.fromJson<String>(json['memoryType']),
+      ),
+      mimeType: serializer.fromJson<String?>(json['mimeType']),
+      description: serializer.fromJson<String?>(json['description']),
+      sourceUrl: serializer.fromJson<String?>(json['sourceUrl']),
+      pageCount: serializer.fromJson<int?>(json['pageCount']),
+      durationMs: serializer.fromJson<int?>(json['durationMs']),
+      eventAt: serializer.fromJson<DateTime?>(json['eventAt']),
     );
   }
   @override
@@ -1395,6 +1616,15 @@ class ScreenshotRow extends DataClass implements Insertable<ScreenshotRow> {
       'imageHeight': serializer.toJson<int?>(imageHeight),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'memoryType': serializer.toJson<String>(
+        $ScreenshotsTable.$convertermemoryType.toJson(memoryType),
+      ),
+      'mimeType': serializer.toJson<String?>(mimeType),
+      'description': serializer.toJson<String?>(description),
+      'sourceUrl': serializer.toJson<String?>(sourceUrl),
+      'pageCount': serializer.toJson<int?>(pageCount),
+      'durationMs': serializer.toJson<int?>(durationMs),
+      'eventAt': serializer.toJson<DateTime?>(eventAt),
     };
   }
 
@@ -1425,6 +1655,13 @@ class ScreenshotRow extends DataClass implements Insertable<ScreenshotRow> {
     Value<int?> imageHeight = const Value.absent(),
     DateTime? createdAt,
     DateTime? updatedAt,
+    MemoryType? memoryType,
+    Value<String?> mimeType = const Value.absent(),
+    Value<String?> description = const Value.absent(),
+    Value<String?> sourceUrl = const Value.absent(),
+    Value<int?> pageCount = const Value.absent(),
+    Value<int?> durationMs = const Value.absent(),
+    Value<DateTime?> eventAt = const Value.absent(),
   }) => ScreenshotRow(
     id: id ?? this.id,
     originalFilename: originalFilename.present
@@ -1465,6 +1702,13 @@ class ScreenshotRow extends DataClass implements Insertable<ScreenshotRow> {
     imageHeight: imageHeight.present ? imageHeight.value : this.imageHeight,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
+    memoryType: memoryType ?? this.memoryType,
+    mimeType: mimeType.present ? mimeType.value : this.mimeType,
+    description: description.present ? description.value : this.description,
+    sourceUrl: sourceUrl.present ? sourceUrl.value : this.sourceUrl,
+    pageCount: pageCount.present ? pageCount.value : this.pageCount,
+    durationMs: durationMs.present ? durationMs.value : this.durationMs,
+    eventAt: eventAt.present ? eventAt.value : this.eventAt,
   );
   ScreenshotRow copyWithCompanion(ScreenshotsCompanion data) {
     return ScreenshotRow(
@@ -1534,6 +1778,19 @@ class ScreenshotRow extends DataClass implements Insertable<ScreenshotRow> {
           : this.imageHeight,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      memoryType: data.memoryType.present
+          ? data.memoryType.value
+          : this.memoryType,
+      mimeType: data.mimeType.present ? data.mimeType.value : this.mimeType,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
+      sourceUrl: data.sourceUrl.present ? data.sourceUrl.value : this.sourceUrl,
+      pageCount: data.pageCount.present ? data.pageCount.value : this.pageCount,
+      durationMs: data.durationMs.present
+          ? data.durationMs.value
+          : this.durationMs,
+      eventAt: data.eventAt.present ? data.eventAt.value : this.eventAt,
     );
   }
 
@@ -1565,7 +1822,14 @@ class ScreenshotRow extends DataClass implements Insertable<ScreenshotRow> {
           ..write('imageWidth: $imageWidth, ')
           ..write('imageHeight: $imageHeight, ')
           ..write('createdAt: $createdAt, ')
-          ..write('updatedAt: $updatedAt')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('memoryType: $memoryType, ')
+          ..write('mimeType: $mimeType, ')
+          ..write('description: $description, ')
+          ..write('sourceUrl: $sourceUrl, ')
+          ..write('pageCount: $pageCount, ')
+          ..write('durationMs: $durationMs, ')
+          ..write('eventAt: $eventAt')
           ..write(')'))
         .toString();
   }
@@ -1598,6 +1862,13 @@ class ScreenshotRow extends DataClass implements Insertable<ScreenshotRow> {
     imageHeight,
     createdAt,
     updatedAt,
+    memoryType,
+    mimeType,
+    description,
+    sourceUrl,
+    pageCount,
+    durationMs,
+    eventAt,
   ]);
   @override
   bool operator ==(Object other) =>
@@ -1628,7 +1899,14 @@ class ScreenshotRow extends DataClass implements Insertable<ScreenshotRow> {
           other.imageWidth == this.imageWidth &&
           other.imageHeight == this.imageHeight &&
           other.createdAt == this.createdAt &&
-          other.updatedAt == this.updatedAt);
+          other.updatedAt == this.updatedAt &&
+          other.memoryType == this.memoryType &&
+          other.mimeType == this.mimeType &&
+          other.description == this.description &&
+          other.sourceUrl == this.sourceUrl &&
+          other.pageCount == this.pageCount &&
+          other.durationMs == this.durationMs &&
+          other.eventAt == this.eventAt);
 }
 
 class ScreenshotsCompanion extends UpdateCompanion<ScreenshotRow> {
@@ -1658,6 +1936,13 @@ class ScreenshotsCompanion extends UpdateCompanion<ScreenshotRow> {
   final Value<int?> imageHeight;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
+  final Value<MemoryType> memoryType;
+  final Value<String?> mimeType;
+  final Value<String?> description;
+  final Value<String?> sourceUrl;
+  final Value<int?> pageCount;
+  final Value<int?> durationMs;
+  final Value<DateTime?> eventAt;
   const ScreenshotsCompanion({
     this.id = const Value.absent(),
     this.originalFilename = const Value.absent(),
@@ -1685,6 +1970,13 @@ class ScreenshotsCompanion extends UpdateCompanion<ScreenshotRow> {
     this.imageHeight = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
+    this.memoryType = const Value.absent(),
+    this.mimeType = const Value.absent(),
+    this.description = const Value.absent(),
+    this.sourceUrl = const Value.absent(),
+    this.pageCount = const Value.absent(),
+    this.durationMs = const Value.absent(),
+    this.eventAt = const Value.absent(),
   });
   ScreenshotsCompanion.insert({
     this.id = const Value.absent(),
@@ -1713,6 +2005,13 @@ class ScreenshotsCompanion extends UpdateCompanion<ScreenshotRow> {
     this.imageHeight = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
+    this.memoryType = const Value.absent(),
+    this.mimeType = const Value.absent(),
+    this.description = const Value.absent(),
+    this.sourceUrl = const Value.absent(),
+    this.pageCount = const Value.absent(),
+    this.durationMs = const Value.absent(),
+    this.eventAt = const Value.absent(),
   }) : localFilePath = Value(localFilePath),
        contentHash = Value(contentHash),
        importedAt = Value(importedAt),
@@ -1746,6 +2045,13 @@ class ScreenshotsCompanion extends UpdateCompanion<ScreenshotRow> {
     Expression<int>? imageHeight,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
+    Expression<String>? memoryType,
+    Expression<String>? mimeType,
+    Expression<String>? description,
+    Expression<String>? sourceUrl,
+    Expression<int>? pageCount,
+    Expression<int>? durationMs,
+    Expression<DateTime>? eventAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1777,6 +2083,13 @@ class ScreenshotsCompanion extends UpdateCompanion<ScreenshotRow> {
       if (imageHeight != null) 'image_height': imageHeight,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
+      if (memoryType != null) 'memory_type': memoryType,
+      if (mimeType != null) 'mime_type': mimeType,
+      if (description != null) 'description': description,
+      if (sourceUrl != null) 'source_url': sourceUrl,
+      if (pageCount != null) 'page_count': pageCount,
+      if (durationMs != null) 'duration_ms': durationMs,
+      if (eventAt != null) 'event_at': eventAt,
     });
   }
 
@@ -1807,6 +2120,13 @@ class ScreenshotsCompanion extends UpdateCompanion<ScreenshotRow> {
     Value<int?>? imageHeight,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
+    Value<MemoryType>? memoryType,
+    Value<String?>? mimeType,
+    Value<String?>? description,
+    Value<String?>? sourceUrl,
+    Value<int?>? pageCount,
+    Value<int?>? durationMs,
+    Value<DateTime?>? eventAt,
   }) {
     return ScreenshotsCompanion(
       id: id ?? this.id,
@@ -1836,6 +2156,13 @@ class ScreenshotsCompanion extends UpdateCompanion<ScreenshotRow> {
       imageHeight: imageHeight ?? this.imageHeight,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      memoryType: memoryType ?? this.memoryType,
+      mimeType: mimeType ?? this.mimeType,
+      description: description ?? this.description,
+      sourceUrl: sourceUrl ?? this.sourceUrl,
+      pageCount: pageCount ?? this.pageCount,
+      durationMs: durationMs ?? this.durationMs,
+      eventAt: eventAt ?? this.eventAt,
     );
   }
 
@@ -1928,6 +2255,29 @@ class ScreenshotsCompanion extends UpdateCompanion<ScreenshotRow> {
     if (updatedAt.present) {
       map['updated_at'] = Variable<DateTime>(updatedAt.value);
     }
+    if (memoryType.present) {
+      map['memory_type'] = Variable<String>(
+        $ScreenshotsTable.$convertermemoryType.toSql(memoryType.value),
+      );
+    }
+    if (mimeType.present) {
+      map['mime_type'] = Variable<String>(mimeType.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (sourceUrl.present) {
+      map['source_url'] = Variable<String>(sourceUrl.value);
+    }
+    if (pageCount.present) {
+      map['page_count'] = Variable<int>(pageCount.value);
+    }
+    if (durationMs.present) {
+      map['duration_ms'] = Variable<int>(durationMs.value);
+    }
+    if (eventAt.present) {
+      map['event_at'] = Variable<DateTime>(eventAt.value);
+    }
     return map;
   }
 
@@ -1959,7 +2309,14 @@ class ScreenshotsCompanion extends UpdateCompanion<ScreenshotRow> {
           ..write('imageWidth: $imageWidth, ')
           ..write('imageHeight: $imageHeight, ')
           ..write('createdAt: $createdAt, ')
-          ..write('updatedAt: $updatedAt')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('memoryType: $memoryType, ')
+          ..write('mimeType: $mimeType, ')
+          ..write('description: $description, ')
+          ..write('sourceUrl: $sourceUrl, ')
+          ..write('pageCount: $pageCount, ')
+          ..write('durationMs: $durationMs, ')
+          ..write('eventAt: $eventAt')
           ..write(')'))
         .toString();
   }
@@ -6703,6 +7060,40 @@ class $ProcessingJobsTable extends ProcessingJobs
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
+  static const VerificationMeta _priorityMeta = const VerificationMeta(
+    'priority',
+  );
+  @override
+  late final GeneratedColumn<int> priority = GeneratedColumn<int>(
+    'priority',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _progressMeta = const VerificationMeta(
+    'progress',
+  );
+  @override
+  late final GeneratedColumn<double> progress = GeneratedColumn<double>(
+    'progress',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _checkpointJsonMeta = const VerificationMeta(
+    'checkpointJson',
+  );
+  @override
+  late final GeneratedColumn<String> checkpointJson = GeneratedColumn<String>(
+    'checkpoint_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -6713,6 +7104,9 @@ class $ProcessingJobsTable extends ProcessingJobs
     errorMessage,
     createdAt,
     updatedAt,
+    priority,
+    progress,
+    checkpointJson,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -6770,6 +7164,27 @@ class $ProcessingJobsTable extends ProcessingJobs
         updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
       );
     }
+    if (data.containsKey('priority')) {
+      context.handle(
+        _priorityMeta,
+        priority.isAcceptableOrUnknown(data['priority']!, _priorityMeta),
+      );
+    }
+    if (data.containsKey('progress')) {
+      context.handle(
+        _progressMeta,
+        progress.isAcceptableOrUnknown(data['progress']!, _progressMeta),
+      );
+    }
+    if (data.containsKey('checkpoint_json')) {
+      context.handle(
+        _checkpointJsonMeta,
+        checkpointJson.isAcceptableOrUnknown(
+          data['checkpoint_json']!,
+          _checkpointJsonMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -6815,6 +7230,18 @@ class $ProcessingJobsTable extends ProcessingJobs
         DriftSqlType.dateTime,
         data['${effectivePrefix}updated_at'],
       )!,
+      priority: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}priority'],
+      )!,
+      progress: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}progress'],
+      ),
+      checkpointJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}checkpoint_json'],
+      ),
     );
   }
 
@@ -6839,6 +7266,9 @@ class ProcessingJobRow extends DataClass
   final String? errorMessage;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final int priority;
+  final double? progress;
+  final String? checkpointJson;
   const ProcessingJobRow({
     required this.id,
     required this.screenshotId,
@@ -6848,6 +7278,9 @@ class ProcessingJobRow extends DataClass
     this.errorMessage,
     required this.createdAt,
     required this.updatedAt,
+    required this.priority,
+    this.progress,
+    this.checkpointJson,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -6870,6 +7303,13 @@ class ProcessingJobRow extends DataClass
     }
     map['created_at'] = Variable<DateTime>(createdAt);
     map['updated_at'] = Variable<DateTime>(updatedAt);
+    map['priority'] = Variable<int>(priority);
+    if (!nullToAbsent || progress != null) {
+      map['progress'] = Variable<double>(progress);
+    }
+    if (!nullToAbsent || checkpointJson != null) {
+      map['checkpoint_json'] = Variable<String>(checkpointJson);
+    }
     return map;
   }
 
@@ -6885,6 +7325,13 @@ class ProcessingJobRow extends DataClass
           : Value(errorMessage),
       createdAt: Value(createdAt),
       updatedAt: Value(updatedAt),
+      priority: Value(priority),
+      progress: progress == null && nullToAbsent
+          ? const Value.absent()
+          : Value(progress),
+      checkpointJson: checkpointJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(checkpointJson),
     );
   }
 
@@ -6906,6 +7353,9 @@ class ProcessingJobRow extends DataClass
       errorMessage: serializer.fromJson<String?>(json['errorMessage']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      priority: serializer.fromJson<int>(json['priority']),
+      progress: serializer.fromJson<double?>(json['progress']),
+      checkpointJson: serializer.fromJson<String?>(json['checkpointJson']),
     );
   }
   @override
@@ -6924,6 +7374,9 @@ class ProcessingJobRow extends DataClass
       'errorMessage': serializer.toJson<String?>(errorMessage),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'priority': serializer.toJson<int>(priority),
+      'progress': serializer.toJson<double?>(progress),
+      'checkpointJson': serializer.toJson<String?>(checkpointJson),
     };
   }
 
@@ -6936,6 +7389,9 @@ class ProcessingJobRow extends DataClass
     Value<String?> errorMessage = const Value.absent(),
     DateTime? createdAt,
     DateTime? updatedAt,
+    int? priority,
+    Value<double?> progress = const Value.absent(),
+    Value<String?> checkpointJson = const Value.absent(),
   }) => ProcessingJobRow(
     id: id ?? this.id,
     screenshotId: screenshotId ?? this.screenshotId,
@@ -6945,6 +7401,11 @@ class ProcessingJobRow extends DataClass
     errorMessage: errorMessage.present ? errorMessage.value : this.errorMessage,
     createdAt: createdAt ?? this.createdAt,
     updatedAt: updatedAt ?? this.updatedAt,
+    priority: priority ?? this.priority,
+    progress: progress.present ? progress.value : this.progress,
+    checkpointJson: checkpointJson.present
+        ? checkpointJson.value
+        : this.checkpointJson,
   );
   ProcessingJobRow copyWithCompanion(ProcessingJobsCompanion data) {
     return ProcessingJobRow(
@@ -6962,6 +7423,11 @@ class ProcessingJobRow extends DataClass
           : this.errorMessage,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+      priority: data.priority.present ? data.priority.value : this.priority,
+      progress: data.progress.present ? data.progress.value : this.progress,
+      checkpointJson: data.checkpointJson.present
+          ? data.checkpointJson.value
+          : this.checkpointJson,
     );
   }
 
@@ -6975,7 +7441,10 @@ class ProcessingJobRow extends DataClass
           ..write('attemptCount: $attemptCount, ')
           ..write('errorMessage: $errorMessage, ')
           ..write('createdAt: $createdAt, ')
-          ..write('updatedAt: $updatedAt')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('priority: $priority, ')
+          ..write('progress: $progress, ')
+          ..write('checkpointJson: $checkpointJson')
           ..write(')'))
         .toString();
   }
@@ -6990,6 +7459,9 @@ class ProcessingJobRow extends DataClass
     errorMessage,
     createdAt,
     updatedAt,
+    priority,
+    progress,
+    checkpointJson,
   );
   @override
   bool operator ==(Object other) =>
@@ -7002,7 +7474,10 @@ class ProcessingJobRow extends DataClass
           other.attemptCount == this.attemptCount &&
           other.errorMessage == this.errorMessage &&
           other.createdAt == this.createdAt &&
-          other.updatedAt == this.updatedAt);
+          other.updatedAt == this.updatedAt &&
+          other.priority == this.priority &&
+          other.progress == this.progress &&
+          other.checkpointJson == this.checkpointJson);
 }
 
 class ProcessingJobsCompanion extends UpdateCompanion<ProcessingJobRow> {
@@ -7014,6 +7489,9 @@ class ProcessingJobsCompanion extends UpdateCompanion<ProcessingJobRow> {
   final Value<String?> errorMessage;
   final Value<DateTime> createdAt;
   final Value<DateTime> updatedAt;
+  final Value<int> priority;
+  final Value<double?> progress;
+  final Value<String?> checkpointJson;
   const ProcessingJobsCompanion({
     this.id = const Value.absent(),
     this.screenshotId = const Value.absent(),
@@ -7023,6 +7501,9 @@ class ProcessingJobsCompanion extends UpdateCompanion<ProcessingJobRow> {
     this.errorMessage = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
+    this.priority = const Value.absent(),
+    this.progress = const Value.absent(),
+    this.checkpointJson = const Value.absent(),
   });
   ProcessingJobsCompanion.insert({
     this.id = const Value.absent(),
@@ -7033,6 +7514,9 @@ class ProcessingJobsCompanion extends UpdateCompanion<ProcessingJobRow> {
     this.errorMessage = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
+    this.priority = const Value.absent(),
+    this.progress = const Value.absent(),
+    this.checkpointJson = const Value.absent(),
   }) : screenshotId = Value(screenshotId),
        jobType = Value(jobType),
        status = Value(status);
@@ -7045,6 +7529,9 @@ class ProcessingJobsCompanion extends UpdateCompanion<ProcessingJobRow> {
     Expression<String>? errorMessage,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
+    Expression<int>? priority,
+    Expression<double>? progress,
+    Expression<String>? checkpointJson,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -7055,6 +7542,9 @@ class ProcessingJobsCompanion extends UpdateCompanion<ProcessingJobRow> {
       if (errorMessage != null) 'error_message': errorMessage,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
+      if (priority != null) 'priority': priority,
+      if (progress != null) 'progress': progress,
+      if (checkpointJson != null) 'checkpoint_json': checkpointJson,
     });
   }
 
@@ -7067,6 +7557,9 @@ class ProcessingJobsCompanion extends UpdateCompanion<ProcessingJobRow> {
     Value<String?>? errorMessage,
     Value<DateTime>? createdAt,
     Value<DateTime>? updatedAt,
+    Value<int>? priority,
+    Value<double?>? progress,
+    Value<String?>? checkpointJson,
   }) {
     return ProcessingJobsCompanion(
       id: id ?? this.id,
@@ -7077,6 +7570,9 @@ class ProcessingJobsCompanion extends UpdateCompanion<ProcessingJobRow> {
       errorMessage: errorMessage ?? this.errorMessage,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      priority: priority ?? this.priority,
+      progress: progress ?? this.progress,
+      checkpointJson: checkpointJson ?? this.checkpointJson,
     );
   }
 
@@ -7111,6 +7607,15 @@ class ProcessingJobsCompanion extends UpdateCompanion<ProcessingJobRow> {
     if (updatedAt.present) {
       map['updated_at'] = Variable<DateTime>(updatedAt.value);
     }
+    if (priority.present) {
+      map['priority'] = Variable<int>(priority.value);
+    }
+    if (progress.present) {
+      map['progress'] = Variable<double>(progress.value);
+    }
+    if (checkpointJson.present) {
+      map['checkpoint_json'] = Variable<String>(checkpointJson.value);
+    }
     return map;
   }
 
@@ -7124,7 +7629,10 @@ class ProcessingJobsCompanion extends UpdateCompanion<ProcessingJobRow> {
           ..write('attemptCount: $attemptCount, ')
           ..write('errorMessage: $errorMessage, ')
           ..write('createdAt: $createdAt, ')
-          ..write('updatedAt: $updatedAt')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('priority: $priority, ')
+          ..write('progress: $progress, ')
+          ..write('checkpointJson: $checkpointJson')
           ..write(')'))
         .toString();
   }
@@ -7952,6 +8460,3356 @@ class ClassificationRulesCompanion
   }
 }
 
+class $MemoryChunksTable extends MemoryChunks
+    with TableInfo<$MemoryChunksTable, MemoryChunkRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MemoryChunksTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _memoryIdMeta = const VerificationMeta(
+    'memoryId',
+  );
+  @override
+  late final GeneratedColumn<int> memoryId = GeneratedColumn<int>(
+    'memory_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES screenshots (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _chunkIndexMeta = const VerificationMeta(
+    'chunkIndex',
+  );
+  @override
+  late final GeneratedColumn<int> chunkIndex = GeneratedColumn<int>(
+    'chunk_index',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _textOriginalMeta = const VerificationMeta(
+    'textOriginal',
+  );
+  @override
+  late final GeneratedColumn<String> textOriginal = GeneratedColumn<String>(
+    'text_original',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _textNormalizedMeta = const VerificationMeta(
+    'textNormalized',
+  );
+  @override
+  late final GeneratedColumn<String> textNormalized = GeneratedColumn<String>(
+    'text_normalized',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _pageMeta = const VerificationMeta('page');
+  @override
+  late final GeneratedColumn<int> page = GeneratedColumn<int>(
+    'page',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _startMsMeta = const VerificationMeta(
+    'startMs',
+  );
+  @override
+  late final GeneratedColumn<int> startMs = GeneratedColumn<int>(
+    'start_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _endMsMeta = const VerificationMeta('endMs');
+  @override
+  late final GeneratedColumn<int> endMs = GeneratedColumn<int>(
+    'end_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _regionJsonMeta = const VerificationMeta(
+    'regionJson',
+  );
+  @override
+  late final GeneratedColumn<String> regionJson = GeneratedColumn<String>(
+    'region_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _tokenCountMeta = const VerificationMeta(
+    'tokenCount',
+  );
+  @override
+  late final GeneratedColumn<int> tokenCount = GeneratedColumn<int>(
+    'token_count',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _sourceChecksumMeta = const VerificationMeta(
+    'sourceChecksum',
+  );
+  @override
+  late final GeneratedColumn<String> sourceChecksum = GeneratedColumn<String>(
+    'source_checksum',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    memoryId,
+    chunkIndex,
+    textOriginal,
+    textNormalized,
+    page,
+    startMs,
+    endMs,
+    regionJson,
+    tokenCount,
+    sourceChecksum,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'memory_chunks';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<MemoryChunkRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('memory_id')) {
+      context.handle(
+        _memoryIdMeta,
+        memoryId.isAcceptableOrUnknown(data['memory_id']!, _memoryIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_memoryIdMeta);
+    }
+    if (data.containsKey('chunk_index')) {
+      context.handle(
+        _chunkIndexMeta,
+        chunkIndex.isAcceptableOrUnknown(data['chunk_index']!, _chunkIndexMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_chunkIndexMeta);
+    }
+    if (data.containsKey('text_original')) {
+      context.handle(
+        _textOriginalMeta,
+        textOriginal.isAcceptableOrUnknown(
+          data['text_original']!,
+          _textOriginalMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_textOriginalMeta);
+    }
+    if (data.containsKey('text_normalized')) {
+      context.handle(
+        _textNormalizedMeta,
+        textNormalized.isAcceptableOrUnknown(
+          data['text_normalized']!,
+          _textNormalizedMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_textNormalizedMeta);
+    }
+    if (data.containsKey('page')) {
+      context.handle(
+        _pageMeta,
+        page.isAcceptableOrUnknown(data['page']!, _pageMeta),
+      );
+    }
+    if (data.containsKey('start_ms')) {
+      context.handle(
+        _startMsMeta,
+        startMs.isAcceptableOrUnknown(data['start_ms']!, _startMsMeta),
+      );
+    }
+    if (data.containsKey('end_ms')) {
+      context.handle(
+        _endMsMeta,
+        endMs.isAcceptableOrUnknown(data['end_ms']!, _endMsMeta),
+      );
+    }
+    if (data.containsKey('region_json')) {
+      context.handle(
+        _regionJsonMeta,
+        regionJson.isAcceptableOrUnknown(data['region_json']!, _regionJsonMeta),
+      );
+    }
+    if (data.containsKey('token_count')) {
+      context.handle(
+        _tokenCountMeta,
+        tokenCount.isAcceptableOrUnknown(data['token_count']!, _tokenCountMeta),
+      );
+    }
+    if (data.containsKey('source_checksum')) {
+      context.handle(
+        _sourceChecksumMeta,
+        sourceChecksum.isAcceptableOrUnknown(
+          data['source_checksum']!,
+          _sourceChecksumMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_sourceChecksumMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+    {memoryId, chunkIndex},
+  ];
+  @override
+  MemoryChunkRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MemoryChunkRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      memoryId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}memory_id'],
+      )!,
+      chunkIndex: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}chunk_index'],
+      )!,
+      textOriginal: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}text_original'],
+      )!,
+      textNormalized: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}text_normalized'],
+      )!,
+      page: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}page'],
+      ),
+      startMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}start_ms'],
+      ),
+      endMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}end_ms'],
+      ),
+      regionJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}region_json'],
+      ),
+      tokenCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}token_count'],
+      ),
+      sourceChecksum: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}source_checksum'],
+      )!,
+    );
+  }
+
+  @override
+  $MemoryChunksTable createAlias(String alias) {
+    return $MemoryChunksTable(attachedDatabase, alias);
+  }
+}
+
+class MemoryChunkRow extends DataClass implements Insertable<MemoryChunkRow> {
+  final int id;
+  final int memoryId;
+  final int chunkIndex;
+  final String textOriginal;
+  final String textNormalized;
+  final int? page;
+  final int? startMs;
+  final int? endMs;
+  final String? regionJson;
+  final int? tokenCount;
+
+  /// Hash of the text the chunk came from; a mismatch marks it stale.
+  final String sourceChecksum;
+  const MemoryChunkRow({
+    required this.id,
+    required this.memoryId,
+    required this.chunkIndex,
+    required this.textOriginal,
+    required this.textNormalized,
+    this.page,
+    this.startMs,
+    this.endMs,
+    this.regionJson,
+    this.tokenCount,
+    required this.sourceChecksum,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['memory_id'] = Variable<int>(memoryId);
+    map['chunk_index'] = Variable<int>(chunkIndex);
+    map['text_original'] = Variable<String>(textOriginal);
+    map['text_normalized'] = Variable<String>(textNormalized);
+    if (!nullToAbsent || page != null) {
+      map['page'] = Variable<int>(page);
+    }
+    if (!nullToAbsent || startMs != null) {
+      map['start_ms'] = Variable<int>(startMs);
+    }
+    if (!nullToAbsent || endMs != null) {
+      map['end_ms'] = Variable<int>(endMs);
+    }
+    if (!nullToAbsent || regionJson != null) {
+      map['region_json'] = Variable<String>(regionJson);
+    }
+    if (!nullToAbsent || tokenCount != null) {
+      map['token_count'] = Variable<int>(tokenCount);
+    }
+    map['source_checksum'] = Variable<String>(sourceChecksum);
+    return map;
+  }
+
+  MemoryChunksCompanion toCompanion(bool nullToAbsent) {
+    return MemoryChunksCompanion(
+      id: Value(id),
+      memoryId: Value(memoryId),
+      chunkIndex: Value(chunkIndex),
+      textOriginal: Value(textOriginal),
+      textNormalized: Value(textNormalized),
+      page: page == null && nullToAbsent ? const Value.absent() : Value(page),
+      startMs: startMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(startMs),
+      endMs: endMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(endMs),
+      regionJson: regionJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(regionJson),
+      tokenCount: tokenCount == null && nullToAbsent
+          ? const Value.absent()
+          : Value(tokenCount),
+      sourceChecksum: Value(sourceChecksum),
+    );
+  }
+
+  factory MemoryChunkRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MemoryChunkRow(
+      id: serializer.fromJson<int>(json['id']),
+      memoryId: serializer.fromJson<int>(json['memoryId']),
+      chunkIndex: serializer.fromJson<int>(json['chunkIndex']),
+      textOriginal: serializer.fromJson<String>(json['textOriginal']),
+      textNormalized: serializer.fromJson<String>(json['textNormalized']),
+      page: serializer.fromJson<int?>(json['page']),
+      startMs: serializer.fromJson<int?>(json['startMs']),
+      endMs: serializer.fromJson<int?>(json['endMs']),
+      regionJson: serializer.fromJson<String?>(json['regionJson']),
+      tokenCount: serializer.fromJson<int?>(json['tokenCount']),
+      sourceChecksum: serializer.fromJson<String>(json['sourceChecksum']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'memoryId': serializer.toJson<int>(memoryId),
+      'chunkIndex': serializer.toJson<int>(chunkIndex),
+      'textOriginal': serializer.toJson<String>(textOriginal),
+      'textNormalized': serializer.toJson<String>(textNormalized),
+      'page': serializer.toJson<int?>(page),
+      'startMs': serializer.toJson<int?>(startMs),
+      'endMs': serializer.toJson<int?>(endMs),
+      'regionJson': serializer.toJson<String?>(regionJson),
+      'tokenCount': serializer.toJson<int?>(tokenCount),
+      'sourceChecksum': serializer.toJson<String>(sourceChecksum),
+    };
+  }
+
+  MemoryChunkRow copyWith({
+    int? id,
+    int? memoryId,
+    int? chunkIndex,
+    String? textOriginal,
+    String? textNormalized,
+    Value<int?> page = const Value.absent(),
+    Value<int?> startMs = const Value.absent(),
+    Value<int?> endMs = const Value.absent(),
+    Value<String?> regionJson = const Value.absent(),
+    Value<int?> tokenCount = const Value.absent(),
+    String? sourceChecksum,
+  }) => MemoryChunkRow(
+    id: id ?? this.id,
+    memoryId: memoryId ?? this.memoryId,
+    chunkIndex: chunkIndex ?? this.chunkIndex,
+    textOriginal: textOriginal ?? this.textOriginal,
+    textNormalized: textNormalized ?? this.textNormalized,
+    page: page.present ? page.value : this.page,
+    startMs: startMs.present ? startMs.value : this.startMs,
+    endMs: endMs.present ? endMs.value : this.endMs,
+    regionJson: regionJson.present ? regionJson.value : this.regionJson,
+    tokenCount: tokenCount.present ? tokenCount.value : this.tokenCount,
+    sourceChecksum: sourceChecksum ?? this.sourceChecksum,
+  );
+  MemoryChunkRow copyWithCompanion(MemoryChunksCompanion data) {
+    return MemoryChunkRow(
+      id: data.id.present ? data.id.value : this.id,
+      memoryId: data.memoryId.present ? data.memoryId.value : this.memoryId,
+      chunkIndex: data.chunkIndex.present
+          ? data.chunkIndex.value
+          : this.chunkIndex,
+      textOriginal: data.textOriginal.present
+          ? data.textOriginal.value
+          : this.textOriginal,
+      textNormalized: data.textNormalized.present
+          ? data.textNormalized.value
+          : this.textNormalized,
+      page: data.page.present ? data.page.value : this.page,
+      startMs: data.startMs.present ? data.startMs.value : this.startMs,
+      endMs: data.endMs.present ? data.endMs.value : this.endMs,
+      regionJson: data.regionJson.present
+          ? data.regionJson.value
+          : this.regionJson,
+      tokenCount: data.tokenCount.present
+          ? data.tokenCount.value
+          : this.tokenCount,
+      sourceChecksum: data.sourceChecksum.present
+          ? data.sourceChecksum.value
+          : this.sourceChecksum,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MemoryChunkRow(')
+          ..write('id: $id, ')
+          ..write('memoryId: $memoryId, ')
+          ..write('chunkIndex: $chunkIndex, ')
+          ..write('textOriginal: $textOriginal, ')
+          ..write('textNormalized: $textNormalized, ')
+          ..write('page: $page, ')
+          ..write('startMs: $startMs, ')
+          ..write('endMs: $endMs, ')
+          ..write('regionJson: $regionJson, ')
+          ..write('tokenCount: $tokenCount, ')
+          ..write('sourceChecksum: $sourceChecksum')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    memoryId,
+    chunkIndex,
+    textOriginal,
+    textNormalized,
+    page,
+    startMs,
+    endMs,
+    regionJson,
+    tokenCount,
+    sourceChecksum,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MemoryChunkRow &&
+          other.id == this.id &&
+          other.memoryId == this.memoryId &&
+          other.chunkIndex == this.chunkIndex &&
+          other.textOriginal == this.textOriginal &&
+          other.textNormalized == this.textNormalized &&
+          other.page == this.page &&
+          other.startMs == this.startMs &&
+          other.endMs == this.endMs &&
+          other.regionJson == this.regionJson &&
+          other.tokenCount == this.tokenCount &&
+          other.sourceChecksum == this.sourceChecksum);
+}
+
+class MemoryChunksCompanion extends UpdateCompanion<MemoryChunkRow> {
+  final Value<int> id;
+  final Value<int> memoryId;
+  final Value<int> chunkIndex;
+  final Value<String> textOriginal;
+  final Value<String> textNormalized;
+  final Value<int?> page;
+  final Value<int?> startMs;
+  final Value<int?> endMs;
+  final Value<String?> regionJson;
+  final Value<int?> tokenCount;
+  final Value<String> sourceChecksum;
+  const MemoryChunksCompanion({
+    this.id = const Value.absent(),
+    this.memoryId = const Value.absent(),
+    this.chunkIndex = const Value.absent(),
+    this.textOriginal = const Value.absent(),
+    this.textNormalized = const Value.absent(),
+    this.page = const Value.absent(),
+    this.startMs = const Value.absent(),
+    this.endMs = const Value.absent(),
+    this.regionJson = const Value.absent(),
+    this.tokenCount = const Value.absent(),
+    this.sourceChecksum = const Value.absent(),
+  });
+  MemoryChunksCompanion.insert({
+    this.id = const Value.absent(),
+    required int memoryId,
+    required int chunkIndex,
+    required String textOriginal,
+    required String textNormalized,
+    this.page = const Value.absent(),
+    this.startMs = const Value.absent(),
+    this.endMs = const Value.absent(),
+    this.regionJson = const Value.absent(),
+    this.tokenCount = const Value.absent(),
+    required String sourceChecksum,
+  }) : memoryId = Value(memoryId),
+       chunkIndex = Value(chunkIndex),
+       textOriginal = Value(textOriginal),
+       textNormalized = Value(textNormalized),
+       sourceChecksum = Value(sourceChecksum);
+  static Insertable<MemoryChunkRow> custom({
+    Expression<int>? id,
+    Expression<int>? memoryId,
+    Expression<int>? chunkIndex,
+    Expression<String>? textOriginal,
+    Expression<String>? textNormalized,
+    Expression<int>? page,
+    Expression<int>? startMs,
+    Expression<int>? endMs,
+    Expression<String>? regionJson,
+    Expression<int>? tokenCount,
+    Expression<String>? sourceChecksum,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (memoryId != null) 'memory_id': memoryId,
+      if (chunkIndex != null) 'chunk_index': chunkIndex,
+      if (textOriginal != null) 'text_original': textOriginal,
+      if (textNormalized != null) 'text_normalized': textNormalized,
+      if (page != null) 'page': page,
+      if (startMs != null) 'start_ms': startMs,
+      if (endMs != null) 'end_ms': endMs,
+      if (regionJson != null) 'region_json': regionJson,
+      if (tokenCount != null) 'token_count': tokenCount,
+      if (sourceChecksum != null) 'source_checksum': sourceChecksum,
+    });
+  }
+
+  MemoryChunksCompanion copyWith({
+    Value<int>? id,
+    Value<int>? memoryId,
+    Value<int>? chunkIndex,
+    Value<String>? textOriginal,
+    Value<String>? textNormalized,
+    Value<int?>? page,
+    Value<int?>? startMs,
+    Value<int?>? endMs,
+    Value<String?>? regionJson,
+    Value<int?>? tokenCount,
+    Value<String>? sourceChecksum,
+  }) {
+    return MemoryChunksCompanion(
+      id: id ?? this.id,
+      memoryId: memoryId ?? this.memoryId,
+      chunkIndex: chunkIndex ?? this.chunkIndex,
+      textOriginal: textOriginal ?? this.textOriginal,
+      textNormalized: textNormalized ?? this.textNormalized,
+      page: page ?? this.page,
+      startMs: startMs ?? this.startMs,
+      endMs: endMs ?? this.endMs,
+      regionJson: regionJson ?? this.regionJson,
+      tokenCount: tokenCount ?? this.tokenCount,
+      sourceChecksum: sourceChecksum ?? this.sourceChecksum,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (memoryId.present) {
+      map['memory_id'] = Variable<int>(memoryId.value);
+    }
+    if (chunkIndex.present) {
+      map['chunk_index'] = Variable<int>(chunkIndex.value);
+    }
+    if (textOriginal.present) {
+      map['text_original'] = Variable<String>(textOriginal.value);
+    }
+    if (textNormalized.present) {
+      map['text_normalized'] = Variable<String>(textNormalized.value);
+    }
+    if (page.present) {
+      map['page'] = Variable<int>(page.value);
+    }
+    if (startMs.present) {
+      map['start_ms'] = Variable<int>(startMs.value);
+    }
+    if (endMs.present) {
+      map['end_ms'] = Variable<int>(endMs.value);
+    }
+    if (regionJson.present) {
+      map['region_json'] = Variable<String>(regionJson.value);
+    }
+    if (tokenCount.present) {
+      map['token_count'] = Variable<int>(tokenCount.value);
+    }
+    if (sourceChecksum.present) {
+      map['source_checksum'] = Variable<String>(sourceChecksum.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MemoryChunksCompanion(')
+          ..write('id: $id, ')
+          ..write('memoryId: $memoryId, ')
+          ..write('chunkIndex: $chunkIndex, ')
+          ..write('textOriginal: $textOriginal, ')
+          ..write('textNormalized: $textNormalized, ')
+          ..write('page: $page, ')
+          ..write('startMs: $startMs, ')
+          ..write('endMs: $endMs, ')
+          ..write('regionJson: $regionJson, ')
+          ..write('tokenCount: $tokenCount, ')
+          ..write('sourceChecksum: $sourceChecksum')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $EmbeddingsTable extends Embeddings
+    with TableInfo<$EmbeddingsTable, EmbeddingRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $EmbeddingsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _chunkIdMeta = const VerificationMeta(
+    'chunkId',
+  );
+  @override
+  late final GeneratedColumn<int> chunkId = GeneratedColumn<int>(
+    'chunk_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES memory_chunks (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _memoryIdMeta = const VerificationMeta(
+    'memoryId',
+  );
+  @override
+  late final GeneratedColumn<int> memoryId = GeneratedColumn<int>(
+    'memory_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES screenshots (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _modelIdMeta = const VerificationMeta(
+    'modelId',
+  );
+  @override
+  late final GeneratedColumn<String> modelId = GeneratedColumn<String>(
+    'model_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modelVersionMeta = const VerificationMeta(
+    'modelVersion',
+  );
+  @override
+  late final GeneratedColumn<String> modelVersion = GeneratedColumn<String>(
+    'model_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _spaceIdMeta = const VerificationMeta(
+    'spaceId',
+  );
+  @override
+  late final GeneratedColumn<String> spaceId = GeneratedColumn<String>(
+    'space_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _dimensionMeta = const VerificationMeta(
+    'dimension',
+  );
+  @override
+  late final GeneratedColumn<int> dimension = GeneratedColumn<int>(
+    'dimension',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _vectorMeta = const VerificationMeta('vector');
+  @override
+  late final GeneratedColumn<Uint8List> vector = GeneratedColumn<Uint8List>(
+    'vector',
+    aliasedName,
+    false,
+    type: DriftSqlType.blob,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sourceChecksumMeta = const VerificationMeta(
+    'sourceChecksum',
+  );
+  @override
+  late final GeneratedColumn<String> sourceChecksum = GeneratedColumn<String>(
+    'source_checksum',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    chunkId,
+    memoryId,
+    modelId,
+    modelVersion,
+    spaceId,
+    dimension,
+    vector,
+    sourceChecksum,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'embeddings';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<EmbeddingRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('chunk_id')) {
+      context.handle(
+        _chunkIdMeta,
+        chunkId.isAcceptableOrUnknown(data['chunk_id']!, _chunkIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_chunkIdMeta);
+    }
+    if (data.containsKey('memory_id')) {
+      context.handle(
+        _memoryIdMeta,
+        memoryId.isAcceptableOrUnknown(data['memory_id']!, _memoryIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_memoryIdMeta);
+    }
+    if (data.containsKey('model_id')) {
+      context.handle(
+        _modelIdMeta,
+        modelId.isAcceptableOrUnknown(data['model_id']!, _modelIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_modelIdMeta);
+    }
+    if (data.containsKey('model_version')) {
+      context.handle(
+        _modelVersionMeta,
+        modelVersion.isAcceptableOrUnknown(
+          data['model_version']!,
+          _modelVersionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_modelVersionMeta);
+    }
+    if (data.containsKey('space_id')) {
+      context.handle(
+        _spaceIdMeta,
+        spaceId.isAcceptableOrUnknown(data['space_id']!, _spaceIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_spaceIdMeta);
+    }
+    if (data.containsKey('dimension')) {
+      context.handle(
+        _dimensionMeta,
+        dimension.isAcceptableOrUnknown(data['dimension']!, _dimensionMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_dimensionMeta);
+    }
+    if (data.containsKey('vector')) {
+      context.handle(
+        _vectorMeta,
+        vector.isAcceptableOrUnknown(data['vector']!, _vectorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_vectorMeta);
+    }
+    if (data.containsKey('source_checksum')) {
+      context.handle(
+        _sourceChecksumMeta,
+        sourceChecksum.isAcceptableOrUnknown(
+          data['source_checksum']!,
+          _sourceChecksumMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_sourceChecksumMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+    {chunkId, modelId, modelVersion},
+  ];
+  @override
+  EmbeddingRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return EmbeddingRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      chunkId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}chunk_id'],
+      )!,
+      memoryId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}memory_id'],
+      )!,
+      modelId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}model_id'],
+      )!,
+      modelVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}model_version'],
+      )!,
+      spaceId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}space_id'],
+      )!,
+      dimension: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}dimension'],
+      )!,
+      vector: attachedDatabase.typeMapping.read(
+        DriftSqlType.blob,
+        data['${effectivePrefix}vector'],
+      )!,
+      sourceChecksum: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}source_checksum'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $EmbeddingsTable createAlias(String alias) {
+    return $EmbeddingsTable(attachedDatabase, alias);
+  }
+}
+
+class EmbeddingRow extends DataClass implements Insertable<EmbeddingRow> {
+  final int id;
+  final int chunkId;
+  final int memoryId;
+  final String modelId;
+  final String modelVersion;
+  final String spaceId;
+  final int dimension;
+
+  /// float32, little-endian.
+  final Uint8List vector;
+  final String sourceChecksum;
+  final DateTime createdAt;
+  const EmbeddingRow({
+    required this.id,
+    required this.chunkId,
+    required this.memoryId,
+    required this.modelId,
+    required this.modelVersion,
+    required this.spaceId,
+    required this.dimension,
+    required this.vector,
+    required this.sourceChecksum,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['chunk_id'] = Variable<int>(chunkId);
+    map['memory_id'] = Variable<int>(memoryId);
+    map['model_id'] = Variable<String>(modelId);
+    map['model_version'] = Variable<String>(modelVersion);
+    map['space_id'] = Variable<String>(spaceId);
+    map['dimension'] = Variable<int>(dimension);
+    map['vector'] = Variable<Uint8List>(vector);
+    map['source_checksum'] = Variable<String>(sourceChecksum);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  EmbeddingsCompanion toCompanion(bool nullToAbsent) {
+    return EmbeddingsCompanion(
+      id: Value(id),
+      chunkId: Value(chunkId),
+      memoryId: Value(memoryId),
+      modelId: Value(modelId),
+      modelVersion: Value(modelVersion),
+      spaceId: Value(spaceId),
+      dimension: Value(dimension),
+      vector: Value(vector),
+      sourceChecksum: Value(sourceChecksum),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory EmbeddingRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return EmbeddingRow(
+      id: serializer.fromJson<int>(json['id']),
+      chunkId: serializer.fromJson<int>(json['chunkId']),
+      memoryId: serializer.fromJson<int>(json['memoryId']),
+      modelId: serializer.fromJson<String>(json['modelId']),
+      modelVersion: serializer.fromJson<String>(json['modelVersion']),
+      spaceId: serializer.fromJson<String>(json['spaceId']),
+      dimension: serializer.fromJson<int>(json['dimension']),
+      vector: serializer.fromJson<Uint8List>(json['vector']),
+      sourceChecksum: serializer.fromJson<String>(json['sourceChecksum']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'chunkId': serializer.toJson<int>(chunkId),
+      'memoryId': serializer.toJson<int>(memoryId),
+      'modelId': serializer.toJson<String>(modelId),
+      'modelVersion': serializer.toJson<String>(modelVersion),
+      'spaceId': serializer.toJson<String>(spaceId),
+      'dimension': serializer.toJson<int>(dimension),
+      'vector': serializer.toJson<Uint8List>(vector),
+      'sourceChecksum': serializer.toJson<String>(sourceChecksum),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  EmbeddingRow copyWith({
+    int? id,
+    int? chunkId,
+    int? memoryId,
+    String? modelId,
+    String? modelVersion,
+    String? spaceId,
+    int? dimension,
+    Uint8List? vector,
+    String? sourceChecksum,
+    DateTime? createdAt,
+  }) => EmbeddingRow(
+    id: id ?? this.id,
+    chunkId: chunkId ?? this.chunkId,
+    memoryId: memoryId ?? this.memoryId,
+    modelId: modelId ?? this.modelId,
+    modelVersion: modelVersion ?? this.modelVersion,
+    spaceId: spaceId ?? this.spaceId,
+    dimension: dimension ?? this.dimension,
+    vector: vector ?? this.vector,
+    sourceChecksum: sourceChecksum ?? this.sourceChecksum,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  EmbeddingRow copyWithCompanion(EmbeddingsCompanion data) {
+    return EmbeddingRow(
+      id: data.id.present ? data.id.value : this.id,
+      chunkId: data.chunkId.present ? data.chunkId.value : this.chunkId,
+      memoryId: data.memoryId.present ? data.memoryId.value : this.memoryId,
+      modelId: data.modelId.present ? data.modelId.value : this.modelId,
+      modelVersion: data.modelVersion.present
+          ? data.modelVersion.value
+          : this.modelVersion,
+      spaceId: data.spaceId.present ? data.spaceId.value : this.spaceId,
+      dimension: data.dimension.present ? data.dimension.value : this.dimension,
+      vector: data.vector.present ? data.vector.value : this.vector,
+      sourceChecksum: data.sourceChecksum.present
+          ? data.sourceChecksum.value
+          : this.sourceChecksum,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EmbeddingRow(')
+          ..write('id: $id, ')
+          ..write('chunkId: $chunkId, ')
+          ..write('memoryId: $memoryId, ')
+          ..write('modelId: $modelId, ')
+          ..write('modelVersion: $modelVersion, ')
+          ..write('spaceId: $spaceId, ')
+          ..write('dimension: $dimension, ')
+          ..write('vector: $vector, ')
+          ..write('sourceChecksum: $sourceChecksum, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    chunkId,
+    memoryId,
+    modelId,
+    modelVersion,
+    spaceId,
+    dimension,
+    $driftBlobEquality.hash(vector),
+    sourceChecksum,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is EmbeddingRow &&
+          other.id == this.id &&
+          other.chunkId == this.chunkId &&
+          other.memoryId == this.memoryId &&
+          other.modelId == this.modelId &&
+          other.modelVersion == this.modelVersion &&
+          other.spaceId == this.spaceId &&
+          other.dimension == this.dimension &&
+          $driftBlobEquality.equals(other.vector, this.vector) &&
+          other.sourceChecksum == this.sourceChecksum &&
+          other.createdAt == this.createdAt);
+}
+
+class EmbeddingsCompanion extends UpdateCompanion<EmbeddingRow> {
+  final Value<int> id;
+  final Value<int> chunkId;
+  final Value<int> memoryId;
+  final Value<String> modelId;
+  final Value<String> modelVersion;
+  final Value<String> spaceId;
+  final Value<int> dimension;
+  final Value<Uint8List> vector;
+  final Value<String> sourceChecksum;
+  final Value<DateTime> createdAt;
+  const EmbeddingsCompanion({
+    this.id = const Value.absent(),
+    this.chunkId = const Value.absent(),
+    this.memoryId = const Value.absent(),
+    this.modelId = const Value.absent(),
+    this.modelVersion = const Value.absent(),
+    this.spaceId = const Value.absent(),
+    this.dimension = const Value.absent(),
+    this.vector = const Value.absent(),
+    this.sourceChecksum = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  EmbeddingsCompanion.insert({
+    this.id = const Value.absent(),
+    required int chunkId,
+    required int memoryId,
+    required String modelId,
+    required String modelVersion,
+    required String spaceId,
+    required int dimension,
+    required Uint8List vector,
+    required String sourceChecksum,
+    this.createdAt = const Value.absent(),
+  }) : chunkId = Value(chunkId),
+       memoryId = Value(memoryId),
+       modelId = Value(modelId),
+       modelVersion = Value(modelVersion),
+       spaceId = Value(spaceId),
+       dimension = Value(dimension),
+       vector = Value(vector),
+       sourceChecksum = Value(sourceChecksum);
+  static Insertable<EmbeddingRow> custom({
+    Expression<int>? id,
+    Expression<int>? chunkId,
+    Expression<int>? memoryId,
+    Expression<String>? modelId,
+    Expression<String>? modelVersion,
+    Expression<String>? spaceId,
+    Expression<int>? dimension,
+    Expression<Uint8List>? vector,
+    Expression<String>? sourceChecksum,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (chunkId != null) 'chunk_id': chunkId,
+      if (memoryId != null) 'memory_id': memoryId,
+      if (modelId != null) 'model_id': modelId,
+      if (modelVersion != null) 'model_version': modelVersion,
+      if (spaceId != null) 'space_id': spaceId,
+      if (dimension != null) 'dimension': dimension,
+      if (vector != null) 'vector': vector,
+      if (sourceChecksum != null) 'source_checksum': sourceChecksum,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  EmbeddingsCompanion copyWith({
+    Value<int>? id,
+    Value<int>? chunkId,
+    Value<int>? memoryId,
+    Value<String>? modelId,
+    Value<String>? modelVersion,
+    Value<String>? spaceId,
+    Value<int>? dimension,
+    Value<Uint8List>? vector,
+    Value<String>? sourceChecksum,
+    Value<DateTime>? createdAt,
+  }) {
+    return EmbeddingsCompanion(
+      id: id ?? this.id,
+      chunkId: chunkId ?? this.chunkId,
+      memoryId: memoryId ?? this.memoryId,
+      modelId: modelId ?? this.modelId,
+      modelVersion: modelVersion ?? this.modelVersion,
+      spaceId: spaceId ?? this.spaceId,
+      dimension: dimension ?? this.dimension,
+      vector: vector ?? this.vector,
+      sourceChecksum: sourceChecksum ?? this.sourceChecksum,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (chunkId.present) {
+      map['chunk_id'] = Variable<int>(chunkId.value);
+    }
+    if (memoryId.present) {
+      map['memory_id'] = Variable<int>(memoryId.value);
+    }
+    if (modelId.present) {
+      map['model_id'] = Variable<String>(modelId.value);
+    }
+    if (modelVersion.present) {
+      map['model_version'] = Variable<String>(modelVersion.value);
+    }
+    if (spaceId.present) {
+      map['space_id'] = Variable<String>(spaceId.value);
+    }
+    if (dimension.present) {
+      map['dimension'] = Variable<int>(dimension.value);
+    }
+    if (vector.present) {
+      map['vector'] = Variable<Uint8List>(vector.value);
+    }
+    if (sourceChecksum.present) {
+      map['source_checksum'] = Variable<String>(sourceChecksum.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EmbeddingsCompanion(')
+          ..write('id: $id, ')
+          ..write('chunkId: $chunkId, ')
+          ..write('memoryId: $memoryId, ')
+          ..write('modelId: $modelId, ')
+          ..write('modelVersion: $modelVersion, ')
+          ..write('spaceId: $spaceId, ')
+          ..write('dimension: $dimension, ')
+          ..write('vector: $vector, ')
+          ..write('sourceChecksum: $sourceChecksum, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SpacesTable extends Spaces with TableInfo<$SpacesTable, SpaceRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SpacesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+    'title',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 80,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+    'description',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _iconMeta = const VerificationMeta('icon');
+  @override
+  late final GeneratedColumn<String> icon = GeneratedColumn<String>(
+    'icon',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _colorMeta = const VerificationMeta('color');
+  @override
+  late final GeneratedColumn<int> color = GeneratedColumn<int>(
+    'color',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _coverMemoryIdMeta = const VerificationMeta(
+    'coverMemoryId',
+  );
+  @override
+  late final GeneratedColumn<int> coverMemoryId = GeneratedColumn<int>(
+    'cover_memory_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES screenshots (id) ON DELETE SET NULL',
+    ),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    title,
+    description,
+    icon,
+    color,
+    coverMemoryId,
+    createdAt,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'spaces';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SpaceRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+        _titleMeta,
+        title.isAcceptableOrUnknown(data['title']!, _titleMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
+          _descriptionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('icon')) {
+      context.handle(
+        _iconMeta,
+        icon.isAcceptableOrUnknown(data['icon']!, _iconMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_iconMeta);
+    }
+    if (data.containsKey('color')) {
+      context.handle(
+        _colorMeta,
+        color.isAcceptableOrUnknown(data['color']!, _colorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_colorMeta);
+    }
+    if (data.containsKey('cover_memory_id')) {
+      context.handle(
+        _coverMemoryIdMeta,
+        coverMemoryId.isAcceptableOrUnknown(
+          data['cover_memory_id']!,
+          _coverMemoryIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SpaceRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SpaceRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      ),
+      icon: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}icon'],
+      )!,
+      color: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}color'],
+      )!,
+      coverMemoryId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}cover_memory_id'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+    );
+  }
+
+  @override
+  $SpacesTable createAlias(String alias) {
+    return $SpacesTable(attachedDatabase, alias);
+  }
+}
+
+class SpaceRow extends DataClass implements Insertable<SpaceRow> {
+  final int id;
+  final String title;
+  final String? description;
+  final String icon;
+  final int color;
+  final int? coverMemoryId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const SpaceRow({
+    required this.id,
+    required this.title,
+    this.description,
+    required this.icon,
+    required this.color,
+    this.coverMemoryId,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['title'] = Variable<String>(title);
+    if (!nullToAbsent || description != null) {
+      map['description'] = Variable<String>(description);
+    }
+    map['icon'] = Variable<String>(icon);
+    map['color'] = Variable<int>(color);
+    if (!nullToAbsent || coverMemoryId != null) {
+      map['cover_memory_id'] = Variable<int>(coverMemoryId);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  SpacesCompanion toCompanion(bool nullToAbsent) {
+    return SpacesCompanion(
+      id: Value(id),
+      title: Value(title),
+      description: description == null && nullToAbsent
+          ? const Value.absent()
+          : Value(description),
+      icon: Value(icon),
+      color: Value(color),
+      coverMemoryId: coverMemoryId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(coverMemoryId),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory SpaceRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SpaceRow(
+      id: serializer.fromJson<int>(json['id']),
+      title: serializer.fromJson<String>(json['title']),
+      description: serializer.fromJson<String?>(json['description']),
+      icon: serializer.fromJson<String>(json['icon']),
+      color: serializer.fromJson<int>(json['color']),
+      coverMemoryId: serializer.fromJson<int?>(json['coverMemoryId']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'title': serializer.toJson<String>(title),
+      'description': serializer.toJson<String?>(description),
+      'icon': serializer.toJson<String>(icon),
+      'color': serializer.toJson<int>(color),
+      'coverMemoryId': serializer.toJson<int?>(coverMemoryId),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  SpaceRow copyWith({
+    int? id,
+    String? title,
+    Value<String?> description = const Value.absent(),
+    String? icon,
+    int? color,
+    Value<int?> coverMemoryId = const Value.absent(),
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) => SpaceRow(
+    id: id ?? this.id,
+    title: title ?? this.title,
+    description: description.present ? description.value : this.description,
+    icon: icon ?? this.icon,
+    color: color ?? this.color,
+    coverMemoryId: coverMemoryId.present
+        ? coverMemoryId.value
+        : this.coverMemoryId,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  SpaceRow copyWithCompanion(SpacesCompanion data) {
+    return SpaceRow(
+      id: data.id.present ? data.id.value : this.id,
+      title: data.title.present ? data.title.value : this.title,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
+      icon: data.icon.present ? data.icon.value : this.icon,
+      color: data.color.present ? data.color.value : this.color,
+      coverMemoryId: data.coverMemoryId.present
+          ? data.coverMemoryId.value
+          : this.coverMemoryId,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SpaceRow(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('description: $description, ')
+          ..write('icon: $icon, ')
+          ..write('color: $color, ')
+          ..write('coverMemoryId: $coverMemoryId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    title,
+    description,
+    icon,
+    color,
+    coverMemoryId,
+    createdAt,
+    updatedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SpaceRow &&
+          other.id == this.id &&
+          other.title == this.title &&
+          other.description == this.description &&
+          other.icon == this.icon &&
+          other.color == this.color &&
+          other.coverMemoryId == this.coverMemoryId &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class SpacesCompanion extends UpdateCompanion<SpaceRow> {
+  final Value<int> id;
+  final Value<String> title;
+  final Value<String?> description;
+  final Value<String> icon;
+  final Value<int> color;
+  final Value<int?> coverMemoryId;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  const SpacesCompanion({
+    this.id = const Value.absent(),
+    this.title = const Value.absent(),
+    this.description = const Value.absent(),
+    this.icon = const Value.absent(),
+    this.color = const Value.absent(),
+    this.coverMemoryId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  });
+  SpacesCompanion.insert({
+    this.id = const Value.absent(),
+    required String title,
+    this.description = const Value.absent(),
+    required String icon,
+    required int color,
+    this.coverMemoryId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  }) : title = Value(title),
+       icon = Value(icon),
+       color = Value(color);
+  static Insertable<SpaceRow> custom({
+    Expression<int>? id,
+    Expression<String>? title,
+    Expression<String>? description,
+    Expression<String>? icon,
+    Expression<int>? color,
+    Expression<int>? coverMemoryId,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (title != null) 'title': title,
+      if (description != null) 'description': description,
+      if (icon != null) 'icon': icon,
+      if (color != null) 'color': color,
+      if (coverMemoryId != null) 'cover_memory_id': coverMemoryId,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+    });
+  }
+
+  SpacesCompanion copyWith({
+    Value<int>? id,
+    Value<String>? title,
+    Value<String?>? description,
+    Value<String>? icon,
+    Value<int>? color,
+    Value<int?>? coverMemoryId,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+  }) {
+    return SpacesCompanion(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      icon: icon ?? this.icon,
+      color: color ?? this.color,
+      coverMemoryId: coverMemoryId ?? this.coverMemoryId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (icon.present) {
+      map['icon'] = Variable<String>(icon.value);
+    }
+    if (color.present) {
+      map['color'] = Variable<int>(color.value);
+    }
+    if (coverMemoryId.present) {
+      map['cover_memory_id'] = Variable<int>(coverMemoryId.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SpacesCompanion(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('description: $description, ')
+          ..write('icon: $icon, ')
+          ..write('color: $color, ')
+          ..write('coverMemoryId: $coverMemoryId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SpaceMembershipsTable extends SpaceMemberships
+    with TableInfo<$SpaceMembershipsTable, SpaceMembershipRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SpaceMembershipsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _spaceIdMeta = const VerificationMeta(
+    'spaceId',
+  );
+  @override
+  late final GeneratedColumn<int> spaceId = GeneratedColumn<int>(
+    'space_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES spaces (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _memoryIdMeta = const VerificationMeta(
+    'memoryId',
+  );
+  @override
+  late final GeneratedColumn<int> memoryId = GeneratedColumn<int>(
+    'memory_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES screenshots (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _sourceMeta = const VerificationMeta('source');
+  @override
+  late final GeneratedColumn<String> source = GeneratedColumn<String>(
+    'source',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _addedAtMeta = const VerificationMeta(
+    'addedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> addedAt = GeneratedColumn<DateTime>(
+    'added_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [spaceId, memoryId, source, addedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'space_memberships';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SpaceMembershipRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('space_id')) {
+      context.handle(
+        _spaceIdMeta,
+        spaceId.isAcceptableOrUnknown(data['space_id']!, _spaceIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_spaceIdMeta);
+    }
+    if (data.containsKey('memory_id')) {
+      context.handle(
+        _memoryIdMeta,
+        memoryId.isAcceptableOrUnknown(data['memory_id']!, _memoryIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_memoryIdMeta);
+    }
+    if (data.containsKey('source')) {
+      context.handle(
+        _sourceMeta,
+        source.isAcceptableOrUnknown(data['source']!, _sourceMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_sourceMeta);
+    }
+    if (data.containsKey('added_at')) {
+      context.handle(
+        _addedAtMeta,
+        addedAt.isAcceptableOrUnknown(data['added_at']!, _addedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {spaceId, memoryId};
+  @override
+  SpaceMembershipRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SpaceMembershipRow(
+      spaceId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}space_id'],
+      )!,
+      memoryId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}memory_id'],
+      )!,
+      source: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}source'],
+      )!,
+      addedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}added_at'],
+      )!,
+    );
+  }
+
+  @override
+  $SpaceMembershipsTable createAlias(String alias) {
+    return $SpaceMembershipsTable(attachedDatabase, alias);
+  }
+}
+
+class SpaceMembershipRow extends DataClass
+    implements Insertable<SpaceMembershipRow> {
+  final int spaceId;
+  final int memoryId;
+
+  /// `user` or `suggestion_confirmed`: nothing joins a Space silently.
+  final String source;
+  final DateTime addedAt;
+  const SpaceMembershipRow({
+    required this.spaceId,
+    required this.memoryId,
+    required this.source,
+    required this.addedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['space_id'] = Variable<int>(spaceId);
+    map['memory_id'] = Variable<int>(memoryId);
+    map['source'] = Variable<String>(source);
+    map['added_at'] = Variable<DateTime>(addedAt);
+    return map;
+  }
+
+  SpaceMembershipsCompanion toCompanion(bool nullToAbsent) {
+    return SpaceMembershipsCompanion(
+      spaceId: Value(spaceId),
+      memoryId: Value(memoryId),
+      source: Value(source),
+      addedAt: Value(addedAt),
+    );
+  }
+
+  factory SpaceMembershipRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SpaceMembershipRow(
+      spaceId: serializer.fromJson<int>(json['spaceId']),
+      memoryId: serializer.fromJson<int>(json['memoryId']),
+      source: serializer.fromJson<String>(json['source']),
+      addedAt: serializer.fromJson<DateTime>(json['addedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'spaceId': serializer.toJson<int>(spaceId),
+      'memoryId': serializer.toJson<int>(memoryId),
+      'source': serializer.toJson<String>(source),
+      'addedAt': serializer.toJson<DateTime>(addedAt),
+    };
+  }
+
+  SpaceMembershipRow copyWith({
+    int? spaceId,
+    int? memoryId,
+    String? source,
+    DateTime? addedAt,
+  }) => SpaceMembershipRow(
+    spaceId: spaceId ?? this.spaceId,
+    memoryId: memoryId ?? this.memoryId,
+    source: source ?? this.source,
+    addedAt: addedAt ?? this.addedAt,
+  );
+  SpaceMembershipRow copyWithCompanion(SpaceMembershipsCompanion data) {
+    return SpaceMembershipRow(
+      spaceId: data.spaceId.present ? data.spaceId.value : this.spaceId,
+      memoryId: data.memoryId.present ? data.memoryId.value : this.memoryId,
+      source: data.source.present ? data.source.value : this.source,
+      addedAt: data.addedAt.present ? data.addedAt.value : this.addedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SpaceMembershipRow(')
+          ..write('spaceId: $spaceId, ')
+          ..write('memoryId: $memoryId, ')
+          ..write('source: $source, ')
+          ..write('addedAt: $addedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(spaceId, memoryId, source, addedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SpaceMembershipRow &&
+          other.spaceId == this.spaceId &&
+          other.memoryId == this.memoryId &&
+          other.source == this.source &&
+          other.addedAt == this.addedAt);
+}
+
+class SpaceMembershipsCompanion extends UpdateCompanion<SpaceMembershipRow> {
+  final Value<int> spaceId;
+  final Value<int> memoryId;
+  final Value<String> source;
+  final Value<DateTime> addedAt;
+  final Value<int> rowid;
+  const SpaceMembershipsCompanion({
+    this.spaceId = const Value.absent(),
+    this.memoryId = const Value.absent(),
+    this.source = const Value.absent(),
+    this.addedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SpaceMembershipsCompanion.insert({
+    required int spaceId,
+    required int memoryId,
+    required String source,
+    this.addedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : spaceId = Value(spaceId),
+       memoryId = Value(memoryId),
+       source = Value(source);
+  static Insertable<SpaceMembershipRow> custom({
+    Expression<int>? spaceId,
+    Expression<int>? memoryId,
+    Expression<String>? source,
+    Expression<DateTime>? addedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (spaceId != null) 'space_id': spaceId,
+      if (memoryId != null) 'memory_id': memoryId,
+      if (source != null) 'source': source,
+      if (addedAt != null) 'added_at': addedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SpaceMembershipsCompanion copyWith({
+    Value<int>? spaceId,
+    Value<int>? memoryId,
+    Value<String>? source,
+    Value<DateTime>? addedAt,
+    Value<int>? rowid,
+  }) {
+    return SpaceMembershipsCompanion(
+      spaceId: spaceId ?? this.spaceId,
+      memoryId: memoryId ?? this.memoryId,
+      source: source ?? this.source,
+      addedAt: addedAt ?? this.addedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (spaceId.present) {
+      map['space_id'] = Variable<int>(spaceId.value);
+    }
+    if (memoryId.present) {
+      map['memory_id'] = Variable<int>(memoryId.value);
+    }
+    if (source.present) {
+      map['source'] = Variable<String>(source.value);
+    }
+    if (addedAt.present) {
+      map['added_at'] = Variable<DateTime>(addedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SpaceMembershipsCompanion(')
+          ..write('spaceId: $spaceId, ')
+          ..write('memoryId: $memoryId, ')
+          ..write('source: $source, ')
+          ..write('addedAt: $addedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $MemoryRelationshipsTable extends MemoryRelationships
+    with TableInfo<$MemoryRelationshipsTable, MemoryRelationshipRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MemoryRelationshipsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _sourceMemoryIdMeta = const VerificationMeta(
+    'sourceMemoryId',
+  );
+  @override
+  late final GeneratedColumn<int> sourceMemoryId = GeneratedColumn<int>(
+    'source_memory_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES screenshots (id) ON DELETE CASCADE',
+    ),
+  );
+  static const VerificationMeta _targetMemoryIdMeta = const VerificationMeta(
+    'targetMemoryId',
+  );
+  @override
+  late final GeneratedColumn<int> targetMemoryId = GeneratedColumn<int>(
+    'target_memory_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES screenshots (id) ON DELETE CASCADE',
+    ),
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<RelationshipType, String>
+  relationshipType =
+      GeneratedColumn<String>(
+        'relationship_type',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<RelationshipType>(
+        $MemoryRelationshipsTable.$converterrelationshipType,
+      );
+  static const VerificationMeta _scoreMeta = const VerificationMeta('score');
+  @override
+  late final GeneratedColumn<double> score = GeneratedColumn<double>(
+    'score',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _provenanceMeta = const VerificationMeta(
+    'provenance',
+  );
+  @override
+  late final GeneratedColumn<String> provenance = GeneratedColumn<String>(
+    'provenance',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _methodMeta = const VerificationMeta('method');
+  @override
+  late final GeneratedColumn<String> method = GeneratedColumn<String>(
+    'method',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _confirmedMeta = const VerificationMeta(
+    'confirmed',
+  );
+  @override
+  late final GeneratedColumn<bool> confirmed = GeneratedColumn<bool>(
+    'confirmed',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("confirmed" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta(
+    'createdAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    sourceMemoryId,
+    targetMemoryId,
+    relationshipType,
+    score,
+    provenance,
+    method,
+    confirmed,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'memory_relationships';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<MemoryRelationshipRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('source_memory_id')) {
+      context.handle(
+        _sourceMemoryIdMeta,
+        sourceMemoryId.isAcceptableOrUnknown(
+          data['source_memory_id']!,
+          _sourceMemoryIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_sourceMemoryIdMeta);
+    }
+    if (data.containsKey('target_memory_id')) {
+      context.handle(
+        _targetMemoryIdMeta,
+        targetMemoryId.isAcceptableOrUnknown(
+          data['target_memory_id']!,
+          _targetMemoryIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_targetMemoryIdMeta);
+    }
+    if (data.containsKey('score')) {
+      context.handle(
+        _scoreMeta,
+        score.isAcceptableOrUnknown(data['score']!, _scoreMeta),
+      );
+    }
+    if (data.containsKey('provenance')) {
+      context.handle(
+        _provenanceMeta,
+        provenance.isAcceptableOrUnknown(data['provenance']!, _provenanceMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_provenanceMeta);
+    }
+    if (data.containsKey('method')) {
+      context.handle(
+        _methodMeta,
+        method.isAcceptableOrUnknown(data['method']!, _methodMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_methodMeta);
+    }
+    if (data.containsKey('confirmed')) {
+      context.handle(
+        _confirmedMeta,
+        confirmed.isAcceptableOrUnknown(data['confirmed']!, _confirmedMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(
+        _createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  List<Set<GeneratedColumn>> get uniqueKeys => [
+    {sourceMemoryId, targetMemoryId, relationshipType},
+  ];
+  @override
+  MemoryRelationshipRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MemoryRelationshipRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      sourceMemoryId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}source_memory_id'],
+      )!,
+      targetMemoryId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}target_memory_id'],
+      )!,
+      relationshipType: $MemoryRelationshipsTable.$converterrelationshipType
+          .fromSql(
+            attachedDatabase.typeMapping.read(
+              DriftSqlType.string,
+              data['${effectivePrefix}relationship_type'],
+            )!,
+          ),
+      score: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}score'],
+      ),
+      provenance: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}provenance'],
+      )!,
+      method: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}method'],
+      )!,
+      confirmed: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}confirmed'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+    );
+  }
+
+  @override
+  $MemoryRelationshipsTable createAlias(String alias) {
+    return $MemoryRelationshipsTable(attachedDatabase, alias);
+  }
+
+  static JsonTypeConverter2<RelationshipType, String, String>
+  $converterrelationshipType = const EnumNameConverter<RelationshipType>(
+    RelationshipType.values,
+  );
+}
+
+class MemoryRelationshipRow extends DataClass
+    implements Insertable<MemoryRelationshipRow> {
+  final int id;
+  final int sourceMemoryId;
+  final int targetMemoryId;
+  final RelationshipType relationshipType;
+
+  /// Similarity or rule score; not a calibrated probability.
+  final double? score;
+
+  /// Why the link exists, shown to the user (e.g. "both mention LH1234").
+  final String provenance;
+  final String method;
+  final bool confirmed;
+  final DateTime createdAt;
+  const MemoryRelationshipRow({
+    required this.id,
+    required this.sourceMemoryId,
+    required this.targetMemoryId,
+    required this.relationshipType,
+    this.score,
+    required this.provenance,
+    required this.method,
+    required this.confirmed,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['source_memory_id'] = Variable<int>(sourceMemoryId);
+    map['target_memory_id'] = Variable<int>(targetMemoryId);
+    {
+      map['relationship_type'] = Variable<String>(
+        $MemoryRelationshipsTable.$converterrelationshipType.toSql(
+          relationshipType,
+        ),
+      );
+    }
+    if (!nullToAbsent || score != null) {
+      map['score'] = Variable<double>(score);
+    }
+    map['provenance'] = Variable<String>(provenance);
+    map['method'] = Variable<String>(method);
+    map['confirmed'] = Variable<bool>(confirmed);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  MemoryRelationshipsCompanion toCompanion(bool nullToAbsent) {
+    return MemoryRelationshipsCompanion(
+      id: Value(id),
+      sourceMemoryId: Value(sourceMemoryId),
+      targetMemoryId: Value(targetMemoryId),
+      relationshipType: Value(relationshipType),
+      score: score == null && nullToAbsent
+          ? const Value.absent()
+          : Value(score),
+      provenance: Value(provenance),
+      method: Value(method),
+      confirmed: Value(confirmed),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory MemoryRelationshipRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MemoryRelationshipRow(
+      id: serializer.fromJson<int>(json['id']),
+      sourceMemoryId: serializer.fromJson<int>(json['sourceMemoryId']),
+      targetMemoryId: serializer.fromJson<int>(json['targetMemoryId']),
+      relationshipType: $MemoryRelationshipsTable.$converterrelationshipType
+          .fromJson(serializer.fromJson<String>(json['relationshipType'])),
+      score: serializer.fromJson<double?>(json['score']),
+      provenance: serializer.fromJson<String>(json['provenance']),
+      method: serializer.fromJson<String>(json['method']),
+      confirmed: serializer.fromJson<bool>(json['confirmed']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'sourceMemoryId': serializer.toJson<int>(sourceMemoryId),
+      'targetMemoryId': serializer.toJson<int>(targetMemoryId),
+      'relationshipType': serializer.toJson<String>(
+        $MemoryRelationshipsTable.$converterrelationshipType.toJson(
+          relationshipType,
+        ),
+      ),
+      'score': serializer.toJson<double?>(score),
+      'provenance': serializer.toJson<String>(provenance),
+      'method': serializer.toJson<String>(method),
+      'confirmed': serializer.toJson<bool>(confirmed),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  MemoryRelationshipRow copyWith({
+    int? id,
+    int? sourceMemoryId,
+    int? targetMemoryId,
+    RelationshipType? relationshipType,
+    Value<double?> score = const Value.absent(),
+    String? provenance,
+    String? method,
+    bool? confirmed,
+    DateTime? createdAt,
+  }) => MemoryRelationshipRow(
+    id: id ?? this.id,
+    sourceMemoryId: sourceMemoryId ?? this.sourceMemoryId,
+    targetMemoryId: targetMemoryId ?? this.targetMemoryId,
+    relationshipType: relationshipType ?? this.relationshipType,
+    score: score.present ? score.value : this.score,
+    provenance: provenance ?? this.provenance,
+    method: method ?? this.method,
+    confirmed: confirmed ?? this.confirmed,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  MemoryRelationshipRow copyWithCompanion(MemoryRelationshipsCompanion data) {
+    return MemoryRelationshipRow(
+      id: data.id.present ? data.id.value : this.id,
+      sourceMemoryId: data.sourceMemoryId.present
+          ? data.sourceMemoryId.value
+          : this.sourceMemoryId,
+      targetMemoryId: data.targetMemoryId.present
+          ? data.targetMemoryId.value
+          : this.targetMemoryId,
+      relationshipType: data.relationshipType.present
+          ? data.relationshipType.value
+          : this.relationshipType,
+      score: data.score.present ? data.score.value : this.score,
+      provenance: data.provenance.present
+          ? data.provenance.value
+          : this.provenance,
+      method: data.method.present ? data.method.value : this.method,
+      confirmed: data.confirmed.present ? data.confirmed.value : this.confirmed,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MemoryRelationshipRow(')
+          ..write('id: $id, ')
+          ..write('sourceMemoryId: $sourceMemoryId, ')
+          ..write('targetMemoryId: $targetMemoryId, ')
+          ..write('relationshipType: $relationshipType, ')
+          ..write('score: $score, ')
+          ..write('provenance: $provenance, ')
+          ..write('method: $method, ')
+          ..write('confirmed: $confirmed, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    sourceMemoryId,
+    targetMemoryId,
+    relationshipType,
+    score,
+    provenance,
+    method,
+    confirmed,
+    createdAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MemoryRelationshipRow &&
+          other.id == this.id &&
+          other.sourceMemoryId == this.sourceMemoryId &&
+          other.targetMemoryId == this.targetMemoryId &&
+          other.relationshipType == this.relationshipType &&
+          other.score == this.score &&
+          other.provenance == this.provenance &&
+          other.method == this.method &&
+          other.confirmed == this.confirmed &&
+          other.createdAt == this.createdAt);
+}
+
+class MemoryRelationshipsCompanion
+    extends UpdateCompanion<MemoryRelationshipRow> {
+  final Value<int> id;
+  final Value<int> sourceMemoryId;
+  final Value<int> targetMemoryId;
+  final Value<RelationshipType> relationshipType;
+  final Value<double?> score;
+  final Value<String> provenance;
+  final Value<String> method;
+  final Value<bool> confirmed;
+  final Value<DateTime> createdAt;
+  const MemoryRelationshipsCompanion({
+    this.id = const Value.absent(),
+    this.sourceMemoryId = const Value.absent(),
+    this.targetMemoryId = const Value.absent(),
+    this.relationshipType = const Value.absent(),
+    this.score = const Value.absent(),
+    this.provenance = const Value.absent(),
+    this.method = const Value.absent(),
+    this.confirmed = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  MemoryRelationshipsCompanion.insert({
+    this.id = const Value.absent(),
+    required int sourceMemoryId,
+    required int targetMemoryId,
+    required RelationshipType relationshipType,
+    this.score = const Value.absent(),
+    required String provenance,
+    required String method,
+    this.confirmed = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  }) : sourceMemoryId = Value(sourceMemoryId),
+       targetMemoryId = Value(targetMemoryId),
+       relationshipType = Value(relationshipType),
+       provenance = Value(provenance),
+       method = Value(method);
+  static Insertable<MemoryRelationshipRow> custom({
+    Expression<int>? id,
+    Expression<int>? sourceMemoryId,
+    Expression<int>? targetMemoryId,
+    Expression<String>? relationshipType,
+    Expression<double>? score,
+    Expression<String>? provenance,
+    Expression<String>? method,
+    Expression<bool>? confirmed,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (sourceMemoryId != null) 'source_memory_id': sourceMemoryId,
+      if (targetMemoryId != null) 'target_memory_id': targetMemoryId,
+      if (relationshipType != null) 'relationship_type': relationshipType,
+      if (score != null) 'score': score,
+      if (provenance != null) 'provenance': provenance,
+      if (method != null) 'method': method,
+      if (confirmed != null) 'confirmed': confirmed,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  MemoryRelationshipsCompanion copyWith({
+    Value<int>? id,
+    Value<int>? sourceMemoryId,
+    Value<int>? targetMemoryId,
+    Value<RelationshipType>? relationshipType,
+    Value<double?>? score,
+    Value<String>? provenance,
+    Value<String>? method,
+    Value<bool>? confirmed,
+    Value<DateTime>? createdAt,
+  }) {
+    return MemoryRelationshipsCompanion(
+      id: id ?? this.id,
+      sourceMemoryId: sourceMemoryId ?? this.sourceMemoryId,
+      targetMemoryId: targetMemoryId ?? this.targetMemoryId,
+      relationshipType: relationshipType ?? this.relationshipType,
+      score: score ?? this.score,
+      provenance: provenance ?? this.provenance,
+      method: method ?? this.method,
+      confirmed: confirmed ?? this.confirmed,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (sourceMemoryId.present) {
+      map['source_memory_id'] = Variable<int>(sourceMemoryId.value);
+    }
+    if (targetMemoryId.present) {
+      map['target_memory_id'] = Variable<int>(targetMemoryId.value);
+    }
+    if (relationshipType.present) {
+      map['relationship_type'] = Variable<String>(
+        $MemoryRelationshipsTable.$converterrelationshipType.toSql(
+          relationshipType.value,
+        ),
+      );
+    }
+    if (score.present) {
+      map['score'] = Variable<double>(score.value);
+    }
+    if (provenance.present) {
+      map['provenance'] = Variable<String>(provenance.value);
+    }
+    if (method.present) {
+      map['method'] = Variable<String>(method.value);
+    }
+    if (confirmed.present) {
+      map['confirmed'] = Variable<bool>(confirmed.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MemoryRelationshipsCompanion(')
+          ..write('id: $id, ')
+          ..write('sourceMemoryId: $sourceMemoryId, ')
+          ..write('targetMemoryId: $targetMemoryId, ')
+          ..write('relationshipType: $relationshipType, ')
+          ..write('score: $score, ')
+          ..write('provenance: $provenance, ')
+          ..write('method: $method, ')
+          ..write('confirmed: $confirmed, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ModelRegistryTable extends ModelRegistry
+    with TableInfo<$ModelRegistryTable, ModelRegistryRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ModelRegistryTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _modelIdMeta = const VerificationMeta(
+    'modelId',
+  );
+  @override
+  late final GeneratedColumn<String> modelId = GeneratedColumn<String>(
+    'model_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modelTypeMeta = const VerificationMeta(
+    'modelType',
+  );
+  @override
+  late final GeneratedColumn<String> modelType = GeneratedColumn<String>(
+    'model_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<String> version = GeneratedColumn<String>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _pathMeta = const VerificationMeta('path');
+  @override
+  late final GeneratedColumn<String> path = GeneratedColumn<String>(
+    'path',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<ModelInstallState, String>
+  installState =
+      GeneratedColumn<String>(
+        'install_state',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      ).withConverter<ModelInstallState>(
+        $ModelRegistryTable.$converterinstallState,
+      );
+  static const VerificationMeta _sha256Meta = const VerificationMeta('sha256');
+  @override
+  late final GeneratedColumn<String> sha256 = GeneratedColumn<String>(
+    'sha256',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sizeBytesMeta = const VerificationMeta(
+    'sizeBytes',
+  );
+  @override
+  late final GeneratedColumn<int> sizeBytes = GeneratedColumn<int>(
+    'size_bytes',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _licenseMeta = const VerificationMeta(
+    'license',
+  );
+  @override
+  late final GeneratedColumn<String> license = GeneratedColumn<String>(
+    'license',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _embeddingSpaceIdMeta = const VerificationMeta(
+    'embeddingSpaceId',
+  );
+  @override
+  late final GeneratedColumn<String> embeddingSpaceId = GeneratedColumn<String>(
+    'embedding_space_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _installedAtMeta = const VerificationMeta(
+    'installedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> installedAt = GeneratedColumn<DateTime>(
+    'installed_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    modelId,
+    modelType,
+    version,
+    path,
+    installState,
+    sha256,
+    sizeBytes,
+    license,
+    embeddingSpaceId,
+    installedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'model_registry';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ModelRegistryRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('model_id')) {
+      context.handle(
+        _modelIdMeta,
+        modelId.isAcceptableOrUnknown(data['model_id']!, _modelIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_modelIdMeta);
+    }
+    if (data.containsKey('model_type')) {
+      context.handle(
+        _modelTypeMeta,
+        modelType.isAcceptableOrUnknown(data['model_type']!, _modelTypeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_modelTypeMeta);
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_versionMeta);
+    }
+    if (data.containsKey('path')) {
+      context.handle(
+        _pathMeta,
+        path.isAcceptableOrUnknown(data['path']!, _pathMeta),
+      );
+    }
+    if (data.containsKey('sha256')) {
+      context.handle(
+        _sha256Meta,
+        sha256.isAcceptableOrUnknown(data['sha256']!, _sha256Meta),
+      );
+    } else if (isInserting) {
+      context.missing(_sha256Meta);
+    }
+    if (data.containsKey('size_bytes')) {
+      context.handle(
+        _sizeBytesMeta,
+        sizeBytes.isAcceptableOrUnknown(data['size_bytes']!, _sizeBytesMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_sizeBytesMeta);
+    }
+    if (data.containsKey('license')) {
+      context.handle(
+        _licenseMeta,
+        license.isAcceptableOrUnknown(data['license']!, _licenseMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_licenseMeta);
+    }
+    if (data.containsKey('embedding_space_id')) {
+      context.handle(
+        _embeddingSpaceIdMeta,
+        embeddingSpaceId.isAcceptableOrUnknown(
+          data['embedding_space_id']!,
+          _embeddingSpaceIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('installed_at')) {
+      context.handle(
+        _installedAtMeta,
+        installedAt.isAcceptableOrUnknown(
+          data['installed_at']!,
+          _installedAtMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {modelId, version};
+  @override
+  ModelRegistryRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ModelRegistryRow(
+      modelId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}model_id'],
+      )!,
+      modelType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}model_type'],
+      )!,
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}version'],
+      )!,
+      path: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}path'],
+      ),
+      installState: $ModelRegistryTable.$converterinstallState.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}install_state'],
+        )!,
+      ),
+      sha256: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sha256'],
+      )!,
+      sizeBytes: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}size_bytes'],
+      )!,
+      license: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}license'],
+      )!,
+      embeddingSpaceId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}embedding_space_id'],
+      ),
+      installedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}installed_at'],
+      ),
+    );
+  }
+
+  @override
+  $ModelRegistryTable createAlias(String alias) {
+    return $ModelRegistryTable(attachedDatabase, alias);
+  }
+
+  static JsonTypeConverter2<ModelInstallState, String, String>
+  $converterinstallState = const EnumNameConverter<ModelInstallState>(
+    ModelInstallState.values,
+  );
+}
+
+class ModelRegistryRow extends DataClass
+    implements Insertable<ModelRegistryRow> {
+  final String modelId;
+  final String modelType;
+  final String version;
+  final String? path;
+  final ModelInstallState installState;
+  final String sha256;
+  final int sizeBytes;
+  final String license;
+  final String? embeddingSpaceId;
+  final DateTime? installedAt;
+  const ModelRegistryRow({
+    required this.modelId,
+    required this.modelType,
+    required this.version,
+    this.path,
+    required this.installState,
+    required this.sha256,
+    required this.sizeBytes,
+    required this.license,
+    this.embeddingSpaceId,
+    this.installedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['model_id'] = Variable<String>(modelId);
+    map['model_type'] = Variable<String>(modelType);
+    map['version'] = Variable<String>(version);
+    if (!nullToAbsent || path != null) {
+      map['path'] = Variable<String>(path);
+    }
+    {
+      map['install_state'] = Variable<String>(
+        $ModelRegistryTable.$converterinstallState.toSql(installState),
+      );
+    }
+    map['sha256'] = Variable<String>(sha256);
+    map['size_bytes'] = Variable<int>(sizeBytes);
+    map['license'] = Variable<String>(license);
+    if (!nullToAbsent || embeddingSpaceId != null) {
+      map['embedding_space_id'] = Variable<String>(embeddingSpaceId);
+    }
+    if (!nullToAbsent || installedAt != null) {
+      map['installed_at'] = Variable<DateTime>(installedAt);
+    }
+    return map;
+  }
+
+  ModelRegistryCompanion toCompanion(bool nullToAbsent) {
+    return ModelRegistryCompanion(
+      modelId: Value(modelId),
+      modelType: Value(modelType),
+      version: Value(version),
+      path: path == null && nullToAbsent ? const Value.absent() : Value(path),
+      installState: Value(installState),
+      sha256: Value(sha256),
+      sizeBytes: Value(sizeBytes),
+      license: Value(license),
+      embeddingSpaceId: embeddingSpaceId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(embeddingSpaceId),
+      installedAt: installedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(installedAt),
+    );
+  }
+
+  factory ModelRegistryRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ModelRegistryRow(
+      modelId: serializer.fromJson<String>(json['modelId']),
+      modelType: serializer.fromJson<String>(json['modelType']),
+      version: serializer.fromJson<String>(json['version']),
+      path: serializer.fromJson<String?>(json['path']),
+      installState: $ModelRegistryTable.$converterinstallState.fromJson(
+        serializer.fromJson<String>(json['installState']),
+      ),
+      sha256: serializer.fromJson<String>(json['sha256']),
+      sizeBytes: serializer.fromJson<int>(json['sizeBytes']),
+      license: serializer.fromJson<String>(json['license']),
+      embeddingSpaceId: serializer.fromJson<String?>(json['embeddingSpaceId']),
+      installedAt: serializer.fromJson<DateTime?>(json['installedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'modelId': serializer.toJson<String>(modelId),
+      'modelType': serializer.toJson<String>(modelType),
+      'version': serializer.toJson<String>(version),
+      'path': serializer.toJson<String?>(path),
+      'installState': serializer.toJson<String>(
+        $ModelRegistryTable.$converterinstallState.toJson(installState),
+      ),
+      'sha256': serializer.toJson<String>(sha256),
+      'sizeBytes': serializer.toJson<int>(sizeBytes),
+      'license': serializer.toJson<String>(license),
+      'embeddingSpaceId': serializer.toJson<String?>(embeddingSpaceId),
+      'installedAt': serializer.toJson<DateTime?>(installedAt),
+    };
+  }
+
+  ModelRegistryRow copyWith({
+    String? modelId,
+    String? modelType,
+    String? version,
+    Value<String?> path = const Value.absent(),
+    ModelInstallState? installState,
+    String? sha256,
+    int? sizeBytes,
+    String? license,
+    Value<String?> embeddingSpaceId = const Value.absent(),
+    Value<DateTime?> installedAt = const Value.absent(),
+  }) => ModelRegistryRow(
+    modelId: modelId ?? this.modelId,
+    modelType: modelType ?? this.modelType,
+    version: version ?? this.version,
+    path: path.present ? path.value : this.path,
+    installState: installState ?? this.installState,
+    sha256: sha256 ?? this.sha256,
+    sizeBytes: sizeBytes ?? this.sizeBytes,
+    license: license ?? this.license,
+    embeddingSpaceId: embeddingSpaceId.present
+        ? embeddingSpaceId.value
+        : this.embeddingSpaceId,
+    installedAt: installedAt.present ? installedAt.value : this.installedAt,
+  );
+  ModelRegistryRow copyWithCompanion(ModelRegistryCompanion data) {
+    return ModelRegistryRow(
+      modelId: data.modelId.present ? data.modelId.value : this.modelId,
+      modelType: data.modelType.present ? data.modelType.value : this.modelType,
+      version: data.version.present ? data.version.value : this.version,
+      path: data.path.present ? data.path.value : this.path,
+      installState: data.installState.present
+          ? data.installState.value
+          : this.installState,
+      sha256: data.sha256.present ? data.sha256.value : this.sha256,
+      sizeBytes: data.sizeBytes.present ? data.sizeBytes.value : this.sizeBytes,
+      license: data.license.present ? data.license.value : this.license,
+      embeddingSpaceId: data.embeddingSpaceId.present
+          ? data.embeddingSpaceId.value
+          : this.embeddingSpaceId,
+      installedAt: data.installedAt.present
+          ? data.installedAt.value
+          : this.installedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ModelRegistryRow(')
+          ..write('modelId: $modelId, ')
+          ..write('modelType: $modelType, ')
+          ..write('version: $version, ')
+          ..write('path: $path, ')
+          ..write('installState: $installState, ')
+          ..write('sha256: $sha256, ')
+          ..write('sizeBytes: $sizeBytes, ')
+          ..write('license: $license, ')
+          ..write('embeddingSpaceId: $embeddingSpaceId, ')
+          ..write('installedAt: $installedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    modelId,
+    modelType,
+    version,
+    path,
+    installState,
+    sha256,
+    sizeBytes,
+    license,
+    embeddingSpaceId,
+    installedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ModelRegistryRow &&
+          other.modelId == this.modelId &&
+          other.modelType == this.modelType &&
+          other.version == this.version &&
+          other.path == this.path &&
+          other.installState == this.installState &&
+          other.sha256 == this.sha256 &&
+          other.sizeBytes == this.sizeBytes &&
+          other.license == this.license &&
+          other.embeddingSpaceId == this.embeddingSpaceId &&
+          other.installedAt == this.installedAt);
+}
+
+class ModelRegistryCompanion extends UpdateCompanion<ModelRegistryRow> {
+  final Value<String> modelId;
+  final Value<String> modelType;
+  final Value<String> version;
+  final Value<String?> path;
+  final Value<ModelInstallState> installState;
+  final Value<String> sha256;
+  final Value<int> sizeBytes;
+  final Value<String> license;
+  final Value<String?> embeddingSpaceId;
+  final Value<DateTime?> installedAt;
+  final Value<int> rowid;
+  const ModelRegistryCompanion({
+    this.modelId = const Value.absent(),
+    this.modelType = const Value.absent(),
+    this.version = const Value.absent(),
+    this.path = const Value.absent(),
+    this.installState = const Value.absent(),
+    this.sha256 = const Value.absent(),
+    this.sizeBytes = const Value.absent(),
+    this.license = const Value.absent(),
+    this.embeddingSpaceId = const Value.absent(),
+    this.installedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ModelRegistryCompanion.insert({
+    required String modelId,
+    required String modelType,
+    required String version,
+    this.path = const Value.absent(),
+    required ModelInstallState installState,
+    required String sha256,
+    required int sizeBytes,
+    required String license,
+    this.embeddingSpaceId = const Value.absent(),
+    this.installedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : modelId = Value(modelId),
+       modelType = Value(modelType),
+       version = Value(version),
+       installState = Value(installState),
+       sha256 = Value(sha256),
+       sizeBytes = Value(sizeBytes),
+       license = Value(license);
+  static Insertable<ModelRegistryRow> custom({
+    Expression<String>? modelId,
+    Expression<String>? modelType,
+    Expression<String>? version,
+    Expression<String>? path,
+    Expression<String>? installState,
+    Expression<String>? sha256,
+    Expression<int>? sizeBytes,
+    Expression<String>? license,
+    Expression<String>? embeddingSpaceId,
+    Expression<DateTime>? installedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (modelId != null) 'model_id': modelId,
+      if (modelType != null) 'model_type': modelType,
+      if (version != null) 'version': version,
+      if (path != null) 'path': path,
+      if (installState != null) 'install_state': installState,
+      if (sha256 != null) 'sha256': sha256,
+      if (sizeBytes != null) 'size_bytes': sizeBytes,
+      if (license != null) 'license': license,
+      if (embeddingSpaceId != null) 'embedding_space_id': embeddingSpaceId,
+      if (installedAt != null) 'installed_at': installedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ModelRegistryCompanion copyWith({
+    Value<String>? modelId,
+    Value<String>? modelType,
+    Value<String>? version,
+    Value<String?>? path,
+    Value<ModelInstallState>? installState,
+    Value<String>? sha256,
+    Value<int>? sizeBytes,
+    Value<String>? license,
+    Value<String?>? embeddingSpaceId,
+    Value<DateTime?>? installedAt,
+    Value<int>? rowid,
+  }) {
+    return ModelRegistryCompanion(
+      modelId: modelId ?? this.modelId,
+      modelType: modelType ?? this.modelType,
+      version: version ?? this.version,
+      path: path ?? this.path,
+      installState: installState ?? this.installState,
+      sha256: sha256 ?? this.sha256,
+      sizeBytes: sizeBytes ?? this.sizeBytes,
+      license: license ?? this.license,
+      embeddingSpaceId: embeddingSpaceId ?? this.embeddingSpaceId,
+      installedAt: installedAt ?? this.installedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (modelId.present) {
+      map['model_id'] = Variable<String>(modelId.value);
+    }
+    if (modelType.present) {
+      map['model_type'] = Variable<String>(modelType.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<String>(version.value);
+    }
+    if (path.present) {
+      map['path'] = Variable<String>(path.value);
+    }
+    if (installState.present) {
+      map['install_state'] = Variable<String>(
+        $ModelRegistryTable.$converterinstallState.toSql(installState.value),
+      );
+    }
+    if (sha256.present) {
+      map['sha256'] = Variable<String>(sha256.value);
+    }
+    if (sizeBytes.present) {
+      map['size_bytes'] = Variable<int>(sizeBytes.value);
+    }
+    if (license.present) {
+      map['license'] = Variable<String>(license.value);
+    }
+    if (embeddingSpaceId.present) {
+      map['embedding_space_id'] = Variable<String>(embeddingSpaceId.value);
+    }
+    if (installedAt.present) {
+      map['installed_at'] = Variable<DateTime>(installedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ModelRegistryCompanion(')
+          ..write('modelId: $modelId, ')
+          ..write('modelType: $modelType, ')
+          ..write('version: $version, ')
+          ..write('path: $path, ')
+          ..write('installState: $installState, ')
+          ..write('sha256: $sha256, ')
+          ..write('sizeBytes: $sizeBytes, ')
+          ..write('license: $license, ')
+          ..write('embeddingSpaceId: $embeddingSpaceId, ')
+          ..write('installedAt: $installedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -7977,6 +11835,15 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $AppSettingsTable appSettings = $AppSettingsTable(this);
   late final $ClassificationRulesTable classificationRules =
       $ClassificationRulesTable(this);
+  late final $MemoryChunksTable memoryChunks = $MemoryChunksTable(this);
+  late final $EmbeddingsTable embeddings = $EmbeddingsTable(this);
+  late final $SpacesTable spaces = $SpacesTable(this);
+  late final $SpaceMembershipsTable spaceMemberships = $SpaceMembershipsTable(
+    this,
+  );
+  late final $MemoryRelationshipsTable memoryRelationships =
+      $MemoryRelationshipsTable(this);
+  late final $ModelRegistryTable modelRegistry = $ModelRegistryTable(this);
   late final Index idxScreenshotsStatus = Index(
     'idx_screenshots_status',
     'CREATE INDEX idx_screenshots_status ON screenshots (processing_status)',
@@ -8029,6 +11896,22 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     'idx_jobs_status',
     'CREATE INDEX idx_jobs_status ON processing_jobs (status)',
   );
+  late final Index idxEmbeddingsMemory = Index(
+    'idx_embeddings_memory',
+    'CREATE INDEX idx_embeddings_memory ON embeddings (memory_id)',
+  );
+  late final Index idxEmbeddingsSpace = Index(
+    'idx_embeddings_space',
+    'CREATE INDEX idx_embeddings_space ON embeddings (space_id)',
+  );
+  late final Index idxSpaceMembersMemory = Index(
+    'idx_space_members_memory',
+    'CREATE INDEX idx_space_members_memory ON space_memberships (memory_id)',
+  );
+  late final Index idxRelationshipsTarget = Index(
+    'idx_relationships_target',
+    'CREATE INDEX idx_relationships_target ON memory_relationships (target_memory_id)',
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -8050,6 +11933,12 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     searchHistory,
     appSettings,
     classificationRules,
+    memoryChunks,
+    embeddings,
+    spaces,
+    spaceMemberships,
+    memoryRelationships,
+    modelRegistry,
     idxScreenshotsStatus,
     idxScreenshotsCategory,
     idxScreenshotsImported,
@@ -8063,6 +11952,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     idxActionsScreenshot,
     idxActionsStatus,
     idxJobsStatus,
+    idxEmbeddingsMemory,
+    idxEmbeddingsSpace,
+    idxSpaceMembersMemory,
+    idxRelationshipsTarget,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
@@ -8163,6 +12056,62 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         limitUpdateKind: UpdateKind.delete,
       ),
       result: [TableUpdate('classification_rules', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'screenshots',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('memory_chunks', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'memory_chunks',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('embeddings', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'screenshots',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('embeddings', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'screenshots',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('spaces', kind: UpdateKind.update)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'spaces',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('space_memberships', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'screenshots',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('space_memberships', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'screenshots',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('memory_relationships', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName(
+        'screenshots',
+        limitUpdateKind: UpdateKind.delete,
+      ),
+      result: [TableUpdate('memory_relationships', kind: UpdateKind.delete)],
     ),
   ]);
 }
@@ -8729,6 +12678,13 @@ typedef $$ScreenshotsTableCreateCompanionBuilder =
       Value<int?> imageHeight,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
+      Value<MemoryType> memoryType,
+      Value<String?> mimeType,
+      Value<String?> description,
+      Value<String?> sourceUrl,
+      Value<int?> pageCount,
+      Value<int?> durationMs,
+      Value<DateTime?> eventAt,
     });
 typedef $$ScreenshotsTableUpdateCompanionBuilder =
     ScreenshotsCompanion Function({
@@ -8758,6 +12714,13 @@ typedef $$ScreenshotsTableUpdateCompanionBuilder =
       Value<int?> imageHeight,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
+      Value<MemoryType> memoryType,
+      Value<String?> mimeType,
+      Value<String?> description,
+      Value<String?> sourceUrl,
+      Value<int?> pageCount,
+      Value<int?> durationMs,
+      Value<DateTime?> eventAt,
     });
 
 final class $$ScreenshotsTableReferences
@@ -8969,6 +12932,129 @@ final class $$ScreenshotsTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$MemoryChunksTable, List<MemoryChunkRow>>
+  _memoryChunksRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.memoryChunks,
+    aliasName: 'screenshots__id__memory_chunks__memory_id',
+  );
+
+  $$MemoryChunksTableProcessedTableManager get memoryChunksRefs {
+    final manager = $$MemoryChunksTableTableManager(
+      $_db,
+      $_db.memoryChunks,
+    ).filter((f) => f.memoryId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_memoryChunksRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$EmbeddingsTable, List<EmbeddingRow>>
+  _embeddingsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.embeddings,
+    aliasName: 'screenshots__id__embeddings__memory_id',
+  );
+
+  $$EmbeddingsTableProcessedTableManager get embeddingsRefs {
+    final manager = $$EmbeddingsTableTableManager(
+      $_db,
+      $_db.embeddings,
+    ).filter((f) => f.memoryId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_embeddingsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$SpacesTable, List<SpaceRow>> _spacesRefsTable(
+    _$AppDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.spaces,
+    aliasName: 'screenshots__id__spaces__cover_memory_id',
+  );
+
+  $$SpacesTableProcessedTableManager get spacesRefs {
+    final manager = $$SpacesTableTableManager(
+      $_db,
+      $_db.spaces,
+    ).filter((f) => f.coverMemoryId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_spacesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$SpaceMembershipsTable, List<SpaceMembershipRow>>
+  _spaceMembershipsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.spaceMemberships,
+    aliasName: 'screenshots__id__space_memberships__memory_id',
+  );
+
+  $$SpaceMembershipsTableProcessedTableManager get spaceMembershipsRefs {
+    final manager = $$SpaceMembershipsTableTableManager(
+      $_db,
+      $_db.spaceMemberships,
+    ).filter((f) => f.memoryId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _spaceMembershipsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<
+    $MemoryRelationshipsTable,
+    List<MemoryRelationshipRow>
+  >
+  _outgoingRelationshipsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.memoryRelationships,
+        aliasName: 'screenshots__id__memory_relationships__source_memory_id',
+      );
+
+  $$MemoryRelationshipsTableProcessedTableManager get outgoingRelationships {
+    final manager = $$MemoryRelationshipsTableTableManager(
+      $_db,
+      $_db.memoryRelationships,
+    ).filter((f) => f.sourceMemoryId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _outgoingRelationshipsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<
+    $MemoryRelationshipsTable,
+    List<MemoryRelationshipRow>
+  >
+  _incomingRelationshipsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.memoryRelationships,
+        aliasName: 'screenshots__id__memory_relationships__target_memory_id',
+      );
+
+  $$MemoryRelationshipsTableProcessedTableManager get incomingRelationships {
+    final manager = $$MemoryRelationshipsTableTableManager(
+      $_db,
+      $_db.memoryRelationships,
+    ).filter((f) => f.targetMemoryId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _incomingRelationshipsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$ScreenshotsTableFilterComposer
@@ -9099,6 +13185,42 @@ class $$ScreenshotsTableFilterComposer
 
   ColumnFilters<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<MemoryType, MemoryType, String>
+  get memoryType => $composableBuilder(
+    column: $table.memoryType,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnFilters<String> get mimeType => $composableBuilder(
+    column: $table.mimeType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get sourceUrl => $composableBuilder(
+    column: $table.sourceUrl,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get pageCount => $composableBuilder(
+    column: $table.pageCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get durationMs => $composableBuilder(
+    column: $table.durationMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get eventAt => $composableBuilder(
+    column: $table.eventAt,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -9372,6 +13494,156 @@ class $$ScreenshotsTableFilterComposer
     );
     return f(composer);
   }
+
+  Expression<bool> memoryChunksRefs(
+    Expression<bool> Function($$MemoryChunksTableFilterComposer f) f,
+  ) {
+    final $$MemoryChunksTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.memoryChunks,
+      getReferencedColumn: (t) => t.memoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MemoryChunksTableFilterComposer(
+            $db: $db,
+            $table: $db.memoryChunks,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> embeddingsRefs(
+    Expression<bool> Function($$EmbeddingsTableFilterComposer f) f,
+  ) {
+    final $$EmbeddingsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.embeddings,
+      getReferencedColumn: (t) => t.memoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EmbeddingsTableFilterComposer(
+            $db: $db,
+            $table: $db.embeddings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> spacesRefs(
+    Expression<bool> Function($$SpacesTableFilterComposer f) f,
+  ) {
+    final $$SpacesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.spaces,
+      getReferencedColumn: (t) => t.coverMemoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SpacesTableFilterComposer(
+            $db: $db,
+            $table: $db.spaces,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> spaceMembershipsRefs(
+    Expression<bool> Function($$SpaceMembershipsTableFilterComposer f) f,
+  ) {
+    final $$SpaceMembershipsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.spaceMemberships,
+      getReferencedColumn: (t) => t.memoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SpaceMembershipsTableFilterComposer(
+            $db: $db,
+            $table: $db.spaceMemberships,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> outgoingRelationships(
+    Expression<bool> Function($$MemoryRelationshipsTableFilterComposer f) f,
+  ) {
+    final $$MemoryRelationshipsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.memoryRelationships,
+      getReferencedColumn: (t) => t.sourceMemoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MemoryRelationshipsTableFilterComposer(
+            $db: $db,
+            $table: $db.memoryRelationships,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> incomingRelationships(
+    Expression<bool> Function($$MemoryRelationshipsTableFilterComposer f) f,
+  ) {
+    final $$MemoryRelationshipsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.memoryRelationships,
+      getReferencedColumn: (t) => t.targetMemoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MemoryRelationshipsTableFilterComposer(
+            $db: $db,
+            $table: $db.memoryRelationships,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$ScreenshotsTableOrderingComposer
@@ -9500,6 +13772,41 @@ class $$ScreenshotsTableOrderingComposer
 
   ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get memoryType => $composableBuilder(
+    column: $table.memoryType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get mimeType => $composableBuilder(
+    column: $table.mimeType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sourceUrl => $composableBuilder(
+    column: $table.sourceUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get pageCount => $composableBuilder(
+    column: $table.pageCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get durationMs => $composableBuilder(
+    column: $table.durationMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get eventAt => $composableBuilder(
+    column: $table.eventAt,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -9667,6 +13974,34 @@ class $$ScreenshotsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<MemoryType, String> get memoryType =>
+      $composableBuilder(
+        column: $table.memoryType,
+        builder: (column) => column,
+      );
+
+  GeneratedColumn<String> get mimeType =>
+      $composableBuilder(column: $table.mimeType, builder: (column) => column);
+
+  GeneratedColumn<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get sourceUrl =>
+      $composableBuilder(column: $table.sourceUrl, builder: (column) => column);
+
+  GeneratedColumn<int> get pageCount =>
+      $composableBuilder(column: $table.pageCount, builder: (column) => column);
+
+  GeneratedColumn<int> get durationMs => $composableBuilder(
+    column: $table.durationMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get eventAt =>
+      $composableBuilder(column: $table.eventAt, builder: (column) => column);
 
   $$CategoriesTableAnnotationComposer get primaryCategoryId {
     final $$CategoriesTableAnnotationComposer composer = $composerBuilder(
@@ -9939,6 +14274,158 @@ class $$ScreenshotsTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> memoryChunksRefs<T extends Object>(
+    Expression<T> Function($$MemoryChunksTableAnnotationComposer a) f,
+  ) {
+    final $$MemoryChunksTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.memoryChunks,
+      getReferencedColumn: (t) => t.memoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MemoryChunksTableAnnotationComposer(
+            $db: $db,
+            $table: $db.memoryChunks,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> embeddingsRefs<T extends Object>(
+    Expression<T> Function($$EmbeddingsTableAnnotationComposer a) f,
+  ) {
+    final $$EmbeddingsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.embeddings,
+      getReferencedColumn: (t) => t.memoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EmbeddingsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.embeddings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> spacesRefs<T extends Object>(
+    Expression<T> Function($$SpacesTableAnnotationComposer a) f,
+  ) {
+    final $$SpacesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.spaces,
+      getReferencedColumn: (t) => t.coverMemoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SpacesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.spaces,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> spaceMembershipsRefs<T extends Object>(
+    Expression<T> Function($$SpaceMembershipsTableAnnotationComposer a) f,
+  ) {
+    final $$SpaceMembershipsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.spaceMemberships,
+      getReferencedColumn: (t) => t.memoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SpaceMembershipsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.spaceMemberships,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> outgoingRelationships<T extends Object>(
+    Expression<T> Function($$MemoryRelationshipsTableAnnotationComposer a) f,
+  ) {
+    final $$MemoryRelationshipsTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.memoryRelationships,
+          getReferencedColumn: (t) => t.sourceMemoryId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$MemoryRelationshipsTableAnnotationComposer(
+                $db: $db,
+                $table: $db.memoryRelationships,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<T> incomingRelationships<T extends Object>(
+    Expression<T> Function($$MemoryRelationshipsTableAnnotationComposer a) f,
+  ) {
+    final $$MemoryRelationshipsTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.memoryRelationships,
+          getReferencedColumn: (t) => t.targetMemoryId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$MemoryRelationshipsTableAnnotationComposer(
+                $db: $db,
+                $table: $db.memoryRelationships,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$ScreenshotsTableTableManager
@@ -9966,6 +14453,12 @@ class $$ScreenshotsTableTableManager
             bool suggestedActionsRefs,
             bool wishlistItemsRefs,
             bool processingJobsRefs,
+            bool memoryChunksRefs,
+            bool embeddingsRefs,
+            bool spacesRefs,
+            bool spaceMembershipsRefs,
+            bool outgoingRelationships,
+            bool incomingRelationships,
           })
         > {
   $$ScreenshotsTableTableManager(_$AppDatabase db, $ScreenshotsTable table)
@@ -10007,6 +14500,13 @@ class $$ScreenshotsTableTableManager
                 Value<int?> imageHeight = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
+                Value<MemoryType> memoryType = const Value.absent(),
+                Value<String?> mimeType = const Value.absent(),
+                Value<String?> description = const Value.absent(),
+                Value<String?> sourceUrl = const Value.absent(),
+                Value<int?> pageCount = const Value.absent(),
+                Value<int?> durationMs = const Value.absent(),
+                Value<DateTime?> eventAt = const Value.absent(),
               }) => ScreenshotsCompanion(
                 id: id,
                 originalFilename: originalFilename,
@@ -10034,6 +14534,13 @@ class $$ScreenshotsTableTableManager
                 imageHeight: imageHeight,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
+                memoryType: memoryType,
+                mimeType: mimeType,
+                description: description,
+                sourceUrl: sourceUrl,
+                pageCount: pageCount,
+                durationMs: durationMs,
+                eventAt: eventAt,
               ),
           createCompanionCallback:
               ({
@@ -10063,6 +14570,13 @@ class $$ScreenshotsTableTableManager
                 Value<int?> imageHeight = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
+                Value<MemoryType> memoryType = const Value.absent(),
+                Value<String?> mimeType = const Value.absent(),
+                Value<String?> description = const Value.absent(),
+                Value<String?> sourceUrl = const Value.absent(),
+                Value<int?> pageCount = const Value.absent(),
+                Value<int?> durationMs = const Value.absent(),
+                Value<DateTime?> eventAt = const Value.absent(),
               }) => ScreenshotsCompanion.insert(
                 id: id,
                 originalFilename: originalFilename,
@@ -10090,6 +14604,13 @@ class $$ScreenshotsTableTableManager
                 imageHeight: imageHeight,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
+                memoryType: memoryType,
+                mimeType: mimeType,
+                description: description,
+                sourceUrl: sourceUrl,
+                pageCount: pageCount,
+                durationMs: durationMs,
+                eventAt: eventAt,
               ),
           withReferenceMapper: (p0) => p0
               .map(
@@ -10112,6 +14633,12 @@ class $$ScreenshotsTableTableManager
                 suggestedActionsRefs = false,
                 wishlistItemsRefs = false,
                 processingJobsRefs = false,
+                memoryChunksRefs = false,
+                embeddingsRefs = false,
+                spacesRefs = false,
+                spaceMembershipsRefs = false,
+                outgoingRelationships = false,
+                incomingRelationships = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -10125,6 +14652,12 @@ class $$ScreenshotsTableTableManager
                     if (suggestedActionsRefs) db.suggestedActions,
                     if (wishlistItemsRefs) db.wishlistItems,
                     if (processingJobsRefs) db.processingJobs,
+                    if (memoryChunksRefs) db.memoryChunks,
+                    if (embeddingsRefs) db.embeddings,
+                    if (spacesRefs) db.spaces,
+                    if (spaceMembershipsRefs) db.spaceMemberships,
+                    if (outgoingRelationships) db.memoryRelationships,
+                    if (incomingRelationships) db.memoryRelationships,
                   ],
                   addJoins:
                       <
@@ -10349,6 +14882,126 @@ class $$ScreenshotsTableTableManager
                           referencedColumn: 'screenshot_id',
                           typedResults: items,
                         ),
+                      if (memoryChunksRefs)
+                        await $_getPrefetchedDataByColumns<
+                          ScreenshotRow,
+                          $ScreenshotsTable,
+                          MemoryChunkRow,
+                          $MemoryChunksTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ScreenshotsTableReferences
+                              ._memoryChunksRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ScreenshotsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).memoryChunksRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'memory_id',
+                          typedResults: items,
+                        ),
+                      if (embeddingsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          ScreenshotRow,
+                          $ScreenshotsTable,
+                          EmbeddingRow,
+                          $EmbeddingsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ScreenshotsTableReferences
+                              ._embeddingsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ScreenshotsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).embeddingsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'memory_id',
+                          typedResults: items,
+                        ),
+                      if (spacesRefs)
+                        await $_getPrefetchedDataByColumns<
+                          ScreenshotRow,
+                          $ScreenshotsTable,
+                          SpaceRow,
+                          $SpacesTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ScreenshotsTableReferences
+                              ._spacesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ScreenshotsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).spacesRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'cover_memory_id',
+                          typedResults: items,
+                        ),
+                      if (spaceMembershipsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          ScreenshotRow,
+                          $ScreenshotsTable,
+                          SpaceMembershipRow,
+                          $SpaceMembershipsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ScreenshotsTableReferences
+                              ._spaceMembershipsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ScreenshotsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).spaceMembershipsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'memory_id',
+                          typedResults: items,
+                        ),
+                      if (outgoingRelationships)
+                        await $_getPrefetchedDataByColumns<
+                          ScreenshotRow,
+                          $ScreenshotsTable,
+                          MemoryRelationshipRow,
+                          $MemoryRelationshipsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ScreenshotsTableReferences
+                              ._outgoingRelationshipsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ScreenshotsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).outgoingRelationships,
+                          currentColumn: 'id',
+                          referencedColumn: 'source_memory_id',
+                          typedResults: items,
+                        ),
+                      if (incomingRelationships)
+                        await $_getPrefetchedDataByColumns<
+                          ScreenshotRow,
+                          $ScreenshotsTable,
+                          MemoryRelationshipRow,
+                          $MemoryRelationshipsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ScreenshotsTableReferences
+                              ._incomingRelationshipsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ScreenshotsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).incomingRelationships,
+                          currentColumn: 'id',
+                          referencedColumn: 'target_memory_id',
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -10381,6 +15034,12 @@ typedef $$ScreenshotsTableProcessedTableManager =
         bool suggestedActionsRefs,
         bool wishlistItemsRefs,
         bool processingJobsRefs,
+        bool memoryChunksRefs,
+        bool embeddingsRefs,
+        bool spacesRefs,
+        bool spaceMembershipsRefs,
+        bool outgoingRelationships,
+        bool incomingRelationships,
       })
     >;
 typedef $$OcrResultsTableCreateCompanionBuilder = OcrResultsCompanion Function({
@@ -14076,6 +18735,9 @@ typedef $$ProcessingJobsTableCreateCompanionBuilder =
       Value<String?> errorMessage,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
+      Value<int> priority,
+      Value<double?> progress,
+      Value<String?> checkpointJson,
     });
 typedef $$ProcessingJobsTableUpdateCompanionBuilder =
     ProcessingJobsCompanion Function({
@@ -14087,6 +18749,9 @@ typedef $$ProcessingJobsTableUpdateCompanionBuilder =
       Value<String?> errorMessage,
       Value<DateTime> createdAt,
       Value<DateTime> updatedAt,
+      Value<int> priority,
+      Value<double?> progress,
+      Value<String?> checkpointJson,
     });
 
 final class $$ProcessingJobsTableReferences
@@ -14163,6 +18828,21 @@ class $$ProcessingJobsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<int> get priority => $composableBuilder(
+    column: $table.priority,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get progress => $composableBuilder(
+    column: $table.progress,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get checkpointJson => $composableBuilder(
+    column: $table.checkpointJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
   $$ScreenshotsTableFilterComposer get screenshotId {
     final $$ScreenshotsTableFilterComposer composer = $composerBuilder(
       composer: this,
@@ -14231,6 +18911,21 @@ class $$ProcessingJobsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get priority => $composableBuilder(
+    column: $table.priority,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get progress => $composableBuilder(
+    column: $table.progress,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get checkpointJson => $composableBuilder(
+    column: $table.checkpointJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$ScreenshotsTableOrderingComposer get screenshotId {
     final $$ScreenshotsTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -14288,6 +18983,17 @@ class $$ProcessingJobsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get priority =>
+      $composableBuilder(column: $table.priority, builder: (column) => column);
+
+  GeneratedColumn<double> get progress =>
+      $composableBuilder(column: $table.progress, builder: (column) => column);
+
+  GeneratedColumn<String> get checkpointJson => $composableBuilder(
+    column: $table.checkpointJson,
+    builder: (column) => column,
+  );
 
   $$ScreenshotsTableAnnotationComposer get screenshotId {
     final $$ScreenshotsTableAnnotationComposer composer = $composerBuilder(
@@ -14351,6 +19057,9 @@ class $$ProcessingJobsTableTableManager
                 Value<String?> errorMessage = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> priority = const Value.absent(),
+                Value<double?> progress = const Value.absent(),
+                Value<String?> checkpointJson = const Value.absent(),
               }) => ProcessingJobsCompanion(
                 id: id,
                 screenshotId: screenshotId,
@@ -14360,6 +19069,9 @@ class $$ProcessingJobsTableTableManager
                 errorMessage: errorMessage,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
+                priority: priority,
+                progress: progress,
+                checkpointJson: checkpointJson,
               ),
           createCompanionCallback:
               ({
@@ -14371,6 +19083,9 @@ class $$ProcessingJobsTableTableManager
                 Value<String?> errorMessage = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> priority = const Value.absent(),
+                Value<double?> progress = const Value.absent(),
+                Value<String?> checkpointJson = const Value.absent(),
               }) => ProcessingJobsCompanion.insert(
                 id: id,
                 screenshotId: screenshotId,
@@ -14380,6 +19095,9 @@ class $$ProcessingJobsTableTableManager
                 errorMessage: errorMessage,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
+                priority: priority,
+                progress: progress,
+                checkpointJson: checkpointJson,
               ),
           withReferenceMapper: (p0) => p0
               .map(
@@ -15097,6 +19815,2693 @@ typedef $$ClassificationRulesTableProcessedTableManager =
       ClassificationRuleRow,
       PrefetchHooks Function({bool categoryId})
     >;
+typedef $$MemoryChunksTableCreateCompanionBuilder =
+    MemoryChunksCompanion Function({
+      Value<int> id,
+      required int memoryId,
+      required int chunkIndex,
+      required String textOriginal,
+      required String textNormalized,
+      Value<int?> page,
+      Value<int?> startMs,
+      Value<int?> endMs,
+      Value<String?> regionJson,
+      Value<int?> tokenCount,
+      required String sourceChecksum,
+    });
+typedef $$MemoryChunksTableUpdateCompanionBuilder =
+    MemoryChunksCompanion Function({
+      Value<int> id,
+      Value<int> memoryId,
+      Value<int> chunkIndex,
+      Value<String> textOriginal,
+      Value<String> textNormalized,
+      Value<int?> page,
+      Value<int?> startMs,
+      Value<int?> endMs,
+      Value<String?> regionJson,
+      Value<int?> tokenCount,
+      Value<String> sourceChecksum,
+    });
+
+final class $$MemoryChunksTableReferences
+    extends BaseReferences<_$AppDatabase, $MemoryChunksTable, MemoryChunkRow> {
+  $$MemoryChunksTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $ScreenshotsTable _memoryIdTable(_$AppDatabase db) =>
+      db.screenshots.createAlias('memory_chunks__memory_id__screenshots__id');
+
+  $$ScreenshotsTableProcessedTableManager get memoryId {
+    final $_column = $_itemColumn<int>('memory_id')!;
+
+    final manager = $$ScreenshotsTableTableManager(
+      $_db,
+      $_db.screenshots,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_memoryIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$EmbeddingsTable, List<EmbeddingRow>>
+  _embeddingsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.embeddings,
+    aliasName: 'memory_chunks__id__embeddings__chunk_id',
+  );
+
+  $$EmbeddingsTableProcessedTableManager get embeddingsRefs {
+    final manager = $$EmbeddingsTableTableManager(
+      $_db,
+      $_db.embeddings,
+    ).filter((f) => f.chunkId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_embeddingsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$MemoryChunksTableFilterComposer
+    extends Composer<_$AppDatabase, $MemoryChunksTable> {
+  $$MemoryChunksTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get chunkIndex => $composableBuilder(
+    column: $table.chunkIndex,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get textOriginal => $composableBuilder(
+    column: $table.textOriginal,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get textNormalized => $composableBuilder(
+    column: $table.textNormalized,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get page => $composableBuilder(
+    column: $table.page,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get startMs => $composableBuilder(
+    column: $table.startMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get endMs => $composableBuilder(
+    column: $table.endMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get regionJson => $composableBuilder(
+    column: $table.regionJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get tokenCount => $composableBuilder(
+    column: $table.tokenCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get sourceChecksum => $composableBuilder(
+    column: $table.sourceChecksum,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ScreenshotsTableFilterComposer get memoryId {
+    final $$ScreenshotsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.memoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableFilterComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> embeddingsRefs(
+    Expression<bool> Function($$EmbeddingsTableFilterComposer f) f,
+  ) {
+    final $$EmbeddingsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.embeddings,
+      getReferencedColumn: (t) => t.chunkId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EmbeddingsTableFilterComposer(
+            $db: $db,
+            $table: $db.embeddings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$MemoryChunksTableOrderingComposer
+    extends Composer<_$AppDatabase, $MemoryChunksTable> {
+  $$MemoryChunksTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get chunkIndex => $composableBuilder(
+    column: $table.chunkIndex,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get textOriginal => $composableBuilder(
+    column: $table.textOriginal,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get textNormalized => $composableBuilder(
+    column: $table.textNormalized,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get page => $composableBuilder(
+    column: $table.page,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get startMs => $composableBuilder(
+    column: $table.startMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get endMs => $composableBuilder(
+    column: $table.endMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get regionJson => $composableBuilder(
+    column: $table.regionJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get tokenCount => $composableBuilder(
+    column: $table.tokenCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sourceChecksum => $composableBuilder(
+    column: $table.sourceChecksum,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ScreenshotsTableOrderingComposer get memoryId {
+    final $$ScreenshotsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.memoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableOrderingComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MemoryChunksTableAnnotationComposer
+    extends Composer<_$AppDatabase, $MemoryChunksTable> {
+  $$MemoryChunksTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get chunkIndex => $composableBuilder(
+    column: $table.chunkIndex,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get textOriginal => $composableBuilder(
+    column: $table.textOriginal,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get textNormalized => $composableBuilder(
+    column: $table.textNormalized,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get page =>
+      $composableBuilder(column: $table.page, builder: (column) => column);
+
+  GeneratedColumn<int> get startMs =>
+      $composableBuilder(column: $table.startMs, builder: (column) => column);
+
+  GeneratedColumn<int> get endMs =>
+      $composableBuilder(column: $table.endMs, builder: (column) => column);
+
+  GeneratedColumn<String> get regionJson => $composableBuilder(
+    column: $table.regionJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get tokenCount => $composableBuilder(
+    column: $table.tokenCount,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get sourceChecksum => $composableBuilder(
+    column: $table.sourceChecksum,
+    builder: (column) => column,
+  );
+
+  $$ScreenshotsTableAnnotationComposer get memoryId {
+    final $$ScreenshotsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.memoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> embeddingsRefs<T extends Object>(
+    Expression<T> Function($$EmbeddingsTableAnnotationComposer a) f,
+  ) {
+    final $$EmbeddingsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.embeddings,
+      getReferencedColumn: (t) => t.chunkId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$EmbeddingsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.embeddings,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$MemoryChunksTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $MemoryChunksTable,
+          MemoryChunkRow,
+          $$MemoryChunksTableFilterComposer,
+          $$MemoryChunksTableOrderingComposer,
+          $$MemoryChunksTableAnnotationComposer,
+          $$MemoryChunksTableCreateCompanionBuilder,
+          $$MemoryChunksTableUpdateCompanionBuilder,
+          (MemoryChunkRow, $$MemoryChunksTableReferences),
+          MemoryChunkRow,
+          PrefetchHooks Function({bool memoryId, bool embeddingsRefs})
+        > {
+  $$MemoryChunksTableTableManager(_$AppDatabase db, $MemoryChunksTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$MemoryChunksTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$MemoryChunksTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$MemoryChunksTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> memoryId = const Value.absent(),
+                Value<int> chunkIndex = const Value.absent(),
+                Value<String> textOriginal = const Value.absent(),
+                Value<String> textNormalized = const Value.absent(),
+                Value<int?> page = const Value.absent(),
+                Value<int?> startMs = const Value.absent(),
+                Value<int?> endMs = const Value.absent(),
+                Value<String?> regionJson = const Value.absent(),
+                Value<int?> tokenCount = const Value.absent(),
+                Value<String> sourceChecksum = const Value.absent(),
+              }) => MemoryChunksCompanion(
+                id: id,
+                memoryId: memoryId,
+                chunkIndex: chunkIndex,
+                textOriginal: textOriginal,
+                textNormalized: textNormalized,
+                page: page,
+                startMs: startMs,
+                endMs: endMs,
+                regionJson: regionJson,
+                tokenCount: tokenCount,
+                sourceChecksum: sourceChecksum,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int memoryId,
+                required int chunkIndex,
+                required String textOriginal,
+                required String textNormalized,
+                Value<int?> page = const Value.absent(),
+                Value<int?> startMs = const Value.absent(),
+                Value<int?> endMs = const Value.absent(),
+                Value<String?> regionJson = const Value.absent(),
+                Value<int?> tokenCount = const Value.absent(),
+                required String sourceChecksum,
+              }) => MemoryChunksCompanion.insert(
+                id: id,
+                memoryId: memoryId,
+                chunkIndex: chunkIndex,
+                textOriginal: textOriginal,
+                textNormalized: textNormalized,
+                page: page,
+                startMs: startMs,
+                endMs: endMs,
+                regionJson: regionJson,
+                tokenCount: tokenCount,
+                sourceChecksum: sourceChecksum,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$MemoryChunksTable, MemoryChunkRow>(table),
+                  $$MemoryChunksTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({memoryId = false, embeddingsRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (embeddingsRefs) db.embeddings],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (memoryId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.memoryId,
+                        referencedTable: $$MemoryChunksTableReferences
+                            ._memoryIdTable(db),
+                        referencedColumn: $$MemoryChunksTableReferences
+                            ._memoryIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (embeddingsRefs)
+                    await $_getPrefetchedDataByColumns<
+                      MemoryChunkRow,
+                      $MemoryChunksTable,
+                      EmbeddingRow,
+                      $EmbeddingsTable
+                    >(
+                      currentTable: table,
+                      referencedTable: $$MemoryChunksTableReferences
+                          ._embeddingsRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $$MemoryChunksTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).embeddingsRefs,
+                      currentColumn: 'id',
+                      referencedColumn: 'chunk_id',
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$MemoryChunksTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $MemoryChunksTable,
+      MemoryChunkRow,
+      $$MemoryChunksTableFilterComposer,
+      $$MemoryChunksTableOrderingComposer,
+      $$MemoryChunksTableAnnotationComposer,
+      $$MemoryChunksTableCreateCompanionBuilder,
+      $$MemoryChunksTableUpdateCompanionBuilder,
+      (MemoryChunkRow, $$MemoryChunksTableReferences),
+      MemoryChunkRow,
+      PrefetchHooks Function({bool memoryId, bool embeddingsRefs})
+    >;
+typedef $$EmbeddingsTableCreateCompanionBuilder = EmbeddingsCompanion Function({
+  Value<int> id,
+  required int chunkId,
+  required int memoryId,
+  required String modelId,
+  required String modelVersion,
+  required String spaceId,
+  required int dimension,
+  required Uint8List vector,
+  required String sourceChecksum,
+  Value<DateTime> createdAt,
+});
+typedef $$EmbeddingsTableUpdateCompanionBuilder = EmbeddingsCompanion Function({
+  Value<int> id,
+  Value<int> chunkId,
+  Value<int> memoryId,
+  Value<String> modelId,
+  Value<String> modelVersion,
+  Value<String> spaceId,
+  Value<int> dimension,
+  Value<Uint8List> vector,
+  Value<String> sourceChecksum,
+  Value<DateTime> createdAt,
+});
+
+final class $$EmbeddingsTableReferences
+    extends BaseReferences<_$AppDatabase, $EmbeddingsTable, EmbeddingRow> {
+  $$EmbeddingsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $MemoryChunksTable _chunkIdTable(_$AppDatabase db) =>
+      db.memoryChunks.createAlias('embeddings__chunk_id__memory_chunks__id');
+
+  $$MemoryChunksTableProcessedTableManager get chunkId {
+    final $_column = $_itemColumn<int>('chunk_id')!;
+
+    final manager = $$MemoryChunksTableTableManager(
+      $_db,
+      $_db.memoryChunks,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_chunkIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $ScreenshotsTable _memoryIdTable(_$AppDatabase db) =>
+      db.screenshots.createAlias('embeddings__memory_id__screenshots__id');
+
+  $$ScreenshotsTableProcessedTableManager get memoryId {
+    final $_column = $_itemColumn<int>('memory_id')!;
+
+    final manager = $$ScreenshotsTableTableManager(
+      $_db,
+      $_db.screenshots,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_memoryIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$EmbeddingsTableFilterComposer
+    extends Composer<_$AppDatabase, $EmbeddingsTable> {
+  $$EmbeddingsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get modelId => $composableBuilder(
+    column: $table.modelId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get modelVersion => $composableBuilder(
+    column: $table.modelVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get spaceId => $composableBuilder(
+    column: $table.spaceId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get dimension => $composableBuilder(
+    column: $table.dimension,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<Uint8List> get vector => $composableBuilder(
+    column: $table.vector,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get sourceChecksum => $composableBuilder(
+    column: $table.sourceChecksum,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$MemoryChunksTableFilterComposer get chunkId {
+    final $$MemoryChunksTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.chunkId,
+      referencedTable: $db.memoryChunks,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MemoryChunksTableFilterComposer(
+            $db: $db,
+            $table: $db.memoryChunks,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ScreenshotsTableFilterComposer get memoryId {
+    final $$ScreenshotsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.memoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableFilterComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$EmbeddingsTableOrderingComposer
+    extends Composer<_$AppDatabase, $EmbeddingsTable> {
+  $$EmbeddingsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get modelId => $composableBuilder(
+    column: $table.modelId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get modelVersion => $composableBuilder(
+    column: $table.modelVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get spaceId => $composableBuilder(
+    column: $table.spaceId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get dimension => $composableBuilder(
+    column: $table.dimension,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<Uint8List> get vector => $composableBuilder(
+    column: $table.vector,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sourceChecksum => $composableBuilder(
+    column: $table.sourceChecksum,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$MemoryChunksTableOrderingComposer get chunkId {
+    final $$MemoryChunksTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.chunkId,
+      referencedTable: $db.memoryChunks,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MemoryChunksTableOrderingComposer(
+            $db: $db,
+            $table: $db.memoryChunks,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ScreenshotsTableOrderingComposer get memoryId {
+    final $$ScreenshotsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.memoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableOrderingComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$EmbeddingsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $EmbeddingsTable> {
+  $$EmbeddingsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get modelId =>
+      $composableBuilder(column: $table.modelId, builder: (column) => column);
+
+  GeneratedColumn<String> get modelVersion => $composableBuilder(
+    column: $table.modelVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get spaceId =>
+      $composableBuilder(column: $table.spaceId, builder: (column) => column);
+
+  GeneratedColumn<int> get dimension =>
+      $composableBuilder(column: $table.dimension, builder: (column) => column);
+
+  GeneratedColumn<Uint8List> get vector =>
+      $composableBuilder(column: $table.vector, builder: (column) => column);
+
+  GeneratedColumn<String> get sourceChecksum => $composableBuilder(
+    column: $table.sourceChecksum,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$MemoryChunksTableAnnotationComposer get chunkId {
+    final $$MemoryChunksTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.chunkId,
+      referencedTable: $db.memoryChunks,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MemoryChunksTableAnnotationComposer(
+            $db: $db,
+            $table: $db.memoryChunks,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ScreenshotsTableAnnotationComposer get memoryId {
+    final $$ScreenshotsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.memoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$EmbeddingsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $EmbeddingsTable,
+          EmbeddingRow,
+          $$EmbeddingsTableFilterComposer,
+          $$EmbeddingsTableOrderingComposer,
+          $$EmbeddingsTableAnnotationComposer,
+          $$EmbeddingsTableCreateCompanionBuilder,
+          $$EmbeddingsTableUpdateCompanionBuilder,
+          (EmbeddingRow, $$EmbeddingsTableReferences),
+          EmbeddingRow,
+          PrefetchHooks Function({bool chunkId, bool memoryId})
+        > {
+  $$EmbeddingsTableTableManager(_$AppDatabase db, $EmbeddingsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$EmbeddingsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$EmbeddingsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$EmbeddingsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> chunkId = const Value.absent(),
+                Value<int> memoryId = const Value.absent(),
+                Value<String> modelId = const Value.absent(),
+                Value<String> modelVersion = const Value.absent(),
+                Value<String> spaceId = const Value.absent(),
+                Value<int> dimension = const Value.absent(),
+                Value<Uint8List> vector = const Value.absent(),
+                Value<String> sourceChecksum = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => EmbeddingsCompanion(
+                id: id,
+                chunkId: chunkId,
+                memoryId: memoryId,
+                modelId: modelId,
+                modelVersion: modelVersion,
+                spaceId: spaceId,
+                dimension: dimension,
+                vector: vector,
+                sourceChecksum: sourceChecksum,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int chunkId,
+                required int memoryId,
+                required String modelId,
+                required String modelVersion,
+                required String spaceId,
+                required int dimension,
+                required Uint8List vector,
+                required String sourceChecksum,
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => EmbeddingsCompanion.insert(
+                id: id,
+                chunkId: chunkId,
+                memoryId: memoryId,
+                modelId: modelId,
+                modelVersion: modelVersion,
+                spaceId: spaceId,
+                dimension: dimension,
+                vector: vector,
+                sourceChecksum: sourceChecksum,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$EmbeddingsTable, EmbeddingRow>(table),
+                  $$EmbeddingsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({chunkId = false, memoryId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (chunkId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.chunkId,
+                        referencedTable: $$EmbeddingsTableReferences
+                            ._chunkIdTable(db),
+                        referencedColumn: $$EmbeddingsTableReferences
+                            ._chunkIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+                    if (memoryId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.memoryId,
+                        referencedTable: $$EmbeddingsTableReferences
+                            ._memoryIdTable(db),
+                        referencedColumn: $$EmbeddingsTableReferences
+                            ._memoryIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$EmbeddingsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $EmbeddingsTable,
+      EmbeddingRow,
+      $$EmbeddingsTableFilterComposer,
+      $$EmbeddingsTableOrderingComposer,
+      $$EmbeddingsTableAnnotationComposer,
+      $$EmbeddingsTableCreateCompanionBuilder,
+      $$EmbeddingsTableUpdateCompanionBuilder,
+      (EmbeddingRow, $$EmbeddingsTableReferences),
+      EmbeddingRow,
+      PrefetchHooks Function({bool chunkId, bool memoryId})
+    >;
+typedef $$SpacesTableCreateCompanionBuilder = SpacesCompanion Function({
+  Value<int> id,
+  required String title,
+  Value<String?> description,
+  required String icon,
+  required int color,
+  Value<int?> coverMemoryId,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+});
+typedef $$SpacesTableUpdateCompanionBuilder = SpacesCompanion Function({
+  Value<int> id,
+  Value<String> title,
+  Value<String?> description,
+  Value<String> icon,
+  Value<int> color,
+  Value<int?> coverMemoryId,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+});
+
+final class $$SpacesTableReferences
+    extends BaseReferences<_$AppDatabase, $SpacesTable, SpaceRow> {
+  $$SpacesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $ScreenshotsTable _coverMemoryIdTable(_$AppDatabase db) =>
+      db.screenshots.createAlias('spaces__cover_memory_id__screenshots__id');
+
+  $$ScreenshotsTableProcessedTableManager? get coverMemoryId {
+    final $_column = $_itemColumn<int>('cover_memory_id');
+    if ($_column == null) return null;
+    final manager = $$ScreenshotsTableTableManager(
+      $_db,
+      $_db.screenshots,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_coverMemoryIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$SpaceMembershipsTable, List<SpaceMembershipRow>>
+  _spaceMembershipsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.spaceMemberships,
+    aliasName: 'spaces__id__space_memberships__space_id',
+  );
+
+  $$SpaceMembershipsTableProcessedTableManager get spaceMembershipsRefs {
+    final manager = $$SpaceMembershipsTableTableManager(
+      $_db,
+      $_db.spaceMemberships,
+    ).filter((f) => f.spaceId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _spaceMembershipsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$SpacesTableFilterComposer
+    extends Composer<_$AppDatabase, $SpacesTable> {
+  $$SpacesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get icon => $composableBuilder(
+    column: $table.icon,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get color => $composableBuilder(
+    column: $table.color,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ScreenshotsTableFilterComposer get coverMemoryId {
+    final $$ScreenshotsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.coverMemoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableFilterComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> spaceMembershipsRefs(
+    Expression<bool> Function($$SpaceMembershipsTableFilterComposer f) f,
+  ) {
+    final $$SpaceMembershipsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.spaceMemberships,
+      getReferencedColumn: (t) => t.spaceId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SpaceMembershipsTableFilterComposer(
+            $db: $db,
+            $table: $db.spaceMemberships,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$SpacesTableOrderingComposer
+    extends Composer<_$AppDatabase, $SpacesTable> {
+  $$SpacesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get title => $composableBuilder(
+    column: $table.title,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get icon => $composableBuilder(
+    column: $table.icon,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get color => $composableBuilder(
+    column: $table.color,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ScreenshotsTableOrderingComposer get coverMemoryId {
+    final $$ScreenshotsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.coverMemoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableOrderingComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SpacesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SpacesTable> {
+  $$SpacesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get icon =>
+      $composableBuilder(column: $table.icon, builder: (column) => column);
+
+  GeneratedColumn<int> get color =>
+      $composableBuilder(column: $table.color, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  $$ScreenshotsTableAnnotationComposer get coverMemoryId {
+    final $$ScreenshotsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.coverMemoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> spaceMembershipsRefs<T extends Object>(
+    Expression<T> Function($$SpaceMembershipsTableAnnotationComposer a) f,
+  ) {
+    final $$SpaceMembershipsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.spaceMemberships,
+      getReferencedColumn: (t) => t.spaceId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SpaceMembershipsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.spaceMemberships,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$SpacesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SpacesTable,
+          SpaceRow,
+          $$SpacesTableFilterComposer,
+          $$SpacesTableOrderingComposer,
+          $$SpacesTableAnnotationComposer,
+          $$SpacesTableCreateCompanionBuilder,
+          $$SpacesTableUpdateCompanionBuilder,
+          (SpaceRow, $$SpacesTableReferences),
+          SpaceRow,
+          PrefetchHooks Function({
+            bool coverMemoryId,
+            bool spaceMembershipsRefs,
+          })
+        > {
+  $$SpacesTableTableManager(_$AppDatabase db, $SpacesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SpacesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SpacesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SpacesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> title = const Value.absent(),
+                Value<String?> description = const Value.absent(),
+                Value<String> icon = const Value.absent(),
+                Value<int> color = const Value.absent(),
+                Value<int?> coverMemoryId = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => SpacesCompanion(
+                id: id,
+                title: title,
+                description: description,
+                icon: icon,
+                color: color,
+                coverMemoryId: coverMemoryId,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String title,
+                Value<String?> description = const Value.absent(),
+                required String icon,
+                required int color,
+                Value<int?> coverMemoryId = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => SpacesCompanion.insert(
+                id: id,
+                title: title,
+                description: description,
+                icon: icon,
+                color: color,
+                coverMemoryId: coverMemoryId,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SpacesTable, SpaceRow>(table),
+                  $$SpacesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({coverMemoryId = false, spaceMembershipsRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (spaceMembershipsRefs) db.spaceMemberships,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (coverMemoryId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.coverMemoryId,
+                            referencedTable: $$SpacesTableReferences
+                                ._coverMemoryIdTable(db),
+                            referencedColumn: $$SpacesTableReferences
+                                ._coverMemoryIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (spaceMembershipsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          SpaceRow,
+                          $SpacesTable,
+                          SpaceMembershipRow,
+                          $SpaceMembershipsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$SpacesTableReferences
+                              ._spaceMembershipsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$SpacesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).spaceMembershipsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'space_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$SpacesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SpacesTable,
+      SpaceRow,
+      $$SpacesTableFilterComposer,
+      $$SpacesTableOrderingComposer,
+      $$SpacesTableAnnotationComposer,
+      $$SpacesTableCreateCompanionBuilder,
+      $$SpacesTableUpdateCompanionBuilder,
+      (SpaceRow, $$SpacesTableReferences),
+      SpaceRow,
+      PrefetchHooks Function({bool coverMemoryId, bool spaceMembershipsRefs})
+    >;
+typedef $$SpaceMembershipsTableCreateCompanionBuilder =
+    SpaceMembershipsCompanion Function({
+      required int spaceId,
+      required int memoryId,
+      required String source,
+      Value<DateTime> addedAt,
+      Value<int> rowid,
+    });
+typedef $$SpaceMembershipsTableUpdateCompanionBuilder =
+    SpaceMembershipsCompanion Function({
+      Value<int> spaceId,
+      Value<int> memoryId,
+      Value<String> source,
+      Value<DateTime> addedAt,
+      Value<int> rowid,
+    });
+
+final class $$SpaceMembershipsTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $SpaceMembershipsTable,
+          SpaceMembershipRow
+        > {
+  $$SpaceMembershipsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $SpacesTable _spaceIdTable(_$AppDatabase db) =>
+      db.spaces.createAlias('space_memberships__space_id__spaces__id');
+
+  $$SpacesTableProcessedTableManager get spaceId {
+    final $_column = $_itemColumn<int>('space_id')!;
+
+    final manager = $$SpacesTableTableManager(
+      $_db,
+      $_db.spaces,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_spaceIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $ScreenshotsTable _memoryIdTable(_$AppDatabase db) => db.screenshots
+      .createAlias('space_memberships__memory_id__screenshots__id');
+
+  $$ScreenshotsTableProcessedTableManager get memoryId {
+    final $_column = $_itemColumn<int>('memory_id')!;
+
+    final manager = $$ScreenshotsTableTableManager(
+      $_db,
+      $_db.screenshots,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_memoryIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$SpaceMembershipsTableFilterComposer
+    extends Composer<_$AppDatabase, $SpaceMembershipsTable> {
+  $$SpaceMembershipsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get source => $composableBuilder(
+    column: $table.source,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get addedAt => $composableBuilder(
+    column: $table.addedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$SpacesTableFilterComposer get spaceId {
+    final $$SpacesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.spaceId,
+      referencedTable: $db.spaces,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SpacesTableFilterComposer(
+            $db: $db,
+            $table: $db.spaces,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ScreenshotsTableFilterComposer get memoryId {
+    final $$ScreenshotsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.memoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableFilterComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SpaceMembershipsTableOrderingComposer
+    extends Composer<_$AppDatabase, $SpaceMembershipsTable> {
+  $$SpaceMembershipsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get source => $composableBuilder(
+    column: $table.source,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get addedAt => $composableBuilder(
+    column: $table.addedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$SpacesTableOrderingComposer get spaceId {
+    final $$SpacesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.spaceId,
+      referencedTable: $db.spaces,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SpacesTableOrderingComposer(
+            $db: $db,
+            $table: $db.spaces,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ScreenshotsTableOrderingComposer get memoryId {
+    final $$ScreenshotsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.memoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableOrderingComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SpaceMembershipsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SpaceMembershipsTable> {
+  $$SpaceMembershipsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get source =>
+      $composableBuilder(column: $table.source, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get addedAt =>
+      $composableBuilder(column: $table.addedAt, builder: (column) => column);
+
+  $$SpacesTableAnnotationComposer get spaceId {
+    final $$SpacesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.spaceId,
+      referencedTable: $db.spaces,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SpacesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.spaces,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ScreenshotsTableAnnotationComposer get memoryId {
+    final $$ScreenshotsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.memoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SpaceMembershipsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SpaceMembershipsTable,
+          SpaceMembershipRow,
+          $$SpaceMembershipsTableFilterComposer,
+          $$SpaceMembershipsTableOrderingComposer,
+          $$SpaceMembershipsTableAnnotationComposer,
+          $$SpaceMembershipsTableCreateCompanionBuilder,
+          $$SpaceMembershipsTableUpdateCompanionBuilder,
+          (SpaceMembershipRow, $$SpaceMembershipsTableReferences),
+          SpaceMembershipRow,
+          PrefetchHooks Function({bool spaceId, bool memoryId})
+        > {
+  $$SpaceMembershipsTableTableManager(
+    _$AppDatabase db,
+    $SpaceMembershipsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SpaceMembershipsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SpaceMembershipsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SpaceMembershipsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> spaceId = const Value.absent(),
+                Value<int> memoryId = const Value.absent(),
+                Value<String> source = const Value.absent(),
+                Value<DateTime> addedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SpaceMembershipsCompanion(
+                spaceId: spaceId,
+                memoryId: memoryId,
+                source: source,
+                addedAt: addedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required int spaceId,
+                required int memoryId,
+                required String source,
+                Value<DateTime> addedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SpaceMembershipsCompanion.insert(
+                spaceId: spaceId,
+                memoryId: memoryId,
+                source: source,
+                addedAt: addedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SpaceMembershipsTable, SpaceMembershipRow>(
+                    table,
+                  ),
+                  $$SpaceMembershipsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({spaceId = false, memoryId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (spaceId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.spaceId,
+                        referencedTable: $$SpaceMembershipsTableReferences
+                            ._spaceIdTable(db),
+                        referencedColumn: $$SpaceMembershipsTableReferences
+                            ._spaceIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+                    if (memoryId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.memoryId,
+                        referencedTable: $$SpaceMembershipsTableReferences
+                            ._memoryIdTable(db),
+                        referencedColumn: $$SpaceMembershipsTableReferences
+                            ._memoryIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$SpaceMembershipsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SpaceMembershipsTable,
+      SpaceMembershipRow,
+      $$SpaceMembershipsTableFilterComposer,
+      $$SpaceMembershipsTableOrderingComposer,
+      $$SpaceMembershipsTableAnnotationComposer,
+      $$SpaceMembershipsTableCreateCompanionBuilder,
+      $$SpaceMembershipsTableUpdateCompanionBuilder,
+      (SpaceMembershipRow, $$SpaceMembershipsTableReferences),
+      SpaceMembershipRow,
+      PrefetchHooks Function({bool spaceId, bool memoryId})
+    >;
+typedef $$MemoryRelationshipsTableCreateCompanionBuilder =
+    MemoryRelationshipsCompanion Function({
+      Value<int> id,
+      required int sourceMemoryId,
+      required int targetMemoryId,
+      required RelationshipType relationshipType,
+      Value<double?> score,
+      required String provenance,
+      required String method,
+      Value<bool> confirmed,
+      Value<DateTime> createdAt,
+    });
+typedef $$MemoryRelationshipsTableUpdateCompanionBuilder =
+    MemoryRelationshipsCompanion Function({
+      Value<int> id,
+      Value<int> sourceMemoryId,
+      Value<int> targetMemoryId,
+      Value<RelationshipType> relationshipType,
+      Value<double?> score,
+      Value<String> provenance,
+      Value<String> method,
+      Value<bool> confirmed,
+      Value<DateTime> createdAt,
+    });
+
+final class $$MemoryRelationshipsTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $MemoryRelationshipsTable,
+          MemoryRelationshipRow
+        > {
+  $$MemoryRelationshipsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $ScreenshotsTable _sourceMemoryIdTable(_$AppDatabase db) => db
+      .screenshots
+      .createAlias('memory_relationships__source_memory_id__screenshots__id');
+
+  $$ScreenshotsTableProcessedTableManager get sourceMemoryId {
+    final $_column = $_itemColumn<int>('source_memory_id')!;
+
+    final manager = $$ScreenshotsTableTableManager(
+      $_db,
+      $_db.screenshots,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_sourceMemoryIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $ScreenshotsTable _targetMemoryIdTable(_$AppDatabase db) => db
+      .screenshots
+      .createAlias('memory_relationships__target_memory_id__screenshots__id');
+
+  $$ScreenshotsTableProcessedTableManager get targetMemoryId {
+    final $_column = $_itemColumn<int>('target_memory_id')!;
+
+    final manager = $$ScreenshotsTableTableManager(
+      $_db,
+      $_db.screenshots,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_targetMemoryIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$MemoryRelationshipsTableFilterComposer
+    extends Composer<_$AppDatabase, $MemoryRelationshipsTable> {
+  $$MemoryRelationshipsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<RelationshipType, RelationshipType, String>
+  get relationshipType => $composableBuilder(
+    column: $table.relationshipType,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnFilters<double> get score => $composableBuilder(
+    column: $table.score,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get provenance => $composableBuilder(
+    column: $table.provenance,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get method => $composableBuilder(
+    column: $table.method,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get confirmed => $composableBuilder(
+    column: $table.confirmed,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ScreenshotsTableFilterComposer get sourceMemoryId {
+    final $$ScreenshotsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.sourceMemoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableFilterComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ScreenshotsTableFilterComposer get targetMemoryId {
+    final $$ScreenshotsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.targetMemoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableFilterComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MemoryRelationshipsTableOrderingComposer
+    extends Composer<_$AppDatabase, $MemoryRelationshipsTable> {
+  $$MemoryRelationshipsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get relationshipType => $composableBuilder(
+    column: $table.relationshipType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get score => $composableBuilder(
+    column: $table.score,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get provenance => $composableBuilder(
+    column: $table.provenance,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get method => $composableBuilder(
+    column: $table.method,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get confirmed => $composableBuilder(
+    column: $table.confirmed,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ScreenshotsTableOrderingComposer get sourceMemoryId {
+    final $$ScreenshotsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.sourceMemoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableOrderingComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ScreenshotsTableOrderingComposer get targetMemoryId {
+    final $$ScreenshotsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.targetMemoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableOrderingComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MemoryRelationshipsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $MemoryRelationshipsTable> {
+  $$MemoryRelationshipsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<RelationshipType, String>
+  get relationshipType => $composableBuilder(
+    column: $table.relationshipType,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get score =>
+      $composableBuilder(column: $table.score, builder: (column) => column);
+
+  GeneratedColumn<String> get provenance => $composableBuilder(
+    column: $table.provenance,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get method =>
+      $composableBuilder(column: $table.method, builder: (column) => column);
+
+  GeneratedColumn<bool> get confirmed =>
+      $composableBuilder(column: $table.confirmed, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$ScreenshotsTableAnnotationComposer get sourceMemoryId {
+    final $$ScreenshotsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.sourceMemoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ScreenshotsTableAnnotationComposer get targetMemoryId {
+    final $$ScreenshotsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.targetMemoryId,
+      referencedTable: $db.screenshots,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ScreenshotsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.screenshots,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$MemoryRelationshipsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $MemoryRelationshipsTable,
+          MemoryRelationshipRow,
+          $$MemoryRelationshipsTableFilterComposer,
+          $$MemoryRelationshipsTableOrderingComposer,
+          $$MemoryRelationshipsTableAnnotationComposer,
+          $$MemoryRelationshipsTableCreateCompanionBuilder,
+          $$MemoryRelationshipsTableUpdateCompanionBuilder,
+          (MemoryRelationshipRow, $$MemoryRelationshipsTableReferences),
+          MemoryRelationshipRow,
+          PrefetchHooks Function({bool sourceMemoryId, bool targetMemoryId})
+        > {
+  $$MemoryRelationshipsTableTableManager(
+    _$AppDatabase db,
+    $MemoryRelationshipsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$MemoryRelationshipsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$MemoryRelationshipsTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$MemoryRelationshipsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> sourceMemoryId = const Value.absent(),
+                Value<int> targetMemoryId = const Value.absent(),
+                Value<RelationshipType> relationshipType = const Value.absent(),
+                Value<double?> score = const Value.absent(),
+                Value<String> provenance = const Value.absent(),
+                Value<String> method = const Value.absent(),
+                Value<bool> confirmed = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => MemoryRelationshipsCompanion(
+                id: id,
+                sourceMemoryId: sourceMemoryId,
+                targetMemoryId: targetMemoryId,
+                relationshipType: relationshipType,
+                score: score,
+                provenance: provenance,
+                method: method,
+                confirmed: confirmed,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int sourceMemoryId,
+                required int targetMemoryId,
+                required RelationshipType relationshipType,
+                Value<double?> score = const Value.absent(),
+                required String provenance,
+                required String method,
+                Value<bool> confirmed = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => MemoryRelationshipsCompanion.insert(
+                id: id,
+                sourceMemoryId: sourceMemoryId,
+                targetMemoryId: targetMemoryId,
+                relationshipType: relationshipType,
+                score: score,
+                provenance: provenance,
+                method: method,
+                confirmed: confirmed,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$MemoryRelationshipsTable, MemoryRelationshipRow>(
+                    table,
+                  ),
+                  $$MemoryRelationshipsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({sourceMemoryId = false, targetMemoryId = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (sourceMemoryId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.sourceMemoryId,
+                            referencedTable:
+                                $$MemoryRelationshipsTableReferences
+                                    ._sourceMemoryIdTable(db),
+                            referencedColumn:
+                                $$MemoryRelationshipsTableReferences
+                                    ._sourceMemoryIdTable(db)
+                                    .id,
+                          ) as T;
+                        }
+                        if (targetMemoryId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.targetMemoryId,
+                            referencedTable:
+                                $$MemoryRelationshipsTableReferences
+                                    ._targetMemoryIdTable(db),
+                            referencedColumn:
+                                $$MemoryRelationshipsTableReferences
+                                    ._targetMemoryIdTable(db)
+                                    .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$MemoryRelationshipsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $MemoryRelationshipsTable,
+      MemoryRelationshipRow,
+      $$MemoryRelationshipsTableFilterComposer,
+      $$MemoryRelationshipsTableOrderingComposer,
+      $$MemoryRelationshipsTableAnnotationComposer,
+      $$MemoryRelationshipsTableCreateCompanionBuilder,
+      $$MemoryRelationshipsTableUpdateCompanionBuilder,
+      (MemoryRelationshipRow, $$MemoryRelationshipsTableReferences),
+      MemoryRelationshipRow,
+      PrefetchHooks Function({bool sourceMemoryId, bool targetMemoryId})
+    >;
+typedef $$ModelRegistryTableCreateCompanionBuilder =
+    ModelRegistryCompanion Function({
+      required String modelId,
+      required String modelType,
+      required String version,
+      Value<String?> path,
+      required ModelInstallState installState,
+      required String sha256,
+      required int sizeBytes,
+      required String license,
+      Value<String?> embeddingSpaceId,
+      Value<DateTime?> installedAt,
+      Value<int> rowid,
+    });
+typedef $$ModelRegistryTableUpdateCompanionBuilder =
+    ModelRegistryCompanion Function({
+      Value<String> modelId,
+      Value<String> modelType,
+      Value<String> version,
+      Value<String?> path,
+      Value<ModelInstallState> installState,
+      Value<String> sha256,
+      Value<int> sizeBytes,
+      Value<String> license,
+      Value<String?> embeddingSpaceId,
+      Value<DateTime?> installedAt,
+      Value<int> rowid,
+    });
+
+class $$ModelRegistryTableFilterComposer
+    extends Composer<_$AppDatabase, $ModelRegistryTable> {
+  $$ModelRegistryTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get modelId => $composableBuilder(
+    column: $table.modelId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get modelType => $composableBuilder(
+    column: $table.modelType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get path => $composableBuilder(
+    column: $table.path,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<ModelInstallState, ModelInstallState, String>
+  get installState => $composableBuilder(
+    column: $table.installState,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
+  );
+
+  ColumnFilters<String> get sha256 => $composableBuilder(
+    column: $table.sha256,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get sizeBytes => $composableBuilder(
+    column: $table.sizeBytes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get license => $composableBuilder(
+    column: $table.license,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get embeddingSpaceId => $composableBuilder(
+    column: $table.embeddingSpaceId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get installedAt => $composableBuilder(
+    column: $table.installedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ModelRegistryTableOrderingComposer
+    extends Composer<_$AppDatabase, $ModelRegistryTable> {
+  $$ModelRegistryTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get modelId => $composableBuilder(
+    column: $table.modelId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get modelType => $composableBuilder(
+    column: $table.modelType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get path => $composableBuilder(
+    column: $table.path,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get installState => $composableBuilder(
+    column: $table.installState,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sha256 => $composableBuilder(
+    column: $table.sha256,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get sizeBytes => $composableBuilder(
+    column: $table.sizeBytes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get license => $composableBuilder(
+    column: $table.license,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get embeddingSpaceId => $composableBuilder(
+    column: $table.embeddingSpaceId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get installedAt => $composableBuilder(
+    column: $table.installedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ModelRegistryTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ModelRegistryTable> {
+  $$ModelRegistryTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get modelId =>
+      $composableBuilder(column: $table.modelId, builder: (column) => column);
+
+  GeneratedColumn<String> get modelType =>
+      $composableBuilder(column: $table.modelType, builder: (column) => column);
+
+  GeneratedColumn<String> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumn<String> get path =>
+      $composableBuilder(column: $table.path, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<ModelInstallState, String>
+  get installState => $composableBuilder(
+    column: $table.installState,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get sha256 =>
+      $composableBuilder(column: $table.sha256, builder: (column) => column);
+
+  GeneratedColumn<int> get sizeBytes =>
+      $composableBuilder(column: $table.sizeBytes, builder: (column) => column);
+
+  GeneratedColumn<String> get license =>
+      $composableBuilder(column: $table.license, builder: (column) => column);
+
+  GeneratedColumn<String> get embeddingSpaceId => $composableBuilder(
+    column: $table.embeddingSpaceId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get installedAt => $composableBuilder(
+    column: $table.installedAt,
+    builder: (column) => column,
+  );
+}
+
+class $$ModelRegistryTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ModelRegistryTable,
+          ModelRegistryRow,
+          $$ModelRegistryTableFilterComposer,
+          $$ModelRegistryTableOrderingComposer,
+          $$ModelRegistryTableAnnotationComposer,
+          $$ModelRegistryTableCreateCompanionBuilder,
+          $$ModelRegistryTableUpdateCompanionBuilder,
+          (
+            ModelRegistryRow,
+            BaseReferences<
+              _$AppDatabase,
+              $ModelRegistryTable,
+              ModelRegistryRow
+            >,
+          ),
+          ModelRegistryRow,
+          PrefetchHooks Function()
+        > {
+  $$ModelRegistryTableTableManager(_$AppDatabase db, $ModelRegistryTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ModelRegistryTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ModelRegistryTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ModelRegistryTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> modelId = const Value.absent(),
+                Value<String> modelType = const Value.absent(),
+                Value<String> version = const Value.absent(),
+                Value<String?> path = const Value.absent(),
+                Value<ModelInstallState> installState = const Value.absent(),
+                Value<String> sha256 = const Value.absent(),
+                Value<int> sizeBytes = const Value.absent(),
+                Value<String> license = const Value.absent(),
+                Value<String?> embeddingSpaceId = const Value.absent(),
+                Value<DateTime?> installedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ModelRegistryCompanion(
+                modelId: modelId,
+                modelType: modelType,
+                version: version,
+                path: path,
+                installState: installState,
+                sha256: sha256,
+                sizeBytes: sizeBytes,
+                license: license,
+                embeddingSpaceId: embeddingSpaceId,
+                installedAt: installedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String modelId,
+                required String modelType,
+                required String version,
+                Value<String?> path = const Value.absent(),
+                required ModelInstallState installState,
+                required String sha256,
+                required int sizeBytes,
+                required String license,
+                Value<String?> embeddingSpaceId = const Value.absent(),
+                Value<DateTime?> installedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ModelRegistryCompanion.insert(
+                modelId: modelId,
+                modelType: modelType,
+                version: version,
+                path: path,
+                installState: installState,
+                sha256: sha256,
+                sizeBytes: sizeBytes,
+                license: license,
+                embeddingSpaceId: embeddingSpaceId,
+                installedAt: installedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$ModelRegistryTable, ModelRegistryRow>(table),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $ModelRegistryTable,
+                    ModelRegistryRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ModelRegistryTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ModelRegistryTable,
+      ModelRegistryRow,
+      $$ModelRegistryTableFilterComposer,
+      $$ModelRegistryTableOrderingComposer,
+      $$ModelRegistryTableAnnotationComposer,
+      $$ModelRegistryTableCreateCompanionBuilder,
+      $$ModelRegistryTableUpdateCompanionBuilder,
+      (
+        ModelRegistryRow,
+        BaseReferences<_$AppDatabase, $ModelRegistryTable, ModelRegistryRow>,
+      ),
+      ModelRegistryRow,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -15132,4 +22537,16 @@ class $AppDatabaseManager {
       $$AppSettingsTableTableManager(_db, _db.appSettings);
   $$ClassificationRulesTableTableManager get classificationRules =>
       $$ClassificationRulesTableTableManager(_db, _db.classificationRules);
+  $$MemoryChunksTableTableManager get memoryChunks =>
+      $$MemoryChunksTableTableManager(_db, _db.memoryChunks);
+  $$EmbeddingsTableTableManager get embeddings =>
+      $$EmbeddingsTableTableManager(_db, _db.embeddings);
+  $$SpacesTableTableManager get spaces =>
+      $$SpacesTableTableManager(_db, _db.spaces);
+  $$SpaceMembershipsTableTableManager get spaceMemberships =>
+      $$SpaceMembershipsTableTableManager(_db, _db.spaceMemberships);
+  $$MemoryRelationshipsTableTableManager get memoryRelationships =>
+      $$MemoryRelationshipsTableTableManager(_db, _db.memoryRelationships);
+  $$ModelRegistryTableTableManager get modelRegistry =>
+      $$ModelRegistryTableTableManager(_db, _db.modelRegistry);
 }

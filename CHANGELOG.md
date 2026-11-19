@@ -68,6 +68,14 @@ First complete version, built in phases (see TASKS.md).
   selected chips use ink on lime in both themes; snack bars with an action
   close after 6 seconds unless a screen reader is on.
 
+### Memory foundation (RecallOS phase 1)
+- Database schema 3: every item is now a "memory" with a type (screenshots
+  today; images, documents, notes and links next), plus empty tables for
+  text chunks, embeddings, Spaces, relationships and on-device models.
+  Existing data is upgraded in place inside one transaction, checked
+  before commit, and a copy of the old database is kept for three starts.
+- Backup format 3. Backups from earlier versions still restore.
+
 ### Name
 - Renamed again, to **Mindtiq** (19 November 2026): the app is growing from
   screenshots into a private memory for documents, notes and more, and

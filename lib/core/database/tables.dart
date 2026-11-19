@@ -69,6 +69,20 @@ class Screenshots extends Table {
   IntColumn get imageHeight => integer().nullable()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  // Schema 3: every row is a "memory" (docs/MIGRATION_PLAN.md). The SQL
+  // table keeps its name so ids and foreign keys stay where they are.
+  TextColumn get memoryType => textEnum<MemoryType>().withDefault(
+    Constant(MemoryType.screenshot.name),
+  )();
+  TextColumn get mimeType => text().nullable()();
+  TextColumn get description => text().nullable()();
+  TextColumn get sourceUrl => text().nullable()();
+  IntColumn get pageCount => integer().nullable()();
+  IntColumn get durationMs => integer().nullable()();
+
+  /// An event date the user confirmed, for the timeline. Never guessed.
+  DateTimeColumn get eventAt => dateTime().nullable()();
 }
 
 @DataClassName('OcrResultRow')
@@ -230,6 +244,11 @@ class ProcessingJobs extends Table {
   TextColumn get errorMessage => text().nullable()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+
+  // Schema 3: long jobs (PDF pages, embeddings) report progress and resume.
+  IntColumn get priority => integer().withDefault(const Constant(0))();
+  RealColumn get progress => real().nullable()();
+  TextColumn get checkpointJson => text().nullable()();
 }
 
 @DataClassName('SearchHistoryRow')
@@ -257,4 +276,139 @@ class ClassificationRules extends Table {
   IntColumn get categoryId =>
       integer().references(Categories, #id, onDelete: KeyAction.cascade)();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+// ---------------------------------------------------------------------------
+// Schema 3 tables (RecallOS foundation). The migration creates them empty and
+// later phases fill them. Derived data (chunks, embeddings, relationships)
+// is not exported in backups; it is rebuilt after a restore.
+
+/// A memory's text split for retrieval, with its position in the source.
+@DataClassName('MemoryChunkRow')
+class MemoryChunks extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get memoryId =>
+      integer().references(Screenshots, #id, onDelete: KeyAction.cascade)();
+  IntColumn get chunkIndex => integer()();
+  TextColumn get textOriginal => text()();
+  TextColumn get textNormalized => text()();
+  IntColumn get page => integer().nullable()();
+  IntColumn get startMs => integer().nullable()();
+  IntColumn get endMs => integer().nullable()();
+  TextColumn get regionJson => text().nullable()();
+  IntColumn get tokenCount => integer().nullable()();
+
+  /// Hash of the text the chunk came from; a mismatch marks it stale.
+  TextColumn get sourceChecksum => text()();
+
+  @override
+  List<Set<Column<Object>>> get uniqueKeys => [
+    {memoryId, chunkIndex},
+  ];
+}
+
+/// One vector per chunk and model. Vectors from different `spaceId`s are
+/// never compared with each other.
+@DataClassName('EmbeddingRow')
+@TableIndex(name: 'idx_embeddings_memory', columns: {#memoryId})
+@TableIndex(name: 'idx_embeddings_space', columns: {#spaceId})
+class Embeddings extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get chunkId =>
+      integer().references(MemoryChunks, #id, onDelete: KeyAction.cascade)();
+  IntColumn get memoryId =>
+      integer().references(Screenshots, #id, onDelete: KeyAction.cascade)();
+  TextColumn get modelId => text()();
+  TextColumn get modelVersion => text()();
+  TextColumn get spaceId => text()();
+  IntColumn get dimension => integer()();
+
+  /// float32, little-endian.
+  BlobColumn get vector => blob()();
+  TextColumn get sourceChecksum => text()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  List<Set<Column<Object>>> get uniqueKeys => [
+    {chunkId, modelId, modelVersion},
+  ];
+}
+
+/// A project, goal or interest that groups memories.
+@DataClassName('SpaceRow')
+class Spaces extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get title => text().withLength(min: 1, max: 80)();
+  TextColumn get description => text().nullable()();
+  TextColumn get icon => text()();
+  IntColumn get color => integer()();
+  IntColumn get coverMemoryId => integer().nullable().references(
+    Screenshots,
+    #id,
+    onDelete: KeyAction.setNull,
+  )();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+}
+
+@DataClassName('SpaceMembershipRow')
+@TableIndex(name: 'idx_space_members_memory', columns: {#memoryId})
+class SpaceMemberships extends Table {
+  IntColumn get spaceId =>
+      integer().references(Spaces, #id, onDelete: KeyAction.cascade)();
+  IntColumn get memoryId =>
+      integer().references(Screenshots, #id, onDelete: KeyAction.cascade)();
+
+  /// `user` or `suggestion_confirmed`: nothing joins a Space silently.
+  TextColumn get source => text()();
+  DateTimeColumn get addedAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  Set<Column<Object>> get primaryKey => {spaceId, memoryId};
+}
+
+/// An explainable link between two memories.
+@DataClassName('MemoryRelationshipRow')
+@TableIndex(name: 'idx_relationships_target', columns: {#targetMemoryId})
+class MemoryRelationships extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  @ReferenceName('outgoingRelationships')
+  IntColumn get sourceMemoryId =>
+      integer().references(Screenshots, #id, onDelete: KeyAction.cascade)();
+  @ReferenceName('incomingRelationships')
+  IntColumn get targetMemoryId =>
+      integer().references(Screenshots, #id, onDelete: KeyAction.cascade)();
+  TextColumn get relationshipType => textEnum<RelationshipType>()();
+
+  /// Similarity or rule score; not a calibrated probability.
+  RealColumn get score => real().nullable()();
+
+  /// Why the link exists, shown to the user (e.g. "both mention LH1234").
+  TextColumn get provenance => text()();
+  TextColumn get method => text()();
+  BoolColumn get confirmed => boolean().withDefault(const Constant(false))();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+
+  @override
+  List<Set<Column<Object>>> get uniqueKeys => [
+    {sourceMemoryId, targetMemoryId, relationshipType},
+  ];
+}
+
+/// On-device models known to the Model Center.
+@DataClassName('ModelRegistryRow')
+class ModelRegistry extends Table {
+  TextColumn get modelId => text()();
+  TextColumn get modelType => text()();
+  TextColumn get version => text()();
+  TextColumn get path => text().nullable()();
+  TextColumn get installState => textEnum<ModelInstallState>()();
+  TextColumn get sha256 => text()();
+  IntColumn get sizeBytes => integer()();
+  TextColumn get license => text()();
+  TextColumn get embeddingSpaceId => text().nullable()();
+  DateTimeColumn get installedAt => dateTime().nullable()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {modelId, version};
 }
