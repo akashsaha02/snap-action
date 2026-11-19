@@ -9,6 +9,7 @@ import '../core/repositories/category_repository.dart';
 import '../core/repositories/organization_repository.dart';
 import '../core/repositories/screenshot_repository.dart';
 import '../core/repositories/search_repository.dart';
+import '../core/services/feature_flags.dart';
 import '../core/services/settings_repository.dart';
 import '../features/actions/application/action_repository.dart';
 import '../features/backup/application/backup_service.dart';
@@ -24,6 +25,11 @@ import '../services/platform/platform_service.dart';
 import '../services/processing/job_runner.dart';
 import '../services/search/search_indexer.dart';
 import 'bootstrap.dart';
+
+/// RecallOS experiments; all off unless switched on for this device.
+final featureFlagsProvider = Provider<FeatureFlags>(
+  (ref) => FeatureFlags(ref.watch(settingsRepositoryProvider)),
+);
 
 final screenshotRepositoryProvider = Provider<ScreenshotRepository>(
   (ref) => ScreenshotRepository(ref.watch(appDatabaseProvider)),

@@ -148,3 +148,24 @@ backup and device transfer.
   OCR and notification services; seeded before pumping.
 - `integration_test`: runs on a device or emulator, including airplane mode,
   and the large-library measurements reported in TEST_REPORT.md.
+
+## Next: RecallOS target architecture
+
+The planned evolution into a personal memory system keeps this structure
+and extends it rather than replacing it:
+
+- **Data:** the `screenshots` table is generalised in place into memories
+  (schema 3, `docs/MIGRATION_PLAN.md`), with new tables for chunks,
+  embeddings, Spaces, relationships and the model registry.
+- **Processing:** the durable job queue gains job types, priorities and
+  checkpoints, a WorkManager host for long work, and a background isolate
+  for CPU-heavy analysis.
+- **Intelligence:** an `EmbeddingService` interface with a native ONNX
+  Runtime implementation, chosen and gated by the evaluation in
+  `docs/MODEL_STRATEGY.md`. Keyword search (FTS5) stays as the always
+  available half of hybrid retrieval.
+- **Experiments** are gated by `FeatureFlag`s
+  (`lib/core/services/feature_flags.dart`), all off by default.
+
+Phases, gates and open owner decisions: `docs/IMPLEMENTATION_ROADMAP.md`,
+`docs/RECALLOS_PRODUCT_SPEC.md`, `docs/REPOSITORY_AUDIT.md`.

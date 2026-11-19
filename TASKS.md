@@ -125,6 +125,21 @@ screenshots on the emulator and on a phone; details in TEST_REPORT.md.
 - Size: per-ABI APKs (arm64 36.5 MB instead of 103.6 MB universal), fonts
   subset (1.67 MB to 0.72 MB), unused package removed.
 
+## RecallOS programme — Phase 0 (audit)
+
+Done 19 November 2026 (see `docs/`).
+
+- Baseline recorded: format clean, analyzer clean, 244 host tests pass,
+  release APKs build (arm64 37.0 MB).
+- `docs/REPOSITORY_AUDIT.md`, `docs/RECALLOS_PRODUCT_SPEC.md`,
+  `docs/MIGRATION_PLAN.md`, `docs/MODEL_STRATEGY.md`,
+  `docs/SECURITY_AND_PRIVACY.md`, `docs/IMPLEMENTATION_ROADMAP.md`;
+  `ARCHITECTURE.md` moved to `docs/`.
+- Feature flags (`FeatureFlag`, all off by default) with tests.
+- Waiting on the owner before Phase 1: product name, design tokens,
+  navigation, and whether model downloads may add the INTERNET permission
+  (open decisions in the product spec).
+
 ## Not in this version
 
 - iOS project, share extension and document picker.

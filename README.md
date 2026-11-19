@@ -106,8 +106,18 @@ illustrations). Image prompts for new artwork: [docs/BRAND_PROMPTS.md](docs/BRAN
 
 ## Project documents
 
-- [ARCHITECTURE.md](ARCHITECTURE.md): layers, data model, processing pipeline
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): layers, data model, processing pipeline
 - [TASKS.md](TASKS.md): phase-by-phase status
+
+Planning for the next stage (the "RecallOS" brief: a private personal memory
+system built on this app):
+
+- [docs/REPOSITORY_AUDIT.md](docs/REPOSITORY_AUDIT.md): what exists, verified baseline, gaps
+- [docs/RECALLOS_PRODUCT_SPEC.md](docs/RECALLOS_PRODUCT_SPEC.md): scope, acceptance criteria, open decisions
+- [docs/MIGRATION_PLAN.md](docs/MIGRATION_PLAN.md): schema 3, data preservation, recovery
+- [docs/MODEL_STRATEGY.md](docs/MODEL_STRATEGY.md): on-device model candidates and evaluation protocol
+- [docs/SECURITY_AND_PRIVACY.md](docs/SECURITY_AND_PRIVACY.md): threat model and controls
+- [docs/IMPLEMENTATION_ROADMAP.md](docs/IMPLEMENTATION_ROADMAP.md): phases and gates
 - [PRIVACY.md](PRIVACY.md): what is stored and why
 - [TEST_REPORT.md](TEST_REPORT.md): automated and device test results, measured timings
 - [CHANGELOG.md](CHANGELOG.md)
