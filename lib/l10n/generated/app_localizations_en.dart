@@ -10,7 +10,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appName => 'Snaptiq';
+  String get appName => 'Mindtiq';
 
   @override
   String get tagline =>
@@ -48,7 +48,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboarding1Body =>
-      'Snaptiq turns a cluttered camera roll into tidy, smart collections, from receipts to recipes.';
+      'Mindtiq turns a cluttered camera roll into tidy, smart collections, from receipts to recipes.';
 
   @override
   String get onboarding2Title => 'Searchable. And private.';
@@ -69,7 +69,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your screenshots stay on this device. Text recognition and organisation run offline.';
 
   @override
-  String get splashLoadError => 'Snaptiq could not open its local database.';
+  String get splashLoadError => 'Mindtiq could not open its local database.';
 
   @override
   String get retry => 'Try again';
@@ -94,7 +94,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emptyLibraryBody =>
-      'Import screenshots from your gallery or share them to Snaptiq from any app.';
+      'Import screenshots from your gallery or share them to Mindtiq from any app.';
 
   @override
   String get emptyCollectionsTitle => 'No collections yet';

@@ -1,6 +1,6 @@
 import 'package:material_ui/material_ui.dart';
 
-/// Snaptiq "Acid Pop" palette. Source of truth:
+/// Mindtiq "Acid Pop" palette. Source of truth:
 /// assets/icons/developer/snaptiq_tokens.json.
 abstract final class AppColors {
   // Brand

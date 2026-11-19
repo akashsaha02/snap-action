@@ -30,7 +30,7 @@ physical phone for the current build.
 
 | Item | Value | Note |
 | --- | --- | --- |
-| User-visible name | **Snaptiq** | chosen 2026-11-19; the brief proposes "RecallOS" (see open decisions) |
+| User-visible name | **Mindtiq** | renamed 2026-11-19 (was Snaptiq, originally SnapAction); "RecallOS" is the programme name |
 | Android package / applicationId | `com.snapaction.snapaction` | must not change: updates and data depend on it |
 | Dart package | `snapaction` | internal |
 | Database file | `snapaction.sqlite` (app-private) | internal |
@@ -110,7 +110,7 @@ Ordered by impact on the next phases.
 7. **Large files:** `screenshot_details_screen.dart` (about 900 lines) and
    `library_screen.dart` mix several concerns; split before adding PDF,
    audio and note variants.
-8. **Duplicated naming:** brand Snaptiq, internal identifiers snapaction,
+8. **Duplicated naming:** brand Mindtiq, internal identifiers snapaction,
    brief RecallOS. Harmless for users, confusing for contributors; this
    document fixes the rule (user-visible name only, never identifiers).
 
@@ -145,22 +145,12 @@ implies, with the open question for each:
 | Speech (V2) | whisper.cpp via native code | model size and speed on mid-range phones |
 | Local LLM (V2) | LiteRT-LM, or ML Kit GenAI (Gemini Nano) where available | device coverage and licence terms |
 
-## 9. Open decisions for the owner
+## 9. Owner decisions (resolved 19 November 2026)
 
-These conflict with decisions already made in this repository and are not
-changed without the owner's answer:
-
-1. **Name.** The brief says "RecallOS"; the app was renamed to Snaptiq on
-   2026-11-19 after a name search. Several unrelated "RecallOS" projects
-   exist (a Windows screen-recall tool, a hackathon audio app), and
-   "Recall" is a Microsoft Windows feature. Recommendation: keep Snaptiq
-   and use "RecallOS" as the internal programme name.
-2. **Design tokens.** The brief's palette (#635BFF violet, teal accent) is
-   the pre-brand SnapAction palette; the owner supplied and approved the
-   "Acid Pop" kit (acid lime, hot pink, volt violet). Recommendation: keep
-   Acid Pop.
-3. **Navigation.** The brief proposes Home / Memories / Recall /
-   Connections / Profile. Today: Home / Collections / Search / Reminders /
-   Settings. Recommendation: adopt the brief's structure in Phase 1,
-   keeping Reminders one tap away from Home and Collections inside
-   Memories, behind a feature flag until migration is proven.
+1. **Name:** the product is renamed **Mindtiq** (unique; keeps the "-tiq"
+   brand and the mascot). "RecallOS" stays the programme name.
+2. **Design tokens:** keep Acid Pop.
+3. **Navigation:** adopt the brief's structure behind the `newNavigation`
+   flag.
+4. **Models:** bundle one small embedding model for V1; no `INTERNET`
+   permission.

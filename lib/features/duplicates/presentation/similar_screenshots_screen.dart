@@ -72,7 +72,7 @@ class SimilarScreenshotsScreen extends ConsumerWidget {
       context,
       title: 'Delete this copy?',
       message:
-          'Only the copy stored in Snaptiq is deleted. Images in your gallery '
+          'Only the copy stored in Mindtiq is deleted. Images in your gallery '
           'are not affected.',
       confirmLabel: 'Delete',
       destructive: true,

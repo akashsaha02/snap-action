@@ -147,7 +147,7 @@ Future<void> restoreBackup(BuildContext context, WidgetRef ref) async {
   final path = picked.path;
   if (picked.error != null || path == null) {
     context.showSnack(switch (picked.error) {
-      'too_large' => 'That file is too large to be a Snaptiq backup.',
+      'too_large' => 'That file is too large to be a Mindtiq backup.',
       'no_space' => 'Not enough free space to read the backup.',
       _ => 'Could not read that file.',
     }, error: true);
@@ -166,7 +166,7 @@ Future<void> restoreBackup(BuildContext context, WidgetRef ref) async {
     return;
   } on Object {
     if (context.mounted) {
-      context.showSnack('This is not a valid Snaptiq backup.', error: true);
+      context.showSnack('This is not a valid Mindtiq backup.', error: true);
     }
     return;
   }
@@ -254,7 +254,7 @@ Future<void> deleteAllData(BuildContext context, WidgetRef ref) async {
     return;
   }
   ref.invalidate(storageUsageProvider);
-  if (context.mounted) context.showSnack('All Snaptiq data was deleted');
+  if (context.mounted) context.showSnack('All Mindtiq data was deleted');
 }
 
 /// Requires typing DELETE so the action can't be confirmed by accident.
@@ -279,14 +279,14 @@ class _DeleteAllDialogState extends State<_DeleteAllDialog> {
     final scheme = Theme.of(context).colorScheme;
     final armed = _controller.text.trim().toUpperCase() == 'DELETE';
     return AlertDialog(
-      title: const Text('Delete all Snaptiq data?'),
+      title: const Text('Delete all Mindtiq data?'),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'This permanently removes Snaptiq\'s copies of your screenshots and the text, '
+              'This permanently removes Mindtiq\'s copies of your screenshots and the text, '
               'details, collections, tags, notes, reminders and wishlist. It cannot be undone.\n\n'
               'The original screenshots in your gallery are not touched.\n\n'
               'Make a full backup first if you may want this later.',

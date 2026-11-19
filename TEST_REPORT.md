@@ -99,7 +99,7 @@ On the emulator, from a clean install:
   Reminders (notifications-off banner, all tabs at 0) and Settings, down to
   Storage ("database 220 KB") and Backup and export. No errors in logcat.
 
-The first launch of the first release APK showed "Snaptiq could not open
+The first launch of the first release APK showed "Mindtiq could not open
 its local database." With the startup error now logged, a reinstall that
 kept the app's data showed the cause: `index idx_screenshots_status already
 exists`. The first launch had stopped part-way through creating the schema.
@@ -132,8 +132,8 @@ Found and fixed during the walkthrough (each fix re-checked on the device):
 | Body text chosen as title | "Submit your report via…" | "Machine Learning - Assignment 3" |
 | Similar screenshots | two different receipts paired | only the re-taken product page |
 | Day-before reminder | 11:59 PM | default reminder time |
-| Notification | Flutter icon, no buttons | Snaptiq icon, Done and Snooze |
-| App icon | Flutter template | Snaptiq logo (adaptive, themed) |
+| Notification | Flutter icon, no buttons | Mindtiq icon, Done and Snooze |
+| App icon | Flutter template | Mindtiq logo (adaptive, themed) |
 
 Checked and working in the release build:
 

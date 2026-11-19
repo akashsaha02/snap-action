@@ -129,7 +129,7 @@ class PlatformService {
   }
 
   /// Hides the app's content in the recent-apps screen and blocks
-  /// screenshots of Snaptiq itself.
+  /// screenshots of Mindtiq itself.
   Future<void> setSecure({required bool secure}) async {
     try {
       await _channel.invokeMethod<bool>('setSecure', {'secure': secure});

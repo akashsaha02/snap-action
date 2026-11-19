@@ -1,6 +1,6 @@
 # Architecture
 
-Snaptiq is a single Flutter app with no backend. Everything (storage,
+Mindtiq is a single Flutter app with no backend. Everything (storage,
 text recognition, analysis, search, notifications) runs on the device.
 
 ## Layers
@@ -123,7 +123,7 @@ a restore) runs in a single transaction.
   fresh notification ids. A marker file lets the next start clean up after an
   interrupted restore.
 - **Delete all data** cancels notifications, clears every user table and
-  Snaptiq's private files, and keeps only theme, onboarding, app lock and
+  Mindtiq's private files, and keeps only theme, onboarding, app lock and
   hide-in-recents settings.
 
 ## Android integration

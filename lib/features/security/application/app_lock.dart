@@ -99,7 +99,7 @@ class AppLockController extends Notifier<AppLockState> {
     try {
       final outcome = await ref
           .read(deviceAuthenticatorProvider)
-          .authenticate('Unlock Snaptiq');
+          .authenticate('Unlock Mindtiq');
       switch (outcome) {
         case AuthOutcome.success:
           state = state.copyWith(locked: false);

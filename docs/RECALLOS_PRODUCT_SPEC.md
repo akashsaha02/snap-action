@@ -13,8 +13,7 @@ captures: capture anything, understand it on the device, connect related
 items, retrieve evidence with sources, and turn it into action. Not a
 general chatbot and not a continuous recorder.
 
-"RecallOS" is used here as the programme name. The product name in the app
-stays **Snaptiq** unless the owner decides otherwise.
+"RecallOS" is the programme name. The product is called **Mindtiq**.
 
 ## Non-negotiable constraints
 
@@ -36,7 +35,7 @@ stays **Snaptiq** unless the owner decides otherwise.
 
 | Release | Scope |
 | --- | --- |
-| **V1** | everything Snaptiq does today; unified memories (screenshot, image, document, note, link); PDF and note import; offline OCR; hybrid keyword + semantic retrieval with source links; related memories; Spaces; timeline; Model Center |
+| **V1** | everything Mindtiq does today; unified memories (screenshot, image, document, note, link); PDF and note import; offline OCR; hybrid keyword + semantic retrieval with source links; related memories; Spaces; timeline; Model Center |
 | **V2** | offline voice recording and transcription; source-grounded local assistant; focused knowledge graph |
 | **V3** | cross-modal image search; video indexing; advanced model options |
 
@@ -82,18 +81,20 @@ on-device evidence in `TEST_REPORT.md`.
 11. **Deletion.** Deleting any memory removes all derived rows (chunks,
     embeddings, relationships, FTS) and cancels its reminders.
 
-## Open decisions (owner)
+## Decisions (19 November 2026)
 
-1. **Product name:** keep Snaptiq (recommended) or rename to RecallOS.
-2. **Visual tokens:** keep the approved Acid Pop kit (recommended) instead
-   of the brief's earlier violet/teal palette.
-3. **Navigation:** move to Home / Memories / Recall / Connections / Profile
-   (recommended, behind a feature flag) with Reminders reachable from Home
-   and Collections inside Memories.
-4. **Model downloads:** adding model downloads means adding the `INTERNET`
-   permission for that flow only. Alternatively, bundle one small embedding
-   model in the APK (about +25 MB for MiniLM, to be measured) and keep the
-   app permission-free.
+1. **Product name: Mindtiq.** "RecallOS" was not unique; the owner asked
+   for a unique name. Mindtiq returned no existing app, keeps the "-tiq"
+   brand, the mascot Tiq and the icon. "RecallOS" remains the internal
+   programme name for this brief.
+2. **Visual tokens:** the Acid Pop kit stays (the brief's table was the
+   pre-brand palette).
+3. **Navigation:** Home / Memories / Recall / Connections / Profile, built
+   behind the `newNavigation` flag; Reminders one tap from Home, Collections
+   inside Memories.
+4. **Models:** V1 bundles one small embedding model in the APK and keeps the
+   app free of the `INTERNET` permission. Downloads are reconsidered with
+   the larger V2 models.
 
 ## Commercial direction (not in V1)
 

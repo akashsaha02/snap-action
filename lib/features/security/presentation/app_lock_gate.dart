@@ -100,7 +100,7 @@ class _LockScreenState extends ConsumerState<LockScreen> {
               const AppLogo(size: 72),
               const Gap(Spacing.lg),
               Text(
-                'Snaptiq is locked',
+                'Mindtiq is locked',
                 style: theme.textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),

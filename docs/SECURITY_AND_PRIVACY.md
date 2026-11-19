@@ -31,7 +31,7 @@ the store listing, and keep every other code path offline.
 | --- | --- | --- |
 | Someone picks up an unlocked phone | optional app lock (biometric or device credential, 30 s grace), hide in recents (`FLAG_SECURE`), sensitive-preview blur | lock is access control, not encryption (stated in the app) |
 | Phone theft with forensic access | Android file-based encryption of app-private storage | optional SQLCipher-style database encryption with a Keystore-held key, only with documented key-loss behaviour and tests |
-| Other apps reading Snaptiq data | app-private storage; no exported providers; share and document flows use system pickers | none known |
+| Other apps reading Mindtiq data | app-private storage; no exported providers; share and document flows use system pickers | none known |
 | Malicious shared or imported file | size limits, type checks, decoding in the image library, restore validation (path traversal, entry counts, sizes, schema, hashes) | PDF parser (Phase 3) must be fuzzed with corrupt files; render in a bounded process if the library crashes |
 | Prompt injection through OCR or document text (assistant phase) | no LLM yet; actions always need a user tap and confirmation | treat imported text as data; tool registry with strict schemas; validate citations against retrieved ids; never let content trigger actions |
 | Data leaking through logs | release logs only startup and recognition failures, without screenshot text | keep a lint/test that no `debugPrint` includes OCR text, notes or entity values |

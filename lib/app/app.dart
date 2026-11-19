@@ -11,15 +11,15 @@ import '../l10n/generated/app_localizations.dart';
 import 'bootstrap.dart';
 import 'router.dart';
 
-class SnaptiqApp extends ConsumerWidget {
-  const SnaptiqApp({super.key});
+class MindtiqApp extends ConsumerWidget {
+  const MindtiqApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     final themeMode = ref.watch(themeModeProvider);
     return MaterialApp.router(
-      title: 'Snaptiq',
+      title: 'Mindtiq',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),

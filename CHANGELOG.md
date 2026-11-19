@@ -18,7 +18,7 @@ First complete version, built in phases (see TASKS.md).
 ### Import and processing
 - Import with the Android photo picker and the share sheet into
   app-private storage; thumbnails; exact-duplicate and similar-image
-  detection; inbox, details, favourite, archive and delete (Snaptiq's
+  detection; inbox, details, favourite, archive and delete (the app's own
   copy only).
 - On-device OCR with ML Kit, a durable job queue with retry, text
   normalisation, extraction of 14 kinds of details, rule-based
@@ -69,6 +69,11 @@ First complete version, built in phases (see TASKS.md).
   close after 6 seconds unless a screen reader is on.
 
 ### Name
+- Renamed again, to **Mindtiq** (19 November 2026): the app is growing from
+  screenshots into a private memory for documents, notes and more, and
+  "RecallOS" was not unique. The mascot Tiq, the icon and the Acid Pop
+  brand stay. New exports are named `mindtiq-<date>.zip`; older `snaptiq-`
+  and `snapaction-` backups still restore.
 - The app is now called **Snaptiq** (was SnapAction). The package id
   `com.snapaction.snapaction`, database and backup format are unchanged, so
   installed copies update in place and older backups still restore. New

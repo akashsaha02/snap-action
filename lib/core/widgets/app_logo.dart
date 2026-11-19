@@ -1,6 +1,6 @@
 import 'package:material_ui/material_ui.dart';
 
-/// Brand mark: the Snaptiq app icon from the brand kit. Picks the lime
+/// Brand mark: the Mindtiq app icon from the brand kit. Picks the lime
 /// variant in light mode and the ink variant in dark mode.
 class AppLogo extends StatelessWidget {
   const AppLogo({super.key, this.size = 72});
@@ -17,7 +17,7 @@ class AppLogo extends StatelessWidget {
       width: size,
       height: size,
       filterQuality: FilterQuality.medium,
-      semanticLabel: 'Snaptiq logo',
+      semanticLabel: 'Mindtiq logo',
     );
   }
 }

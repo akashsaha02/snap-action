@@ -1,4 +1,4 @@
-# Snaptiq tasks
+# Mindtiq tasks
 
 Status of the implementation plan. A phase is complete only when its behaviour
 is implemented and checked. Device timings are recorded in TEST_REPORT.md.
@@ -26,7 +26,7 @@ Done on the host (unit and widget tests) and present in the debug APK.
 
 - Photo picker and share-intent import into private storage.
 - Thumbnails, SHA-256 duplicate detection and perceptual-hash similarity.
-- Inbox, details, favourite, archive and delete of Snaptiq's copy only.
+- Inbox, details, favourite, archive and delete of Mindtiq's copy only.
 - Checked on the emulator: empty Home, Collections, Search and Reminders
   states, including the note that gallery originals are never deleted.
 
@@ -118,7 +118,7 @@ screenshots on the emulator and on a phone; details in TEST_REPORT.md.
   default time; accessible status colours; consistent blurring.
 - Similar screenshots also compare text, so different receipts from one app
   are no longer offered for deletion.
-- Notifications: Snaptiq icon, Done and Snooze buttons. App icon replaces
+- Notifications: Mindtiq icon, Done and Snooze buttons. App icon replaces
   the Flutter template icon (adaptive and themed).
 - Database schema 2 (`titleLocked`): re-analysis refreshes generated titles
   and keeps the user's. Version 1 databases and backups still open.

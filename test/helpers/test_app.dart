@@ -197,7 +197,7 @@ Future<AppServices> pumpTestApp(
         ),
         ...overrides,
       ],
-      child: const SnaptiqApp(),
+      child: const MindtiqApp(),
     ),
   );
   await tester.pumpAndSettle();

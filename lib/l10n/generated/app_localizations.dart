@@ -97,7 +97,7 @@ abstract class AppLocalizations {
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
-  /// **'Snaptiq'**
+  /// **'Mindtiq'**
   String get appName;
 
   /// No description provided for @tagline.
@@ -169,7 +169,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboarding1Body.
   ///
   /// In en, this message translates to:
-  /// **'Snaptiq turns a cluttered camera roll into tidy, smart collections, from receipts to recipes.'**
+  /// **'Mindtiq turns a cluttered camera roll into tidy, smart collections, from receipts to recipes.'**
   String get onboarding1Body;
 
   /// No description provided for @onboarding2Title.
@@ -205,7 +205,7 @@ abstract class AppLocalizations {
   /// No description provided for @splashLoadError.
   ///
   /// In en, this message translates to:
-  /// **'Snaptiq could not open its local database.'**
+  /// **'Mindtiq could not open its local database.'**
   String get splashLoadError;
 
   /// No description provided for @retry.
@@ -253,7 +253,7 @@ abstract class AppLocalizations {
   /// No description provided for @emptyLibraryBody.
   ///
   /// In en, this message translates to:
-  /// **'Import screenshots from your gallery or share them to Snaptiq from any app.'**
+  /// **'Import screenshots from your gallery or share them to Mindtiq from any app.'**
   String get emptyLibraryBody;
 
   /// No description provided for @emptyCollectionsTitle.

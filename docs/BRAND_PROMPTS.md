@@ -1,12 +1,12 @@
-# Snaptiq brand prompt kit
+# Mindtiq brand prompt kit
 
-Prompts for generating Snaptiq's brand images with an image model
+Prompts for generating Mindtiq's brand images with an image model
 (Midjourney, ChatGPT / DALL·E, Ideogram, Firefly, Flux). Each prompt starts
 from the same style block so every asset looks like one family.
 
 ## Brand foundation (read once, reuse everywhere)
 
-- **Name:** Snaptiq. "Snap" (a screenshot) + "-tiq" (smart, as in logic or
+- **Name:** Mindtiq. "Snap" (a screenshot) + "-tiq" (smart, as in logic or
   boutique). Smart screenshots.
 - **Promise:** Screenshot anything. Find everything. Turn it into action.
   Private: everything runs on the phone.
@@ -27,7 +27,7 @@ from the same style block so every asset looks like one family.
 
 ```
 Modern minimal flat vector illustration for a privacy-first productivity app
-named Snaptiq. Brand palette: violet #635BFF to purple #8B5CF6 gradient,
+named Mindtiq. Brand palette: violet #635BFF to purple #8B5CF6 gradient,
 accent teal #14B8A6, ink #111827, soft off-white #F5F6FA. Rounded geometric
 shapes, soft subtle shadows, clean negative space, gentle depth, crisp
 edges, premium and friendly, consistent line weight, no clutter.
@@ -48,7 +48,7 @@ Create the character sheet first, then reuse it as a reference image for
 every other pose. Keep the same seed or character reference.
 
 ```
-[STYLE BLOCK] Character design sheet of "Tiq", the Snaptiq mascot: a small,
+[STYLE BLOCK] Character design sheet of "Tiq", the Mindtiq mascot: a small,
 round, softly glowing spark creature in the violet-to-purple brand gradient,
 with a tiny white lightning-bolt mark on its forehead, big friendly oval
 eyes, a small smile, and two little rounded "viewfinder bracket" arms like
@@ -76,7 +76,7 @@ Export at 1024×1024 or larger; the app shows them at about 180 dp.
 ## 3. App icon (refinement of the current mark)
 
 ```
-[STYLE BLOCK] App icon for Snaptiq: a rounded-square with a smooth diagonal
+[STYLE BLOCK] App icon for Mindtiq: a rounded-square with a smooth diagonal
 gradient from #635BFF (top-left) to #8B5CF6 (bottom-right). Centered white
 symbol: four thick rounded viewfinder corner brackets framing a small,
 crisp lightning spark. Subtle inner glow, very soft long shadow, perfectly
@@ -91,8 +91,8 @@ with the gradient only on the symbol".
 ## 4. Google Play feature graphic (1024 × 500)
 
 ```
-[STYLE BLOCK] Wide banner 1024x500 for the Google Play listing of Snaptiq.
-Left third: the Snaptiq app icon and the wordmark "Snaptiq" in Inter
+[STYLE BLOCK] Wide banner 1024x500 for the Google Play listing of Mindtiq.
+Left third: the Mindtiq app icon and the wordmark "Mindtiq" in Inter
 SemiBold, with the tagline "Screenshot anything. Find everything."
 Right two-thirds: a tilted modern Android phone showing a clean dashboard of
 organised screenshots (receipts, a boarding pass, a recipe) with small
@@ -131,13 +131,13 @@ Suggested headlines for the five frames:
 | --- | --- | --- |
 | X / Twitter header | 1500×500 | `Panoramic banner, Tiq floating among sorted screenshot cards that connect with thin lines to small calendar, map and bell icons. Leave the left 35% calm for profile photo overlap.` |
 | LinkedIn banner | 1584×396 | `Ultra-wide, minimal: a row of screenshot cards transforming left-to-right into tidy action chips, ending with Tiq giving a thumbs up.` |
-| Product Hunt gallery | 1270×760 | `Hero scene: phone with the Snaptiq dashboard, floating action chips, Tiq waving, headline space on the left.` |
+| Product Hunt gallery | 1270×760 | `Hero scene: phone with the Mindtiq dashboard, floating action chips, Tiq waving, headline space on the left.` |
 | Open Graph / link preview | 1200×630 | `Centered app icon with soft glow, Tiq beside it, generous margins for a title.` |
 
 ## 7. Splash and in-app accents
 
 ```
-[STYLE BLOCK] Minimal splash artwork: the Snaptiq symbol (viewfinder
+[STYLE BLOCK] Minimal splash artwork: the Mindtiq symbol (viewfinder
 corners with a spark) centered on a smooth violet-to-purple gradient, a
 very soft radial glow behind it, nothing else. 1242x2688, no text.
 ```
@@ -158,7 +158,7 @@ phone, envelope, shopping bag, recipe card, code brackets.
 - **ChatGPT / DALL·E:** start with "Use exactly this style:" followed by the
   style block. Upload the character sheet and say "keep this exact
   character" for each new pose.
-- **Ideogram:** best when the image itself must contain the word "Snaptiq";
+- **Ideogram:** best when the image itself must contain the word "Mindtiq";
   quote the text exactly.
 - **Final files:** vectorise the icon and mascot (Illustrator Image Trace,
   or Vectorizer.ai) so they stay sharp. Keep the app's existing launcher

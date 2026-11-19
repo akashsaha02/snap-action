@@ -209,9 +209,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             },
           ),
           const _Note(
-            'Snaptiq keeps its own private copy of every screenshot you import. '
+            'Mindtiq keeps its own private copy of every screenshot you import. '
             'Deleting a screenshot here removes only that copy. The original stays in '
-            'your gallery, and Snaptiq never deletes gallery images.',
+            'your gallery, and Mindtiq never deletes gallery images.',
           ),
 
           const _Header('Notifications'),
@@ -270,7 +270,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             secondary: const Icon(Icons.fingerprint),
             title: const Text('App lock'),
             subtitle: const Text(
-              'Asks for your fingerprint, face or screen lock when you open Snaptiq. '
+              'Asks for your fingerprint, face or screen lock when you open Mindtiq. '
               'This restricts access; it does not encrypt your files.',
             ),
             value: lock.enabled,
@@ -289,7 +289,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             secondary: const Icon(Icons.visibility_off_outlined),
             title: const Text('Hide in recent apps'),
             subtitle: const Text(
-              'Blanks Snaptiq in the app switcher and blocks screenshots of the app.',
+              'Blanks Mindtiq in the app switcher and blocks screenshots of the app.',
             ),
             value: s.getBool(SettingsKeys.secureWindow),
             onChanged: (v) async {
@@ -375,7 +375,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             leading: const Icon(Icons.settings_backup_restore),
             title: const Text('Restore from backup'),
             subtitle: const Text(
-              'Adds screenshots from a Snaptiq ZIP. Nothing is overwritten.',
+              'Adds screenshots from a Mindtiq ZIP. Nothing is overwritten.',
             ),
             onTap: () => restoreBackup(context, ref),
           ),
@@ -388,11 +388,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               color: theme.colorScheme.error,
             ),
             title: Text(
-              'Delete all Snaptiq data',
+              'Delete all Mindtiq data',
               style: TextStyle(color: theme.colorScheme.error),
             ),
             subtitle: const Text(
-              'Removes Snaptiq\'s copies and everything it extracted. Gallery originals are not affected.',
+              'Removes Mindtiq\'s copies and everything it extracted. Gallery originals are not affected.',
             ),
             onTap: () async {
               await deleteAllData(context, ref);
@@ -403,7 +403,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const _Header('About'),
           ListTile(
             leading: const Icon(Icons.info_outline),
-            title: const Text('About Snaptiq'),
+            title: const Text('About Mindtiq'),
             subtitle: const Text('Version ${AppInfo.version}'),
             onTap: () => showAboutDialog(
               context: context,

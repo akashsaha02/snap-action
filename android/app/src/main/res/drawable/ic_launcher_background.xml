@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Adaptive icon background layer: flat Acid Lime from the Snaptiq brand kit
+<!-- Adaptive icon background layer: flat Acid Lime from the Mindtiq brand kit
      (assets/icons/icon/adaptive_background_432.png is a single colour). -->
 <color xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="@color/brand_acid_lime" />

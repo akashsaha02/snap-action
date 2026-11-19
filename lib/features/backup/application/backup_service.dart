@@ -67,14 +67,17 @@ class BackupService {
     await _exportDir.create(recursive: true);
     // Earlier exports are temporary; only the newest is kept.
     await for (final e in _exportDir.list()) {
-      // Exports made before the rename were called snapaction-*.
+      // Exports made before the renames were called snaptiq-* or
+      // snapaction-*.
       final name = p.basename(e.path);
       if (e is File &&
-          (name.startsWith('snaptiq-') || name.startsWith('snapaction-'))) {
+          (name.startsWith('mindtiq-') ||
+              name.startsWith('snaptiq-') ||
+              name.startsWith('snapaction-'))) {
         await e.delete();
       }
     }
-    return File(p.join(_exportDir.path, 'snaptiq-${_stamp()}.$ext'));
+    return File(p.join(_exportDir.path, 'mindtiq-${_stamp()}.$ext'));
   }
 
   Future<Map<String, Object?>> _snapshot({required bool forArchive}) async {
@@ -145,7 +148,7 @@ class BackupService {
     'format': BackupCodec.format,
     'schemaVersion': BackupCodec.schemaVersion,
     'createdAt': _now().millisecondsSinceEpoch,
-    'app': 'Snaptiq',
+    'app': 'Mindtiq',
     'screenshots': screenshots,
   };
 

@@ -3,7 +3,7 @@ import 'package:material_ui/material_ui.dart';
 import 'app_colors.dart';
 import 'spacing.dart';
 
-/// Snaptiq "Acid Pop" theme: paper background, ink outlines, hard offset
+/// Mindtiq "Acid Pop" theme: paper background, ink outlines, hard offset
 /// shadows, pill buttons, Space Grotesk headings and Inter text.
 /// Tokens: assets/icons/developer/snaptiq_tokens.json.
 abstract final class AppTheme {
