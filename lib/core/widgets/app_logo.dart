@@ -12,7 +12,7 @@ class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: 'SnapAction logo',
+      label: 'Snaptiq logo',
       image: true,
       child: Container(
         width: size,

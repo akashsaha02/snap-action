@@ -167,8 +167,7 @@ class _ReminderEditorState extends ConsumerState<_ReminderEditor> {
     final e = widget.existing;
     if (e == null) return false;
     final was = e.scheduledAt;
-    return at ==
-            DateTime(was.year, was.month, was.day, was.hour, was.minute) &&
+    return at == DateTime(was.year, was.month, was.day, was.hour, was.minute) &&
         _repeat == e.repeatRule &&
         _notify == e.notify;
   }

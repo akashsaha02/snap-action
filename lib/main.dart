@@ -15,7 +15,7 @@ void main() {
     ProviderScope(
       // Startup failures are shown on the splash screen with a manual retry.
       retry: (_, _) => null,
-      child: const SnapActionApp(),
+      child: const SnaptiqApp(),
     ),
   );
 }

@@ -47,9 +47,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     super.didChangeDependencies();
     String? token;
     try {
-      token = GoRouterState.of(
-        context,
-      ).uri.queryParameters[SearchScreen.focusParam];
+      token = GoRouterState.of(context)
+          .uri
+          .queryParameters[SearchScreen.focusParam];
     } on GoError {
       token = null;
     }
@@ -401,8 +401,7 @@ class _ResultsState extends ConsumerState<_Results> {
       _last = async.value;
       _lastBase = widget.request;
     }
-    final results =
-        async.value ?? (_lastBase == widget.request ? _last : null);
+    final results = async.value ?? (_lastBase == widget.request ? _last : null);
     final loadingMore = async.isLoading && results != null;
     final hideSensitive = ref
         .watch(settingsRepositoryProvider)
@@ -455,9 +454,7 @@ class _ResultsState extends ConsumerState<_Results> {
               key: const Key('search_load_more'),
               onPressed: loadingMore
                   ? null
-                  : () => setState(
-                      () => _limit += SearchRequest.defaultLimit,
-                    ),
+                  : () => setState(() => _limit += SearchRequest.defaultLimit),
               child: loadingMore
                   ? const SizedBox.square(
                       dimension: 18,

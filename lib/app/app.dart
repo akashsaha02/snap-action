@@ -11,15 +11,15 @@ import '../l10n/generated/app_localizations.dart';
 import 'bootstrap.dart';
 import 'router.dart';
 
-class SnapActionApp extends ConsumerWidget {
-  const SnapActionApp({super.key});
+class SnaptiqApp extends ConsumerWidget {
+  const SnaptiqApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     final themeMode = ref.watch(themeModeProvider);
     return MaterialApp.router(
-      title: 'SnapAction',
+      title: 'Snaptiq',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),

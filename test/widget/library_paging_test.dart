@@ -60,9 +60,7 @@ void main() {
     expect(find.text('130 selected'), findsOneWidget);
   });
 
-  testWidgets('loading the next page keeps the list on screen', (
-    tester,
-  ) async {
+  testWidgets('loading the next page keeps the list on screen', (tester) async {
     await pumpTestApp(tester, seed: (db) => _seed(db, 130));
     await _push(tester, '${Routes.inbox}?filter=all');
     expect(find.byType(SkeletonList), findsNothing);

@@ -97,9 +97,7 @@ void main() {
         });
   });
 
-  testWidgets('Connect hands the network to the system sheet', (
-    tester,
-  ) async {
+  testWidgets('Connect hands the network to the system sheet', (tester) async {
     final platform = FakePlatformService();
     await runWifiAction(tester, platform, 'Connect');
     expect(platform.wifiNetworks, [

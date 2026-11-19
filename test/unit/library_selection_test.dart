@@ -87,9 +87,8 @@ void main() {
       await repo.idsMatching(ScreenshotQuery(excludeCollectionId: collection)),
       [b],
     );
-    expect(
-      await repo.idsMatching(ScreenshotQuery(collectionId: collection)),
-      [a],
-    );
+    expect(await repo.idsMatching(ScreenshotQuery(collectionId: collection)), [
+      a,
+    ]);
   });
 }

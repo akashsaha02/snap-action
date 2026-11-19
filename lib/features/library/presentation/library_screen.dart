@@ -202,7 +202,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
       context,
       title: count == 1 ? 'Delete screenshot?' : 'Delete $count screenshots?',
       message:
-          'This removes the copy stored in SnapAction with its text, notes and '
+          'This removes the copy stored in Snaptiq with its text, notes and '
           'suggestions. Images in your gallery are not affected.',
       confirmLabel: 'Delete',
       destructive: true,
@@ -605,7 +605,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
       ScreenshotFilter.all => (
         Icons.photo_library_outlined,
         'No screenshots yet',
-        'Import screenshots or share them to SnapAction from any app.',
+        'Import screenshots or share them to Snaptiq from any app.',
       ),
     };
     return EmptyState(

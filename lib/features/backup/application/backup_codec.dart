@@ -8,13 +8,15 @@ import 'package:path/path.dart' as p;
 
 import '../../../core/database/app_database.dart';
 
-/// Pure, isolate-safe reading and writing of SnapAction backup archives.
+/// Pure, isolate-safe reading and writing of Snaptiq backup archives.
 ///
 /// Layout:
 ///  - `manifest.json`: format name, schema version, creation time, counts.
 ///  - `data.json`: every user table as typed Drift JSON.
 ///  - `images/<id>.<ext>` and `thumbs/<id>.jpg`: app-private image copies.
 abstract final class BackupCodec {
+  // Internal identifier, unchanged by the app's rename so older backups
+  // keep restoring.
   static const format = 'snapaction-backup';
   static const schemaVersion = 2;
   static const manifestName = 'manifest.json';
@@ -184,7 +186,7 @@ abstract final class BackupCodec {
     }
     if (file.lengthSync() > limits.maxArchiveBytes) {
       throw const BackupException(
-        'The backup is larger than SnapAction can restore.',
+        'The backup is larger than Snaptiq can restore.',
       );
     }
     final input = InputFileStream(zipPath);
@@ -220,12 +222,12 @@ abstract final class BackupCodec {
         total += f.size;
         if (total > limits.maxTotalBytes) {
           throw const BackupException(
-            'The backup expands to more data than SnapAction can restore.',
+            'The backup expands to more data than Snaptiq can restore.',
           );
         }
       }
       if (!names.contains(manifestName) || !names.contains(dataName)) {
-        throw const BackupException('This file is not a SnapAction backup.');
+        throw const BackupException('This file is not a Snaptiq backup.');
       }
       return _Opened(input, archive, names);
     } on Object {
@@ -256,7 +258,7 @@ abstract final class BackupCodec {
   static BackupData _readData(Archive archive, BackupLimits limits) {
     final manifest = _json(archive, manifestName, limits);
     if (manifest['format'] != format) {
-      throw const BackupException('This file is not a SnapAction backup.');
+      throw const BackupException('This file is not a Snaptiq backup.');
     }
     final version = manifest['schemaVersion'];
     if (version is! int || version < 1) {
@@ -264,7 +266,7 @@ abstract final class BackupCodec {
     }
     if (version > schemaVersion) {
       throw const BackupException(
-        'This backup was made by a newer version of SnapAction. Please update the app first.',
+        'This backup was made by a newer version of Snaptiq. Please update the app first.',
       );
     }
     final created = manifest['createdAt'];

@@ -224,7 +224,7 @@ class ActionGenerator {
 
   /// Notes for the calendar event, so it still makes sense later.
   static String _description(List<String> lines) =>
-      [...lines, 'Saved from a screenshot with SnapAction'].join('\n');
+      [...lines, 'Saved from a screenshot with Snaptiq'].join('\n');
 
   static Map<String, Object?> _money(Entity? amount) {
     if (amount == null) return const {};

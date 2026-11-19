@@ -33,7 +33,7 @@ final appBootstrapProvider = FutureProvider<AppServices>((ref) async {
   } catch (error, stack) {
     // The splash screen shows a generic message; keep the cause in the
     // device log (no data leaves the device).
-    debugPrint('SnapAction startup failed: $error\n$stack');
+    debugPrint('Snaptiq startup failed: $error\n$stack');
     rethrow;
   }
 });

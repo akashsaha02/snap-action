@@ -21,7 +21,9 @@ Future<List<int>?> pickScreenshotsForCollection(
     fullscreenDialog: true,
     builder: (_) => ScreenshotPickerScreen(
       excludeCollectionId: collectionId,
-      title: collectionName == null ? 'Add screenshots' : 'Add to $collectionName',
+      title: collectionName == null
+          ? 'Add screenshots'
+          : 'Add to $collectionName',
     ),
   ),
 );

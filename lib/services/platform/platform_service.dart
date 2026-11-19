@@ -129,7 +129,7 @@ class PlatformService {
   }
 
   /// Hides the app's content in the recent-apps screen and blocks
-  /// screenshots of SnapAction itself.
+  /// screenshots of Snaptiq itself.
   Future<void> setSecure({required bool secure}) async {
     try {
       await _channel.invokeMethod<bool>('setSecure', {'secure': secure});

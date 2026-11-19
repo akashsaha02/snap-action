@@ -1,8 +1,8 @@
-# SnapAction
+# Snaptiq
 
 Screenshot anything. Find everything. Turn it into action.
 
-SnapAction is an offline-first Flutter app that turns screenshots into
+Snaptiq is an offline-first Flutter app that turns screenshots into
 searchable, actionable information. It reads the text in each screenshot on
 the device, sorts it into a category, finds useful details (dates, amounts,
 links, phone numbers, codes and more) and suggests actions such as creating a
@@ -15,7 +15,7 @@ Android is the primary platform. iOS builds are not set up yet; see
 ## Features
 
 - **Import** through the Android photo picker (no gallery permission) or by
-  sharing images to SnapAction from any app. Exact duplicates are skipped and
+  sharing images to Snaptiq from any app. Exact duplicates are skipped and
   visually similar screenshots are flagged.
 - **On-device text recognition** with Google ML Kit (bundled Latin-script
   model), run by a durable background queue that survives restarts and

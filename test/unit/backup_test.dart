@@ -177,7 +177,7 @@ void main() {
     test('round-trips images and records into an empty library', () async {
       await seedRichLibrary();
       final export = await source.backup.export(ExportKind.zip);
-      expect(export.name, 'snapaction-20261118-1030.zip');
+      expect(export.name, 'snaptiq-20261118-1030.zip');
       expect(export.mime, 'application/zip');
       expect(export.screenshots, 2);
 
@@ -477,20 +477,20 @@ void main() {
       await expectRejected(path, contains('newer version'));
     });
 
-    test('rejects files that are not SnapAction backups', () async {
+    test('rejects files that are not Snaptiq backups', () async {
       final path = await exportOne();
       final notZip = File('${source.root.path}/notes.zip')
         ..writeAsStringSync('hello');
       await expectRejected(
         notZip.path,
-        anyOf(contains('not a valid ZIP'), contains('not a SnapAction backup')),
+        anyOf(contains('not a valid ZIP'), contains('not a Snaptiq backup')),
       );
 
       await _rewriteZip(
         path,
         (f) => f.name == BackupCodec.manifestName ? null : _copy(f),
       );
-      await expectRejected(path, contains('not a SnapAction backup'));
+      await expectRejected(path, contains('not a Snaptiq backup'));
     });
 
     test('rejects malformed records', () async {

@@ -18,7 +18,7 @@ First complete version, built in phases (see TASKS.md).
 ### Import and processing
 - Import with the Android photo picker and the share sheet into
   app-private storage; thumbnails; exact-duplicate and similar-image
-  detection; inbox, details, favourite, archive and delete (SnapAction's
+  detection; inbox, details, favourite, archive and delete (Snaptiq's
   copy only).
 - On-device OCR with ML Kit, a durable job queue with retry, text
   normalisation, extraction of 14 kinds of details, rule-based
@@ -55,6 +55,12 @@ First complete version, built in phases (see TASKS.md).
   originals are not affected.
 - In-app privacy policy and open-source licences.
 
+### Name
+- The app is now called **Snaptiq** (was SnapAction). The package id
+  `com.snapaction.snapaction`, database and backup format are unchanged, so
+  installed copies update in place and older backups still restore. New
+  exports are named `snaptiq-<date>.zip`.
+
 ### Review and polish (phase 8)
 - Release builds: ML Kit keep rules (text recognition failed in every
   release build before), readable error messages instead of stack traces.
@@ -71,7 +77,7 @@ First complete version, built in phases (see TASKS.md).
   time, title-only edits, notification Done and Snooze buttons.
 - Similar screenshots compare recognized text as well as the image.
 - Accessible status colours (WCAG AA), 48 dp tap targets, consistent blur.
-- App and notification icons from the SnapAction logo.
+- App and notification icons from the Snaptiq logo.
 - Schema 2: `titleLocked`; generated titles can improve on re-analysis.
 - Smaller app: per-ABI APKs, subset fonts, unused dependency removed.
 

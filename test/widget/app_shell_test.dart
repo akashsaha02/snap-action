@@ -107,7 +107,7 @@ void main() {
       ('Clear search history', null),
       ('Full backup (ZIP)', 'sensitive information'),
       ('Restore from backup', null),
-      ('Delete all SnapAction data', 'Gallery originals are not affected'),
+      ('Delete all Snaptiq data', 'Gallery originals are not affected'),
       ('Privacy policy', null),
       ('Open-source licences', null),
     ]) {

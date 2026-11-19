@@ -1,5 +1,5 @@
 # google_mlkit_text_recognition references the optional Chinese, Devanagari,
-# Japanese and Korean recognizers. SnapAction ships only the bundled Latin
+# Japanese and Korean recognizers. Snaptiq ships only the bundled Latin
 # model, so those classes are intentionally absent from the APK.
 -dontwarn com.google.mlkit.vision.text.chinese.**
 -dontwarn com.google.mlkit.vision.text.devanagari.**

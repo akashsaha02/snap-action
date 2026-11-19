@@ -208,9 +208,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             },
           ),
           const _Note(
-            'SnapAction keeps its own private copy of every screenshot you import. '
+            'Snaptiq keeps its own private copy of every screenshot you import. '
             'Deleting a screenshot here removes only that copy. The original stays in '
-            'your gallery, and SnapAction never deletes gallery images.',
+            'your gallery, and Snaptiq never deletes gallery images.',
           ),
 
           const _Header('Notifications'),
@@ -269,7 +269,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             secondary: const Icon(Icons.fingerprint),
             title: const Text('App lock'),
             subtitle: const Text(
-              'Asks for your fingerprint, face or screen lock when you open SnapAction. '
+              'Asks for your fingerprint, face or screen lock when you open Snaptiq. '
               'This restricts access; it does not encrypt your files.',
             ),
             value: lock.enabled,
@@ -288,7 +288,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             secondary: const Icon(Icons.visibility_off_outlined),
             title: const Text('Hide in recent apps'),
             subtitle: const Text(
-              'Blanks SnapAction in the app switcher and blocks screenshots of the app.',
+              'Blanks Snaptiq in the app switcher and blocks screenshots of the app.',
             ),
             value: s.getBool(SettingsKeys.secureWindow),
             onChanged: (v) async {
@@ -374,7 +374,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             leading: const Icon(Icons.settings_backup_restore),
             title: const Text('Restore from backup'),
             subtitle: const Text(
-              'Adds screenshots from a SnapAction ZIP. Nothing is overwritten.',
+              'Adds screenshots from a Snaptiq ZIP. Nothing is overwritten.',
             ),
             onTap: () => restoreBackup(context, ref),
           ),
@@ -387,11 +387,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               color: theme.colorScheme.error,
             ),
             title: Text(
-              'Delete all SnapAction data',
+              'Delete all Snaptiq data',
               style: TextStyle(color: theme.colorScheme.error),
             ),
             subtitle: const Text(
-              'Removes SnapAction\'s copies and everything it extracted. Gallery originals are not affected.',
+              'Removes Snaptiq\'s copies and everything it extracted. Gallery originals are not affected.',
             ),
             onTap: () async {
               await deleteAllData(context, ref);
@@ -402,7 +402,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           const _Header('About'),
           ListTile(
             leading: const Icon(Icons.info_outline),
-            title: const Text('About SnapAction'),
+            title: const Text('About Snaptiq'),
             subtitle: const Text('Version ${AppInfo.version}'),
             onTap: () => showAboutDialog(
               context: context,

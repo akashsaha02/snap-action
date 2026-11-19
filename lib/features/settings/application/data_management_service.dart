@@ -6,7 +6,7 @@ import '../../../services/file_storage/file_storage_service.dart';
 import '../../../services/notifications/notification_service.dart';
 import '../../../services/search/search_indexer.dart';
 
-/// Local data deletion. Only SnapAction's own copies are removed; images in
+/// Local data deletion. Only Snaptiq's own copies are removed; images in
 /// the user's gallery are never touched.
 class DataManagementService {
   DataManagementService({

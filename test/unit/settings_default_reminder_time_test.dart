@@ -24,10 +24,7 @@ void main() {
       const TimeOfDay(hour: 8, minute: 30),
     );
     final reloaded = await SettingsRepository.load(db);
-    expect(
-      defaultReminderTime(reloaded),
-      const TimeOfDay(hour: 8, minute: 30),
-    );
+    expect(defaultReminderTime(reloaded), const TimeOfDay(hour: 8, minute: 30));
     // The hour stays in the original key for older readers.
     expect(reloaded.getInt(SettingsKeys.defaultReminderHour, fallback: 0), 8);
   });

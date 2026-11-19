@@ -89,10 +89,9 @@ class ReminderService {
     _db.reminders,
   )..where((r) => r.id.equals(id))).getSingleOrNull();
 
-  Future<ReminderRow?> byNotificationId(int notificationId) =>
-      (_db.select(_db.reminders)
-            ..where((r) => r.notificationId.equals(notificationId)))
-          .getSingleOrNull();
+  Future<ReminderRow?> byNotificationId(int notificationId) => (_db.select(
+    _db.reminders,
+  )..where((r) => r.notificationId.equals(notificationId))).getSingleOrNull();
 
   Future<int> _uniqueNotificationId() async {
     while (true) {
@@ -148,7 +147,11 @@ class ReminderService {
 
   /// Changes only the title and notes, keeping the schedule and status, so
   /// an overdue or completed reminder can be renamed without rescheduling.
-  Future<void> rename(int id, {required String title, String? description}) async {
+  Future<void> rename(
+    int id, {
+    required String title,
+    String? description,
+  }) async {
     final clean = title.trim();
     if (clean.isEmpty) throw ArgumentError('Please enter a title.');
     await (_db.update(_db.reminders)..where((r) => r.id.equals(id))).write(

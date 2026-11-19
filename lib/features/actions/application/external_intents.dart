@@ -1,6 +1,6 @@
 import 'package:url_launcher/url_launcher.dart';
 
-/// Builds and validates the only URIs SnapAction may hand to other apps.
+/// Builds and validates the only URIs Snaptiq may hand to other apps.
 /// Anything that fails validation is refused rather than "fixed".
 abstract final class ExternalIntents {
   static final _email = RegExp(

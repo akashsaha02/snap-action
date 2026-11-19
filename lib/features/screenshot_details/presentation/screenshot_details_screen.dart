@@ -218,7 +218,7 @@ class _DetailsViewState extends ConsumerState<_DetailsView> {
       context,
       title: 'Delete screenshot?',
       message:
-          'This removes the copy stored in SnapAction with its text, notes and '
+          'This removes the copy stored in Snaptiq with its text, notes and '
           'suggestions. The image in your gallery is not affected.',
       confirmLabel: 'Delete',
       destructive: true,
@@ -559,7 +559,7 @@ class _CategoryTile extends StatelessWidget {
                 c != null) ...[
               const Gap(Spacing.xs),
               Text(
-                'SnapAction was not sure about this category. Is it right?',
+                'Snaptiq was not sure about this category. Is it right?',
                 style: theme.textTheme.bodySmall,
               ),
               const Gap(Spacing.xs),

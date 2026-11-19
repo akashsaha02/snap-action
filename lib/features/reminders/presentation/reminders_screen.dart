@@ -86,8 +86,8 @@ class _RemindersScreenState extends ConsumerState<RemindersScreen> {
     }
     if (uri == null || uri == _handledUri) return;
     _handledUri = uri;
-    final tab = ReminderTab.values.asNameMap()[uri
-        .queryParameters[RemindersScreen.tabParam]];
+    final tab = ReminderTab.values
+        .asNameMap()[uri.queryParameters[RemindersScreen.tabParam]];
     if (tab != null) _tab = tab;
   }
 

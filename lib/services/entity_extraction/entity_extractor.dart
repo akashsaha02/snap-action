@@ -126,9 +126,8 @@ class EntityExtractor {
   );
 
   ExtractionResult extract(String input) {
-    final text = TextNormalizer.normalize(
-      input,
-    ).replaceAllMapped(_splitUrl, (m) => '${m[1]}${m[2]}');
+    final text = TextNormalizer.normalize(input)
+        .replaceAllMapped(_splitUrl, (m) => '${m[1]}${m[2]}');
     if (text.isEmpty) {
       return const ExtractionResult(entities: [], isSensitive: false);
     }

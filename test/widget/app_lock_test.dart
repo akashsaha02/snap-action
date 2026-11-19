@@ -154,7 +154,7 @@ void main() {
         settings: {SettingsKeys.appLockEnabled: 'true'},
         overrides: [deviceAuthenticatorProvider.overrideWithValue(auth)],
       );
-      expect(find.text('SnapAction is locked'), findsOneWidget);
+      expect(find.text('Snaptiq is locked'), findsOneWidget);
       // The automatic prompt on open failed; the app stays covered.
       expect(auth.calls, 1);
       expect(find.byType(NavigationBar).hitTestable(), findsNothing);
@@ -162,7 +162,7 @@ void main() {
       auth.outcomes.add(AuthOutcome.success);
       await tester.tap(find.byKey(const Key('unlock_button')));
       await tester.pumpAndSettle();
-      expect(find.text('SnapAction is locked'), findsNothing);
+      expect(find.text('Snaptiq is locked'), findsNothing);
       expect(find.byType(NavigationBar).hitTestable(), findsOneWidget);
     });
 
@@ -172,7 +172,7 @@ void main() {
         tester,
         overrides: [deviceAuthenticatorProvider.overrideWithValue(auth)],
       );
-      expect(find.text('SnapAction is locked'), findsNothing);
+      expect(find.text('Snaptiq is locked'), findsNothing);
       expect(auth.calls, 0);
     });
   });
