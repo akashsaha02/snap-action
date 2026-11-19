@@ -50,6 +50,8 @@ See [PRIVACY.md](PRIVACY.md) for details.
 ## Building
 
 Requirements: Flutter 3.50 (Dart 3.14), JDK 17, Android SDK 36.
+The project targets Android only. To add iOS later, run
+`flutter create --platforms=ios .` (the iOS template was removed as unused).
 
 ```powershell
 flutter pub get
