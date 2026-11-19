@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="brand_acid_lime">#D4FF3A</color>
+    <color name="brand_hot_pink">#FF2E93</color>
+    <color name="brand_volt_violet">#7C3AED</color>
+    <color name="brand_ink">#0A0A0F</color>
+    <color name="brand_lime_soft">#E9FF94</color>
+    <color name="brand_paper">#FAFCF2</color>
+    <color name="snaptiq_primary">#FF2E93</color>
+    <color name="snaptiq_on_primary">#0A0A0F</color>
+    <color name="snaptiq_primary_container">#FFD1E6</color>
+    <color name="snaptiq_on_primary_container">#0A0A0F</color>
+    <color name="snaptiq_secondary">#7C3AED</color>
+    <color name="snaptiq_on_secondary">#FFFFFF</color>
+    <color name="snaptiq_secondary_container">#E9DDFF</color>
+    <color name="snaptiq_on_secondary_container">#0A0A0F</color>
+    <color name="snaptiq_tertiary">#D4FF3A</color>
+    <color name="snaptiq_on_tertiary">#0A0A0F</color>
+    <color name="snaptiq_tertiary_container">#E9FF94</color>
+    <color name="snaptiq_on_tertiary_container">#0A0A0F</color>
+    <color name="snaptiq_background">#FAFCF2</color>
+    <color name="snaptiq_on_background">#0A0A0F</color>
+    <color name="snaptiq_surface">#FFFFFF</color>
+    <color name="snaptiq_on_surface">#0A0A0F</color>
+    <color name="snaptiq_surface_variant">#F0F3E4</color>
+    <color name="snaptiq_on_surface_variant">#4B4B57</color>
+    <color name="snaptiq_outline">#0A0A0F</color>
+    <color name="snaptiq_outline_variant">#DDE1CF</color>
+    <color name="snaptiq_error">#C4001E</color>
+    <color name="snaptiq_on_error">#FFFFFF</color>
+    <color name="snaptiq_success">#15803D</color>
+    <color name="snaptiq_on_success">#FFFFFF</color>
+    <color name="snaptiq_text_link">#D61F7A</color>
+    <color name="snaptiq_shadow_hard">#0A0A0F</color>
+    <color name="snaptiq_scrim">#0A0A0F</color>
+</resources>

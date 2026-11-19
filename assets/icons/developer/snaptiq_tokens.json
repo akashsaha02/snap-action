@@ -1,0 +1,156 @@
+{
+  "brand": {
+    "Acid Lime": "#D4FF3A",
+    "Hot Pink": "#FF2E93",
+    "Volt Violet": "#7C3AED",
+    "Ink": "#0A0A0F",
+    "Lime Soft": "#E9FF94",
+    "Paper": "#FAFCF2"
+  },
+  "light": {
+    "primary": "#FF2E93",
+    "onPrimary": "#0A0A0F",
+    "primaryContainer": "#FFD1E6",
+    "onPrimaryContainer": "#0A0A0F",
+    "secondary": "#7C3AED",
+    "onSecondary": "#FFFFFF",
+    "secondaryContainer": "#E9DDFF",
+    "onSecondaryContainer": "#0A0A0F",
+    "tertiary": "#D4FF3A",
+    "onTertiary": "#0A0A0F",
+    "tertiaryContainer": "#E9FF94",
+    "onTertiaryContainer": "#0A0A0F",
+    "background": "#FAFCF2",
+    "onBackground": "#0A0A0F",
+    "surface": "#FFFFFF",
+    "onSurface": "#0A0A0F",
+    "surfaceVariant": "#F0F3E4",
+    "onSurfaceVariant": "#4B4B57",
+    "outline": "#0A0A0F",
+    "outlineVariant": "#DDE1CF",
+    "error": "#C4001E",
+    "onError": "#FFFFFF",
+    "success": "#15803D",
+    "onSuccess": "#FFFFFF",
+    "textLink": "#D61F7A",
+    "shadowHard": "#0A0A0F",
+    "scrim": "#0A0A0F"
+  },
+  "dark": {
+    "primary": "#FF4FA3",
+    "onPrimary": "#0A0A0F",
+    "primaryContainer": "#5C0F35",
+    "onPrimaryContainer": "#FFD1E6",
+    "secondary": "#A78BFA",
+    "onSecondary": "#0A0A0F",
+    "secondaryContainer": "#3B1F7A",
+    "onSecondaryContainer": "#E9DDFF",
+    "tertiary": "#D4FF3A",
+    "onTertiary": "#0A0A0F",
+    "tertiaryContainer": "#3A4710",
+    "onTertiaryContainer": "#E9FF94",
+    "background": "#0A0A0F",
+    "onBackground": "#F5F5F7",
+    "surface": "#16161D",
+    "onSurface": "#F5F5F7",
+    "surfaceVariant": "#22222B",
+    "onSurfaceVariant": "#A1A1AE",
+    "outline": "#F5F5F7",
+    "outlineVariant": "#33333D",
+    "error": "#FF6B6B",
+    "onError": "#0A0A0F",
+    "success": "#4ADE80",
+    "onSuccess": "#0A0A0F",
+    "textLink": "#FF4FA3",
+    "shadowHard": "#D4FF3A",
+    "scrim": "#000000"
+  },
+  "typography": {
+    "displayLarge": {
+      "family": "Space Grotesk",
+      "weight": 700,
+      "size_sp": 40,
+      "lineHeight_sp": 44,
+      "letterSpacing_sp": -1.2
+    },
+    "headlineLarge": {
+      "family": "Space Grotesk",
+      "weight": 700,
+      "size_sp": 32,
+      "lineHeight_sp": 36,
+      "letterSpacing_sp": -0.8
+    },
+    "headlineMedium": {
+      "family": "Space Grotesk",
+      "weight": 700,
+      "size_sp": 24,
+      "lineHeight_sp": 30,
+      "letterSpacing_sp": -0.5
+    },
+    "titleLarge": {
+      "family": "Space Grotesk",
+      "weight": 700,
+      "size_sp": 20,
+      "lineHeight_sp": 26,
+      "letterSpacing_sp": -0.2
+    },
+    "titleMedium": {
+      "family": "Inter",
+      "weight": 600,
+      "size_sp": 16,
+      "lineHeight_sp": 22,
+      "letterSpacing_sp": 0
+    },
+    "bodyLarge": {
+      "family": "Inter",
+      "weight": 400,
+      "size_sp": 16,
+      "lineHeight_sp": 24,
+      "letterSpacing_sp": 0
+    },
+    "bodyMedium": {
+      "family": "Inter",
+      "weight": 400,
+      "size_sp": 14,
+      "lineHeight_sp": 20,
+      "letterSpacing_sp": 0
+    },
+    "labelLarge": {
+      "family": "Inter",
+      "weight": 600,
+      "size_sp": 14,
+      "lineHeight_sp": 20,
+      "letterSpacing_sp": 0.1
+    },
+    "labelSmall": {
+      "family": "Inter",
+      "weight": 500,
+      "size_sp": 12,
+      "lineHeight_sp": 16,
+      "letterSpacing_sp": 0.3
+    }
+  },
+  "shape_dp": {
+    "radiusXs": 6,
+    "radiusS": 10,
+    "radiusM": 16,
+    "radiusL": 24,
+    "radiusXl": 32,
+    "radiusPill": 999,
+    "outlineThin": 1.5,
+    "outline": 2,
+    "outlineBold": 3,
+    "shadowOffset": 4,
+    "shadowOffsetLarge": 6,
+    "spacing": [
+      4,
+      8,
+      12,
+      16,
+      24,
+      32,
+      48,
+      64
+    ]
+  }
+}

@@ -15,7 +15,7 @@ void main() {
 
     await tester.tap(find.byKey(const ValueKey('onboarding_next')));
     await tester.pumpAndSettle();
-    expect(find.text('Your screenshots are searchable'), findsOneWidget);
+    expect(find.text('Searchable. And private.'), findsOneWidget);
 
     await tester.tap(find.byKey(const ValueKey('onboarding_next')));
     await tester.pumpAndSettle();

@@ -12,6 +12,7 @@ import '../../../core/models/screenshot_summary.dart';
 import '../../../core/repositories/screenshot_repository.dart';
 import '../../../core/services/settings_repository.dart';
 import '../../../core/theme/spacing.dart';
+import '../../../core/widgets/brand.dart';
 import '../../../core/widgets/common.dart';
 import '../../../core/widgets/dialogs.dart';
 import '../../../core/widgets/screenshot_card.dart';
@@ -402,28 +403,32 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
         floatingActionButton: _selecting
             ? null
             : widget.collectionId != null
-            ? FloatingActionButton.extended(
-                key: const Key('collection_add_screenshots'),
-                heroTag: 'collection_add',
-                onPressed: _addScreenshots,
-                icon: const Icon(Icons.add_photo_alternate_outlined),
-                label: const Text('Add screenshots'),
+            ? PopShadow.pill(
+                child: FloatingActionButton.extended(
+                  key: const Key('collection_add_screenshots'),
+                  heroTag: 'collection_add',
+                  onPressed: _addScreenshots,
+                  icon: const Icon(Icons.add_photo_alternate_outlined),
+                  label: const Text('Add screenshots'),
+                ),
               )
             // Importing from a category or tag view would not file the new
             // screenshots there, so importing is offered in the library only.
             : _inContext
             ? null
-            : FloatingActionButton.extended(
-                key: const Key('library_import'),
-                heroTag: 'library_import',
-                onPressed: importing ? null : _import,
-                icon: importing
-                    ? const SizedBox.square(
-                        dimension: 20,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                    : const Icon(Icons.add_photo_alternate_outlined),
-                label: Text(importing ? 'Importing…' : 'Import'),
+            : PopShadow.pill(
+                child: FloatingActionButton.extended(
+                  key: const Key('library_import'),
+                  heroTag: 'library_import',
+                  onPressed: importing ? null : _import,
+                  icon: importing
+                      ? const SizedBox.square(
+                          dimension: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : const Icon(Icons.add_photo_alternate_outlined),
+                  label: Text(importing ? 'Importing…' : 'Import'),
+                ),
               ),
         body: Column(
           children: [
@@ -548,6 +553,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
     if (_filter == ScreenshotFilter.all && _inContext) {
       if (widget.collectionId != null) {
         return EmptyState(
+          art: BrandArt.emptyLibrary,
           icon: Icons.folder_open_outlined,
           title: 'This collection is empty',
           message: 'Add screenshots from your library to keep them together.',
@@ -561,6 +567,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
       }
       if (widget.tagId != null) {
         return const EmptyState(
+          art: BrandArt.noResults,
           icon: Icons.sell_outlined,
           title: 'No screenshots with this tag',
           message:
@@ -569,6 +576,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
         );
       }
       return const EmptyState(
+        art: BrandArt.emptyLibrary,
         icon: Icons.category_outlined,
         title: 'Nothing in this category yet',
         message:
@@ -609,6 +617,15 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
       ),
     };
     return EmptyState(
+      // Nothing left to do is good news; an empty library is an invitation.
+      art: switch (_filter) {
+        ScreenshotFilter.inbox ||
+        ScreenshotFilter.failed ||
+        ScreenshotFilter.processing => BrandArt.allDone,
+        ScreenshotFilter.all => BrandArt.emptyLibrary,
+        ScreenshotFilter.favorites ||
+        ScreenshotFilter.archived => BrandArt.noResults,
+      },
       icon: icon,
       title: title,
       message: message,

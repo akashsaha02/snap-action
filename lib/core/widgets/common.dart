@@ -106,15 +106,18 @@ class SearchShortcut extends StatelessWidget {
       label: hint,
       child: Material(
         color: theme.colorScheme.surface,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Spacing.radiusMd),
-          side: BorderSide(color: context.statusColors.border),
+        // Brand input: a white pill with an ink outline.
+        shape: StadiumBorder(
+          side: BorderSide(
+            color: theme.brightness == Brightness.light
+                ? context.statusColors.outlineStrong
+                : context.statusColors.border,
+            width: Spacing.outline,
+          ),
         ),
         child: InkWell(
           onTap: onTap,
-          customBorder: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Spacing.radiusMd),
-          ),
+          customBorder: const StadiumBorder(),
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: Spacing.md,
@@ -249,7 +252,16 @@ class FilterChipBar<T> extends StatelessWidget {
               padding: const EdgeInsets.only(right: Spacing.xs),
               child: FilterChip(
                 label: Text(o.label),
-                avatar: o.icon == null ? null : Icon(o.icon, size: 18),
+                avatar: o.icon == null
+                    ? null
+                    : Icon(
+                        o.icon,
+                        size: 18,
+                        // Chips don't resolve avatar colours by state.
+                        color: o.value == selected
+                            ? context.statusColors.onHighlight
+                            : null,
+                      ),
                 selected: o.value == selected,
                 showCheckmark: false,
                 onSelected: (_) => onSelected(o.value),

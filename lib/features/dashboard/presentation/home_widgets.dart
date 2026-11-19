@@ -7,6 +7,7 @@ import '../../../core/repositories/screenshot_repository.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/spacing.dart';
 import '../../../core/utils/formatters.dart';
+import '../../../core/widgets/brand.dart';
 import '../../reminders/presentation/reminders_screen.dart';
 import '../application/upcoming.dart';
 
@@ -106,9 +107,14 @@ class CountTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final shape = RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(Spacing.radiusMd),
-      side: BorderSide(color: context.statusColors.border),
+    final status = context.statusColors;
+    final shape = StadiumBorder(
+      side: BorderSide(
+        color: theme.brightness == Brightness.light
+            ? status.outlineStrong
+            : status.border,
+        width: Spacing.outlineThin,
+      ),
     );
     return Semantics(
       button: true,
@@ -170,64 +176,68 @@ class ActionCenterBanner extends StatelessWidget {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
     final active = count > 0;
-    final background = active ? scheme.primaryContainer : null;
-    final foreground = active
-        ? scheme.onPrimaryContainer
-        : scheme.onSurfaceVariant;
+    final status = context.statusColors;
+    // Pending suggestions get the loudest brand surface: acid lime.
+    final background = active ? status.highlight : null;
+    final foreground = active ? status.onHighlight : scheme.onSurfaceVariant;
     final title = active
         ? '$count suggestion${count == 1 ? '' : 's'} to review'
         : 'No new suggestions';
     final shape = RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(Spacing.radiusMd),
-      side: active
-          ? BorderSide.none
-          : BorderSide(color: context.statusColors.border),
+      side: BorderSide(
+        color: active || theme.brightness == Brightness.light
+            ? AppColors.ink
+            : status.border,
+        width: Spacing.outline,
+      ),
+    );
+    final banner = Material(
+      key: const Key('action_center_card'),
+      color: background ?? scheme.surface,
+      shape: shape,
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => context.push(Routes.actions),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: Spacing.md,
+            vertical: Spacing.sm,
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.bolt, color: active ? foreground : scheme.primary),
+              const Gap(Spacing.sm),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        color: active ? foreground : scheme.onSurface,
+                      ),
+                    ),
+                    Text(
+                      'Action center',
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        color: foreground,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.chevron_right, color: foreground),
+            ],
+          ),
+        ),
+      ),
     );
     return Semantics(
       button: true,
       label: 'Action center: $title',
       excludeSemantics: true,
-      child: Material(
-        key: const Key('action_center_card'),
-        color: background ?? scheme.surface,
-        shape: shape,
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-          onTap: () => context.push(Routes.actions),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: Spacing.md,
-              vertical: Spacing.sm,
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.bolt, color: active ? foreground : scheme.primary),
-                const Gap(Spacing.sm),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: theme.textTheme.titleSmall?.copyWith(
-                          color: active ? foreground : scheme.onSurface,
-                        ),
-                      ),
-                      Text(
-                        'Action center',
-                        style: theme.textTheme.labelMedium?.copyWith(
-                          color: foreground,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Icon(Icons.chevron_right, color: foreground),
-              ],
-            ),
-          ),
-        ),
-      ),
+      child: active ? PopShadow(child: banner) : banner,
     );
   }
 }
@@ -285,19 +295,21 @@ class ComingUpSection extends StatelessWidget {
           ),
         ),
         if (items.isNotEmpty)
-          Card(
-            child: Column(
-              children: [
-                for (var i = 0; i < items.length; i++) ...[
-                  if (i > 0)
-                    Divider(
-                      height: 1,
-                      indent: Spacing.md + 48 + Spacing.sm,
-                      color: context.statusColors.border,
-                    ),
-                  UpcomingTile(item: items[i], now: now),
+          PopShadow(
+            child: Card(
+              child: Column(
+                children: [
+                  for (var i = 0; i < items.length; i++) ...[
+                    if (i > 0)
+                      Divider(
+                        height: 1,
+                        indent: Spacing.md + 48 + Spacing.sm,
+                        color: context.statusColors.border,
+                      ),
+                    UpcomingTile(item: items[i], now: now),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
       ],
@@ -335,13 +347,14 @@ class UpcomingTile extends StatelessWidget {
     final scheme = theme.colorScheme;
     final (bg, fg, icon) = switch (item.kind) {
       UpcomingKind.reminder => (
-        scheme.primaryContainer,
-        scheme.onPrimaryContainer,
+        context.statusColors.highlight,
+        context.statusColors.onHighlight,
         Icons.alarm,
       ),
+      // Deadlines are the urgent ones: hot pink.
       UpcomingKind.deadline => (
-        scheme.errorContainer,
-        scheme.onErrorContainer,
+        AppColors.hotPink,
+        AppColors.ink,
         Icons.flag_outlined,
       ),
       UpcomingKind.date => (
@@ -428,6 +441,10 @@ class _DateBadge extends StatelessWidget {
       decoration: BoxDecoration(
         color: background,
         borderRadius: BorderRadius.circular(Spacing.radiusSm),
+        border: Border.all(
+          color: context.statusColors.outlineStrong,
+          width: Spacing.outlineThin,
+        ),
       ),
       child: Column(
         children: [

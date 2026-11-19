@@ -1,62 +1,72 @@
 import 'package:material_ui/material_ui.dart';
 
+/// Snaptiq "Acid Pop" palette. Source of truth:
+/// assets/icons/developer/snaptiq_tokens.json.
 abstract final class AppColors {
+  // Brand
+  static const acidLime = Color(0xFFD4FF3A);
+  static const hotPink = Color(0xFFFF2E93);
+  static const voltViolet = Color(0xFF7C3AED);
+  static const ink = Color(0xFF0A0A0F);
+  static const limeSoft = Color(0xFFE9FF94);
+  static const paper = Color(0xFFFAFCF2);
+
+  /// Kept for callers that ask for "the" brand colour: primary actions.
+  static const primary = hotPink;
+  static const secondary = voltViolet;
+
   // Light
-  static const lightBackground = Color(0xFFF8F9FC);
+  static const lightBackground = paper;
   static const lightSurface = Color(0xFFFFFFFF);
-  static const primary = Color(0xFF635BFF);
-  static const primaryDark = Color(0xFF4F46E5);
-  static const secondary = Color(0xFF14B8A6);
-  static const lightText = Color(0xFF111827);
-  static const lightTextSecondary = Color(0xFF6B7280);
-  static const lightBorder = Color(0xFFE5E7EB);
+  static const lightSurfaceVariant = Color(0xFFF0F3E4);
+  static const lightText = ink;
+  static const lightTextSecondary = Color(0xFF4B4B57);
+  static const lightOutlineVariant = Color(0xFFDDE1CF);
+  static const lightPrimaryContainer = Color(0xFFFFD1E6);
+  static const lightSecondaryContainer = Color(0xFFE9DDFF);
+  static const lightError = Color(0xFFC4001E);
+  static const lightSuccess = Color(0xFF15803D);
+  static const lightTextLink = Color(0xFFD61F7A);
+
+  // Status fills (used as 12 % tints) and readable foregrounds. Every
+  // foreground reaches WCAG AA (4.5:1) on a 12 % tint over white and over
+  // [paper] (checked in test/widget/design_widgets_test.dart).
   static const success = Color(0xFF22C55E);
   static const warning = Color(0xFFF59E0B);
   static const error = Color(0xFFEF4444);
+  static const lightOnSuccess = Color(0xFF166534); // 6.2:1 on a tint
+  static const lightOnWarning = Color(0xFF92400E); // 6.2:1
+  static const lightOnInfo = voltViolet; // 5.7:1
+  static const lightOnDanger = lightError; // 6.3:1
+  static const lightOnAccent = Color(0xFFC2186E); // 4.7:1 on a pink tint
 
-  /// Error color used by the light theme. Darker than [error] so white text
-  /// on it (snack bars, destructive buttons) and red text on white surfaces
-  /// reach WCAG AA (4.8:1).
-  static const lightError = Color(0xFFDC2626);
-
-  // Readable foregrounds for text and icons on light surfaces or on a 12 %
-  // tint of the matching status color. Each one reaches at least 4.5:1
-  // (WCAG AA for small text) on white and on [lightBackground].
-  static const lightOnSuccess = Color(0xFF166534); // 6.1:1 or better
-  static const lightOnWarning = Color(0xFF92400E); // 6.2:1 or better
-  static const lightOnInfo = Color(0xFF0F766E); // 4.7:1 or better
-  static const lightOnDanger = Color(0xFFB91C1C); // 5.3:1 or better
-  static const lightOnAccent = primaryDark; // 5.1:1 or better
-
-  /// Favourite star. A graphic, so it needs 3:1 (WCAG 1.4.11) on white.
-  static const lightFavorite = Color(0xFFD97706);
+  /// Favourite star: a graphic, so it needs 3:1 (WCAG 1.4.11) on white.
+  static const lightFavorite = Color(0xFFE0157A); // 4.3:1
 
   // Dark
-  static const darkBackground = Color(0xFF0F1117);
-  static const darkSurface = Color(0xFF181B24);
-  static const darkElevated = Color(0xFF222632);
-  static const darkPrimary = Color(0xFF8B83FF);
-  static const darkText = Color(0xFFF9FAFB);
-  static const darkTextSecondary = Color(0xFF9CA3AF);
-  static const darkBorder = Color(0xFF303542);
-  static const darkError = Color(0xFFF87171);
-
-  // Dark-theme counterparts; each reaches at least 5.5:1 on [darkSurface]
-  // and on a 12 % tint of the matching status color.
+  static const darkBackground = ink;
+  static const darkSurface = Color(0xFF16161D);
+  static const darkElevated = Color(0xFF22222B);
+  static const darkPrimary = Color(0xFFFF4FA3);
+  static const darkSecondary = Color(0xFFA78BFA);
+  static const darkText = Color(0xFFF5F5F7);
+  static const darkTextSecondary = Color(0xFFA1A1AE);
+  static const darkBorder = Color(0xFF33333D);
+  static const darkError = Color(0xFFFF6B6B);
   static const darkOnSuccess = Color(0xFF4ADE80);
   static const darkOnWarning = Color(0xFFFBBF24);
-  static const darkOnInfo = Color(0xFF2DD4BF);
-  static const darkOnDanger = Color(0xFFF87171);
-  static const darkOnAccent = Color(0xFFA5A0FF);
-  static const darkFavorite = Color(0xFFFBBF24);
+  static const darkOnInfo = darkSecondary;
+  static const darkOnDanger = darkError;
+  static const darkOnAccent = darkPrimary;
+  static const darkFavorite = darkPrimary;
 }
 
-/// Semantic colors that Material's [ColorScheme] has no slot for.
+/// Semantic colours that Material's [ColorScheme] has no slot for.
 ///
-/// [success] and [warning] are fill/tint colors. They are too light for text
-/// on light surfaces, so use [onSuccess] / [onWarning] (and [onInfo],
+/// [success] and [warning] are fill/tint colours. They are too light for
+/// text on light surfaces, so use [onSuccess] / [onWarning] (and [onInfo],
 /// [onDanger], [onAccent]) for text and icons placed on a surface or on a
-/// tint of the status color.
+/// tint of the status colour.
 @immutable
 class StatusColors extends ThemeExtension<StatusColors> {
   const StatusColors({
@@ -71,36 +81,52 @@ class StatusColors extends ThemeExtension<StatusColors> {
     this.onDanger = AppColors.lightOnDanger,
     this.onAccent = AppColors.lightOnAccent,
     this.favorite = AppColors.lightFavorite,
+    this.outlineStrong = AppColors.ink,
+    this.shadowHard = AppColors.ink,
+    this.highlight = AppColors.acidLime,
+    this.onHighlight = AppColors.ink,
   });
 
   final Color success;
   final Color warning;
+
+  /// Subtle divider and hairline colour.
   final Color border;
   final Color textSecondary;
   final Color elevated;
 
-  /// Text/icon color for success states (e.g. "Reviewed").
+  /// Text/icon colour for success states (e.g. "Reviewed").
   final Color onSuccess;
 
-  /// Text/icon color for warning states (e.g. "Queued", "Please check").
+  /// Text/icon colour for warning states (e.g. "Queued", "Please check").
   final Color onWarning;
 
-  /// Text/icon color for neutral-informational states (e.g. "Needs review").
+  /// Text/icon colour for neutral-informational states (e.g. "Needs review").
   final Color onInfo;
 
-  /// Text/icon color for error states on a tinted background.
+  /// Text/icon colour for error states on a tinted background.
   final Color onDanger;
 
-  /// Text/icon color for primary-tinted states (e.g. "Processing").
+  /// Text/icon colour for primary-tinted states (e.g. "Processing").
   final Color onAccent;
 
-  /// Color of the filled favourite star.
+  /// Colour of the filled favourite star.
   final Color favorite;
+
+  /// The brand's bold outline: ink on light, near-white on dark.
+  final Color outlineStrong;
+
+  /// Hard, unblurred brand shadow: ink on light, acid lime on dark.
+  final Color shadowHard;
+
+  /// Acid lime brand surface for highlights, and its readable foreground.
+  final Color highlight;
+  final Color onHighlight;
 
   static const light = StatusColors(
     success: AppColors.success,
     warning: AppColors.warning,
-    border: AppColors.lightBorder,
+    border: AppColors.lightOutlineVariant,
     textSecondary: AppColors.lightTextSecondary,
     elevated: AppColors.lightSurface,
   );
@@ -117,6 +143,8 @@ class StatusColors extends ThemeExtension<StatusColors> {
     onDanger: AppColors.darkOnDanger,
     onAccent: AppColors.darkOnAccent,
     favorite: AppColors.darkFavorite,
+    outlineStrong: AppColors.darkText,
+    shadowHard: AppColors.acidLime,
   );
 
   @override
@@ -132,6 +160,10 @@ class StatusColors extends ThemeExtension<StatusColors> {
     Color? onDanger,
     Color? onAccent,
     Color? favorite,
+    Color? outlineStrong,
+    Color? shadowHard,
+    Color? highlight,
+    Color? onHighlight,
   }) => StatusColors(
     success: success ?? this.success,
     warning: warning ?? this.warning,
@@ -144,6 +176,10 @@ class StatusColors extends ThemeExtension<StatusColors> {
     onDanger: onDanger ?? this.onDanger,
     onAccent: onAccent ?? this.onAccent,
     favorite: favorite ?? this.favorite,
+    outlineStrong: outlineStrong ?? this.outlineStrong,
+    shadowHard: shadowHard ?? this.shadowHard,
+    highlight: highlight ?? this.highlight,
+    onHighlight: onHighlight ?? this.onHighlight,
   );
 
   @override
@@ -162,6 +198,10 @@ class StatusColors extends ThemeExtension<StatusColors> {
       onDanger: l(onDanger, other.onDanger),
       onAccent: l(onAccent, other.onAccent),
       favorite: l(favorite, other.favorite),
+      outlineStrong: l(outlineStrong, other.outlineStrong),
+      shadowHard: l(shadowHard, other.shadowHard),
+      highlight: l(highlight, other.highlight),
+      onHighlight: l(onHighlight, other.onHighlight),
     );
   }
 }

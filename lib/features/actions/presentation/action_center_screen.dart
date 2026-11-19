@@ -11,6 +11,7 @@ import '../../../core/constants/action_meta.dart';
 import '../../../core/database/app_database.dart';
 import '../../../core/services/settings_repository.dart';
 import '../../../core/theme/spacing.dart';
+import '../../../core/widgets/brand.dart';
 import '../../../core/widgets/common.dart';
 import '../../../core/widgets/dialogs.dart';
 import '../../../core/widgets/screenshot_card.dart';
@@ -120,6 +121,7 @@ class _ActionCenterScreenState extends ConsumerState<ActionCenterScreen> {
           }
           if (items.isEmpty && confirm.isEmpty) {
             return const EmptyState(
+              art: BrandArt.allDone,
               icon: Icons.task_alt,
               title: 'All caught up',
               message: 'Suggestions such as reminders, links and payments appear here after screenshots are processed.',
@@ -230,71 +232,75 @@ class ScreenshotActionsCard extends StatelessWidget {
     final theme = Theme.of(context);
     final first = items.first;
     final title = first.screenshotTitle?.trim();
-    return Card(
-      margin: EdgeInsets.zero,
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          InkWell(
-            onTap: () =>
-                context.push(Routes.screenshot(first.action.screenshotId)),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(
-                Spacing.sm,
-                Spacing.sm,
-                Spacing.xs,
-                Spacing.xs,
-              ),
-              child: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(Spacing.radiusSm),
-                    child: SizedBox(
-                      width: 36,
-                      height: 48,
-                      child: ScreenshotThumbnail(
-                        path: first.thumbnailPath,
-                        blur: hideSensitive && first.isSensitive,
+    return PopShadow(
+      child: Card(
+        margin: EdgeInsets.zero,
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            InkWell(
+              onTap: () =>
+                  context.push(Routes.screenshot(first.action.screenshotId)),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  Spacing.sm,
+                  Spacing.sm,
+                  Spacing.xs,
+                  Spacing.xs,
+                ),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(Spacing.radiusSm),
+                      child: SizedBox(
+                        width: 36,
+                        height: 48,
+                        child: ScreenshotThumbnail(
+                          path: first.thumbnailPath,
+                          blur: hideSensitive && first.isSensitive,
+                        ),
                       ),
                     ),
-                  ),
-                  const Gap(Spacing.sm),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          title == null || title.isEmpty ? 'Screenshot' : title,
-                          style: theme.textTheme.titleSmall,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          items.length == 1
-                              ? '1 suggestion'
-                              : '${items.length} suggestions',
-                          style: theme.textTheme.labelSmall?.copyWith(
-                            color: theme.colorScheme.onSurfaceVariant,
+                    const Gap(Spacing.sm),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title == null || title.isEmpty
+                                ? 'Screenshot'
+                                : title,
+                            style: theme.textTheme.titleSmall,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                      ],
+                          Text(
+                            items.length == 1
+                                ? '1 suggestion'
+                                : '${items.length} suggestions',
+                            style: theme.textTheme.labelSmall?.copyWith(
+                              color: theme.colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Icon(
-                    Icons.chevron_right,
-                    color: theme.colorScheme.onSurfaceVariant,
-                    semanticLabel: 'Open screenshot',
-                  ),
-                ],
+                    Icon(
+                      Icons.chevron_right,
+                      color: theme.colorScheme.onSurfaceVariant,
+                      semanticLabel: 'Open screenshot',
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          for (final (i, item) in items.indexed) ...[
-            if (i > 0) const Divider(height: 1, indent: Spacing.sm),
-            ActionTile(item: item),
+            for (final (i, item) in items.indexed) ...[
+              if (i > 0) const Divider(height: 1, indent: Spacing.sm),
+              ActionTile(item: item),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }
@@ -457,7 +463,7 @@ class ActionTile extends ConsumerWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20 + Spacing.xs),
-            child: FilledButton.tonal(
+            child: FilledButton(
               key: ValueKey('accept_${a.id}'),
               style: FilledButton.styleFrom(
                 visualDensity: VisualDensity.compact,

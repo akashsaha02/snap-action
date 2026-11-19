@@ -55,6 +55,19 @@ First complete version, built in phases (see TASKS.md).
   originals are not affected.
 - In-app privacy policy and open-source licences.
 
+### Brand: Acid Pop
+- New visual identity from the brand kit in `assets/icons` (source files,
+  tokens and guide). Acid lime, hot pink and volt violet on paper; ink
+  outlines and hard offset shadows (lime in dark mode); pill buttons;
+  Space Grotesk headings with Inter body text.
+- Tiq the mascot in onboarding and in every empty, error and all-done
+  state (nine illustrations, resized to 540 px, 119 KB in total).
+- New launcher icon (adaptive, round, themed monochrome), notification
+  icon, splash screens (Android 12+ and older) and in-app logo.
+- Accessibility kept: text colours on tinted surfaces stay at WCAG AA,
+  selected chips use ink on lime in both themes; snack bars with an action
+  close after 6 seconds unless a screen reader is on.
+
 ### Name
 - The app is now called **Snaptiq** (was SnapAction). The package id
   `com.snapaction.snapaction`, database and backup format are unchanged, so

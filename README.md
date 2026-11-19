@@ -92,6 +92,16 @@ when both were running.
 that a test APK can be built without secrets. Configure your own keystore
 before publishing; no signing secrets are stored in the repository.
 
+## Brand
+
+The visual identity ("Acid Pop") comes from the brand kit in
+[assets/icons](assets/icons): source SVG/PNG files, design tokens
+(`developer/snaptiq_tokens.json`) and the colour/type guide. The app bundles
+only resized copies (`assets/images/`) and maps the tokens in
+`lib/core/theme`. Brand helpers live in `lib/core/widgets/brand.dart`:
+`PopShadow` (hard offset shadow), `BrandIllustration` and `BrandArt` (Tiq
+illustrations). Image prompts for new artwork: [docs/BRAND_PROMPTS.md](docs/BRAND_PROMPTS.md).
+
 ## Project documents
 
 - [ARCHITECTURE.md](ARCHITECTURE.md): layers, data model, processing pipeline

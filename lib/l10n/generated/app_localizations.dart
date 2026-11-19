@@ -175,13 +175,13 @@ abstract class AppLocalizations {
   /// No description provided for @onboarding2Title.
   ///
   /// In en, this message translates to:
-  /// **'Your screenshots are searchable'**
+  /// **'Searchable. And private.'**
   String get onboarding2Title;
 
   /// No description provided for @onboarding2Body.
   ///
   /// In en, this message translates to:
-  /// **'Text inside every screenshot is read on your device, so you can find a price, a date or a name in seconds.'**
+  /// **'Text inside every screenshot is read on your phone and never uploaded, so you can find a price, a date or a name in seconds.'**
   String get onboarding2Body;
 
   /// No description provided for @onboarding3Title.

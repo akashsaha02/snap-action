@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Same diagonal gradient as the in-app logo (AppLogo). -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <gradient
-        android:angle="315"
-        android:startColor="#FF635BFF"
-        android:endColor="#FF8B5CF6"
-        android:type="linear" />
-</shape>
+<!-- Adaptive icon background layer: flat Acid Lime from the Snaptiq brand kit
+     (assets/icons/icon/adaptive_background_432.png is a single colour). -->
+<color xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/brand_acid_lime" />

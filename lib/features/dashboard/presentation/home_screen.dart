@@ -11,6 +11,7 @@ import '../../../core/repositories/screenshot_repository.dart';
 import '../../../core/services/settings_repository.dart';
 import '../../../core/theme/spacing.dart';
 import '../../../core/widgets/app_logo.dart';
+import '../../../core/widgets/brand.dart';
 import '../../../core/widgets/common.dart';
 import '../../../core/widgets/screenshot_card.dart';
 import '../../../core/widgets/states.dart';
@@ -61,14 +62,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Scaffold(
       floatingActionButton: isEmpty
           ? null
-          : FloatingActionButton.extended(
-              key: const Key('home_import'),
-              heroTag: 'home_import',
-              tooltip: l10n.importScreenshots,
-              isExtended: _fabExtended,
-              onPressed: importing ? null : import,
-              icon: const Icon(Icons.add_photo_alternate_outlined),
-              label: Text(l10n.importScreenshots),
+          : PopShadow.pill(
+              child: FloatingActionButton.extended(
+                key: const Key('home_import'),
+                heroTag: 'home_import',
+                tooltip: l10n.importScreenshots,
+                isExtended: _fabExtended,
+                onPressed: importing ? null : import,
+                icon: const Icon(Icons.add_photo_alternate_outlined),
+                label: Text(l10n.importScreenshots),
+              ),
             ),
       body: NotificationListener<ScrollNotification>(
         onNotification: _onScroll,
@@ -122,6 +125,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               SliverFillRemaining(
                 hasScrollBody: false,
                 child: EmptyState(
+                  art: BrandArt.emptyLibrary,
                   icon: Icons.photo_library_outlined,
                   title: l10n.emptyLibraryTitle,
                   message: l10n.emptyLibraryBody,

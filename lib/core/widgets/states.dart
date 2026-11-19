@@ -1,6 +1,8 @@
 import 'package:material_ui/material_ui.dart';
 
+import '../theme/app_colors.dart';
 import '../theme/spacing.dart';
+import 'brand.dart';
 
 class EmptyState extends StatelessWidget {
   const EmptyState({
@@ -8,6 +10,7 @@ class EmptyState extends StatelessWidget {
     required this.title,
     required this.message,
     this.action,
+    this.art,
     super.key,
   });
 
@@ -15,6 +18,9 @@ class EmptyState extends StatelessWidget {
   final String title;
   final String message;
   final Widget? action;
+
+  /// Tiq illustration shown instead of [icon] when set.
+  final BrandArt? art;
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +32,32 @@ class EmptyState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ExcludeSemantics(
-              child: Container(
-                width: 88,
-                height: 88,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primaryContainer,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  icon,
-                  size: 40,
-                  color: theme.colorScheme.onPrimaryContainer,
+            if (art case final art?)
+              // Smaller on short screens so the text and button still fit.
+              BrandIllustration(
+                art,
+                size: MediaQuery.sizeOf(context).height < 640 ? 132 : 180,
+              )
+            else
+              ExcludeSemantics(
+                child: Container(
+                  width: 88,
+                  height: 88,
+                  decoration: BoxDecoration(
+                    color: context.statusColors.highlight,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: context.statusColors.outlineStrong,
+                      width: Spacing.outline,
+                    ),
+                  ),
+                  child: Icon(
+                    icon,
+                    size: 40,
+                    color: context.statusColors.onHighlight,
+                  ),
                 ),
               ),
-            ),
             const Gap(Spacing.lg),
             Semantics(
               header: true,
@@ -58,7 +75,10 @@ class EmptyState extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            if (action != null) ...[const Gap(Spacing.lg), action!],
+            if (action != null) ...[
+              const Gap(Spacing.lg),
+              PopShadow.pill(child: action!),
+            ],
           ],
         ),
       ),
@@ -164,7 +184,7 @@ class _ErrorStateState extends State<ErrorState> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.error_outline, size: 48, color: theme.colorScheme.error),
+            const BrandIllustration(BrandArt.error, size: 140),
             const Gap(Spacing.md),
             Semantics(
               liveRegion: true,

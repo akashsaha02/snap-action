@@ -8,6 +8,7 @@ import '../../../app/providers.dart';
 import '../../../app/routes.dart';
 import '../../../core/theme/spacing.dart';
 import '../../../core/utils/formatters.dart';
+import '../../../core/widgets/brand.dart';
 import '../../../core/widgets/dialogs.dart';
 import '../../../core/widgets/screenshot_card.dart';
 import '../../../core/widgets/states.dart';
@@ -40,6 +41,7 @@ class WishlistScreen extends ConsumerWidget {
         data: (items) {
           if (items.isEmpty) {
             return const EmptyState(
+              art: BrandArt.emptyLibrary,
               icon: Icons.favorite_border,
               title: 'Your wishlist is empty',
               message: 'Products found in shopping screenshots can be added here, or add one yourself.',

@@ -59,7 +59,7 @@ class LocalNotificationService implements NotificationService {
     priority: Priority.high,
     category: AndroidNotificationCategory.reminder,
     icon: smallIcon,
-    color: Color(0xFF635BFF),
+    color: Color(0xFFFF2E93),
     // Both open the app briefly, which then updates the reminder; nothing
     // runs in the background.
     actions: [

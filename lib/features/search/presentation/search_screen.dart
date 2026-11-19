@@ -10,8 +10,10 @@ import '../../../app/routes.dart';
 import '../../../core/models/screenshot_summary.dart';
 import '../../../core/repositories/search_repository.dart';
 import '../../../core/services/settings_repository.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/spacing.dart';
 import '../../../core/utils/formatters.dart';
+import '../../../core/widgets/brand.dart';
 import '../../../core/widgets/common.dart';
 import '../../../core/widgets/dialogs.dart';
 import '../../../core/widgets/screenshot_card.dart';
@@ -315,7 +317,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   }) => Padding(
     padding: const EdgeInsets.only(right: Spacing.xs, bottom: Spacing.xs),
     child: FilterChip(
-      avatar: Icon(icon, size: 18),
+      avatar: Icon(
+        icon,
+        size: 18,
+        // Chips don't resolve avatar colours by state.
+        color: selected ? context.statusColors.onHighlight : null,
+      ),
       label: Text(label),
       selected: selected,
       showCheckmark: false,
@@ -335,6 +342,7 @@ class _History extends ConsumerWidget {
     final history = ref.watch(searchHistoryProvider).value ?? const <String>[];
     if (history.isEmpty) {
       return EmptyState(
+        art: BrandArt.noResults,
         icon: Icons.manage_search_rounded,
         title: l10n.emptySearchTitle,
         message: l10n.emptySearchBody,
@@ -416,6 +424,7 @@ class _ResultsState extends ConsumerState<_Results> {
     }
     if (results.hits.isEmpty) {
       return EmptyState(
+        art: BrandArt.noResults,
         icon: Icons.search_off,
         title: 'No matches',
         message: request.text.trim().isEmpty

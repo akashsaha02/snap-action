@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Snaptiq brand colours (assets/icons/developer/res/values/colors.xml). -->
+    <color name="brand_acid_lime">#D4FF3A</color>
+    <color name="brand_hot_pink">#FF2E93</color>
+    <color name="brand_ink">#0A0A0F</color>
+    <color name="brand_paper">#FAFCF2</color>
+
+    <!-- Launch window (pre-Android 12 splash) and the window behind Flutter. -->
+    <color name="splash_background">@color/brand_acid_lime</color>
+    <color name="window_background">@color/brand_paper</color>
+</resources>

@@ -17,6 +17,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/category_icons.dart';
 import '../../../core/theme/spacing.dart';
 import '../../../core/utils/formatters.dart';
+import '../../../core/widgets/brand.dart';
 import '../../../core/widgets/common.dart';
 import '../../../core/widgets/dialogs.dart';
 import '../../../core/widgets/screenshot_card.dart';
@@ -112,6 +113,7 @@ class ScreenshotDetailsScreen extends ConsumerWidget {
           ? Scaffold(
               appBar: AppBar(),
               body: const EmptyState(
+                art: BrandArt.error,
                 icon: Icons.image_not_supported_outlined,
                 title: 'Screenshot not found',
                 message: 'It may have been deleted.',

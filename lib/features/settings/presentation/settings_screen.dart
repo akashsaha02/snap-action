@@ -9,6 +9,7 @@ import '../../../app/providers.dart';
 import '../../../app/routes.dart';
 import '../../../core/constants/app_info.dart';
 import '../../../core/services/settings_repository.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/spacing.dart';
 import '../../../core/utils/formatters.dart';
 import '../../../core/widgets/app_logo.dart';
@@ -459,7 +460,7 @@ class _Header extends StatelessWidget {
       child: Text(
         title,
         style: Theme.of(context).textTheme.titleSmall
-            ?.copyWith(color: Theme.of(context).colorScheme.primary),
+            ?.copyWith(color: context.statusColors.onAccent),
       ),
     ),
   );

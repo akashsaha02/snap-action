@@ -3,8 +3,8 @@ import 'package:material_ui/material_ui.dart';
 
 import '../../../app/bootstrap.dart';
 import '../../../core/theme/spacing.dart';
+import '../../../core/widgets/brand.dart';
 import '../../../l10n/generated/app_localizations.dart';
-import 'onboarding_illustrations.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -43,13 +43,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final pages = [
-      (
-        l10n.onboarding1Title,
-        l10n.onboarding1Body,
-        const OrganizeIllustration(),
-      ),
-      (l10n.onboarding2Title, l10n.onboarding2Body, const SearchIllustration()),
-      (l10n.onboarding3Title, l10n.onboarding3Body, const ActionIllustration()),
+      (l10n.onboarding1Title, l10n.onboarding1Body, BrandArt.onboardingWelcome),
+      (l10n.onboarding2Title, l10n.onboarding2Body, BrandArt.onboardingPrivacy),
+      (l10n.onboarding3Title, l10n.onboarding3Body, BrandArt.onboardingActions),
     ];
     final last = _page == _pageCount - 1;
 
@@ -104,7 +100,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                               ),
                               child: FittedBox(
                                 fit: BoxFit.scaleDown,
-                                child: art,
+                                child: BrandIllustration(art, size: 300),
                               ),
                             ),
                             const Gap(Spacing.md),
@@ -163,13 +159,18 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 Spacing.lg,
                 Spacing.lg,
               ),
-              child: SizedBox(
-                width: double.infinity,
-                child: FilledButton(
-                  key: const ValueKey('onboarding_next'),
-                  onPressed: _next,
-                  child: Text(
-                    last ? l10n.onboardingGetStarted : l10n.onboardingContinue,
+              child: PopShadow.pill(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 56,
+                  child: FilledButton(
+                    key: const ValueKey('onboarding_next'),
+                    onPressed: _next,
+                    child: Text(
+                      last
+                          ? l10n.onboardingGetStarted
+                          : l10n.onboardingContinue,
+                    ),
                   ),
                 ),
               ),
@@ -199,11 +200,14 @@ class _PageIndicator extends StatelessWidget {
             AnimatedContainer(
               duration: const Duration(milliseconds: 250),
               margin: const EdgeInsets.symmetric(horizontal: 4),
-              width: i == index ? 24 : 8,
-              height: 8,
+              width: i == index ? 28 : 10,
+              height: 10,
               decoration: BoxDecoration(
-                color: i == index ? scheme.primary : scheme.outline,
-                borderRadius: BorderRadius.circular(4),
+                color: i == index ? scheme.primary : scheme.outlineVariant,
+                borderRadius: BorderRadius.circular(5),
+                border: i == index
+                    ? Border.all(color: scheme.outline, width: 1.5)
+                    : null,
               ),
             ),
         ],

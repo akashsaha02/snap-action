@@ -8,6 +8,7 @@ import '../../../app/providers.dart';
 import '../../../app/routes.dart';
 import '../../../core/repositories/organization_repository.dart';
 import '../../../core/theme/spacing.dart';
+import '../../../core/widgets/brand.dart';
 import '../../../core/widgets/common.dart';
 import '../../../core/widgets/dialogs.dart';
 import '../../../core/widgets/screenshot_card.dart';
@@ -157,6 +158,7 @@ class CollectionsScreen extends ConsumerWidget {
           final nonEmpty = cats.where((c) => c.count > 0).toList();
           if ((stats?.total ?? 0) == 0 && collections.isEmpty) {
             return EmptyState(
+              art: BrandArt.emptyLibrary,
               icon: Icons.grid_view_rounded,
               title: l10n.emptyCollectionsTitle,
               message: l10n.emptyCollectionsBody,

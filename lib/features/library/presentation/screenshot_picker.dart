@@ -6,6 +6,7 @@ import '../../../app/providers.dart';
 import '../../../core/repositories/screenshot_repository.dart';
 import '../../../core/services/settings_repository.dart';
 import '../../../core/theme/spacing.dart';
+import '../../../core/widgets/brand.dart';
 import '../../../core/widgets/screenshot_card.dart';
 import '../../../core/widgets/states.dart';
 import 'stable_page.dart';
@@ -112,6 +113,7 @@ class _ScreenshotPickerScreenState
                 : const SkeletonList()
           : items.isEmpty
           ? const EmptyState(
+              art: BrandArt.emptyLibrary,
               icon: Icons.photo_library_outlined,
               title: 'Nothing to add',
               message:

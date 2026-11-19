@@ -10,9 +10,21 @@ abstract final class Spacing {
   static const double xl = 32;
   static const double xxl = 48;
 
-  static const double radiusSm = 8;
+  // Acid Pop shape scale (assets/icons/developer/snaptiq_tokens.json).
+  static const double radiusXs = 6;
+  static const double radiusSm = 10;
   static const double radiusMd = 16;
   static const double radiusLg = 24;
+  static const double radiusXl = 32;
+
+  /// Ink outline widths.
+  static const double outlineThin = 1.5;
+  static const double outline = 2;
+  static const double outlineBold = 3;
+
+  /// Offset of the hard (unblurred) brand shadow.
+  static const double shadowOffset = 4;
+  static const double shadowOffsetLarge = 6;
 
   static const double minTouchTarget = 48;
 

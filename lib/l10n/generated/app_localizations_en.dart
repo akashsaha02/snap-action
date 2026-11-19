@@ -51,11 +51,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'Snaptiq turns a cluttered camera roll into tidy, smart collections, from receipts to recipes.';
 
   @override
-  String get onboarding2Title => 'Your screenshots are searchable';
+  String get onboarding2Title => 'Searchable. And private.';
 
   @override
   String get onboarding2Body =>
-      'Text inside every screenshot is read on your device, so you can find a price, a date or a name in seconds.';
+      'Text inside every screenshot is read on your phone and never uploaded, so you can find a price, a date or a name in seconds.';
 
   @override
   String get onboarding3Title => 'Turn information into action';

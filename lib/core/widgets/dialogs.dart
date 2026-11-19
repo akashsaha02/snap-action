@@ -169,6 +169,10 @@ extension SnackbarX on BuildContext {
         SnackBar(
           content: Text(message),
           backgroundColor: error ? scheme.error : null,
+          // With an action, Flutter would keep the bar until dismissed. Keep
+          // that for screen-reader users only; everyone else gets 6 seconds.
+          persist: MediaQuery.maybeAccessibleNavigationOf(this) ?? false,
+          duration: const Duration(seconds: 6),
           action: actionLabel != null && onAction != null
               ? SnackBarAction(label: actionLabel, onPressed: onAction)
               : null,

@@ -9,6 +9,7 @@ import '../../../app/providers.dart';
 import '../../../app/routes.dart';
 import '../../../core/database/app_database.dart';
 import '../../../core/theme/spacing.dart';
+import '../../../core/widgets/brand.dart';
 import '../../../core/widgets/dialogs.dart';
 import '../../../core/widgets/screenshot_card.dart';
 import '../../../core/widgets/states.dart';
@@ -160,6 +161,9 @@ class _RemindersScreenState extends ConsumerState<RemindersScreen> {
                   ErrorState(message: 'Could not load reminders.', details: e),
               data: (list) => list.isEmpty
                   ? EmptyState(
+                      art: tab == ReminderTab.completed
+                          ? BrandArt.allDone
+                          : BrandArt.noReminders,
                       icon: tab == ReminderTab.completed
                           ? Icons.task_alt
                           : Icons.alarm_rounded,

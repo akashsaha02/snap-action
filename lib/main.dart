@@ -10,6 +10,10 @@ void main() {
   LicenseRegistry.addLicense(() async* {
     final inter = await rootBundle.loadString('assets/fonts/Inter-OFL.txt');
     yield LicenseEntryWithLineBreaks(['Inter font'], inter);
+    final grotesk = await rootBundle.loadString(
+      'assets/fonts/SpaceGrotesk-OFL.txt',
+    );
+    yield LicenseEntryWithLineBreaks(['Space Grotesk font'], grotesk);
   });
   runApp(
     ProviderScope(

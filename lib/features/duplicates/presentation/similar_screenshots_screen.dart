@@ -12,6 +12,7 @@ import '../../../app/routes.dart';
 import '../../../core/models/screenshot_summary.dart';
 import '../../../core/theme/spacing.dart';
 import '../../../core/utils/formatters.dart';
+import '../../../core/widgets/brand.dart';
 import '../../../core/widgets/dialogs.dart';
 import '../../../core/widgets/screenshot_card.dart';
 import '../../../core/widgets/states.dart';
@@ -96,6 +97,7 @@ class SimilarScreenshotsScreen extends ConsumerWidget {
         ),
         data: (groups) => groups.isEmpty
             ? const EmptyState(
+                art: BrandArt.allDone,
                 icon: Icons.compare_outlined,
                 title: 'No similar screenshots',
                 message:

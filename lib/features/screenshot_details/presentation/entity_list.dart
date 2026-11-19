@@ -240,7 +240,6 @@ class _EntityListState extends ConsumerState<EntityList> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final status = context.statusColors;
     final all = EntityList.visible(widget.entities);
     final truncated = !_expanded && all.length > EntityList.collapsedCount;
@@ -263,7 +262,7 @@ class _EntityListState extends ConsumerState<EntityList> {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: _openable.containsKey(e.entityType)
-                    ? TextStyle(color: theme.colorScheme.primary)
+                    ? TextStyle(color: context.statusColors.onAccent)
                     : null,
               ),
               subtitle: Row(

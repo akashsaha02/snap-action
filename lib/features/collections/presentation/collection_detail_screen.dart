@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 
 import '../../../app/providers.dart';
 import '../../../core/repositories/screenshot_repository.dart';
+import '../../../core/widgets/brand.dart';
 import '../../../core/widgets/dialogs.dart';
 import '../../../core/widgets/states.dart';
 import '../../library/presentation/library_screen.dart';
@@ -29,6 +30,7 @@ class CollectionDetailScreen extends ConsumerWidget {
           return Scaffold(
             appBar: AppBar(),
             body: const EmptyState(
+              art: BrandArt.error,
               icon: Icons.folder_off_outlined,
               title: 'Collection not found',
               message: 'It may have been deleted.',

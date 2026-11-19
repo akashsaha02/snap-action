@@ -10,6 +10,7 @@ import '../theme/app_colors.dart';
 import '../theme/category_icons.dart';
 import '../theme/spacing.dart';
 import '../utils/formatters.dart';
+import 'brand.dart';
 import 'common.dart';
 import 'sensitive_previews.dart';
 
@@ -258,57 +259,62 @@ class ScreenshotCard extends StatelessWidget {
     );
 
     final border = selected
-        ? BorderSide(color: theme.colorScheme.primary, width: 2)
+        ? BorderSide(
+            color: theme.colorScheme.primary,
+            width: Spacing.outlineBold,
+          )
         : null;
 
     return Semantics(
       label: semanticsLabel,
       button: true,
       selected: selected,
-      child: Card(
-        shape: border == null
-            ? null
-            : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Spacing.radiusMd),
-                side: border,
-              ),
-        child: InkWell(
-          onTap: onTap,
-          onLongPress: onLongPress,
-          child: switch (layout) {
-            ScreenshotCardLayout.grid => Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(child: thumbnail),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(
-                    Spacing.sm,
-                    // The 48 dp favourite button already adds air above.
-                    onFavoriteToggle == null && menu == null
-                        ? Spacing.xs
-                        : Spacing.xxs,
-                    Spacing.xxs,
-                    Spacing.sm,
-                  ),
-                  child: info,
+      child: PopShadow(
+        child: Card(
+          shape: border == null
+              ? null
+              : RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Spacing.radiusMd),
+                  side: border,
                 ),
-              ],
-            ),
-            ScreenshotCardLayout.list => Padding(
-              padding: const EdgeInsets.all(Spacing.sm),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          child: InkWell(
+            onTap: onTap,
+            onLongPress: onLongPress,
+            child: switch (layout) {
+              ScreenshotCardLayout.grid => Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(Spacing.radiusSm),
-                    child: SizedBox(width: 72, height: 96, child: thumbnail),
+                  Expanded(child: thumbnail),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(
+                      Spacing.sm,
+                      // The 48 dp favourite button already adds air above.
+                      onFavoriteToggle == null && menu == null
+                          ? Spacing.xs
+                          : Spacing.xxs,
+                      Spacing.xxs,
+                      Spacing.sm,
+                    ),
+                    child: info,
                   ),
-                  const Gap(Spacing.sm),
-                  Expanded(child: info),
                 ],
               ),
-            ),
-          },
+              ScreenshotCardLayout.list => Padding(
+                padding: const EdgeInsets.all(Spacing.sm),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(Spacing.radiusSm),
+                      child: SizedBox(width: 72, height: 96, child: thumbnail),
+                    ),
+                    const Gap(Spacing.sm),
+                    Expanded(child: info),
+                  ],
+                ),
+              ),
+            },
+          ),
         ),
       ),
     );
@@ -366,72 +372,74 @@ class CategoryCard extends StatelessWidget {
       label: '$name, $count screenshots',
       button: true,
       excludeSemantics: true,
-      child: Card(
-        child: InkWell(
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(Spacing.sm),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(Spacing.xs),
-                      decoration: BoxDecoration(
-                        color: accent.withValues(alpha: 0.14),
-                        borderRadius: BorderRadius.circular(Spacing.radiusSm),
+      child: PopShadow(
+        child: Card(
+          child: InkWell(
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.all(Spacing.sm),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(Spacing.xs),
+                        decoration: BoxDecoration(
+                          color: accent.withValues(alpha: 0.14),
+                          borderRadius: BorderRadius.circular(Spacing.radiusSm),
+                        ),
+                        child: Icon(
+                          CategoryIcons.of(icon),
+                          color: accent,
+                          size: 20,
+                        ),
                       ),
-                      child: Icon(
-                        CategoryIcons.of(icon),
-                        color: accent,
-                        size: 20,
-                      ),
-                    ),
-                    const Spacer(),
-                    Text('$count', style: theme.textTheme.titleMedium),
-                  ],
-                ),
-                const Gap(Spacing.sm),
-                Expanded(
-                  child: previewPaths.isEmpty
-                      ? DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: accent.withValues(alpha: 0.06),
-                            borderRadius: BorderRadius.circular(
-                              Spacing.radiusSm,
+                      const Spacer(),
+                      Text('$count', style: theme.textTheme.titleMedium),
+                    ],
+                  ),
+                  const Gap(Spacing.sm),
+                  Expanded(
+                    child: previewPaths.isEmpty
+                        ? DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: accent.withValues(alpha: 0.06),
+                              borderRadius: BorderRadius.circular(
+                                Spacing.radiusSm,
+                              ),
                             ),
-                          ),
-                          child: const SizedBox.expand(),
-                        )
-                      : Row(
-                          children: [
-                            for (final (i, p)
-                                in previewPaths.take(3).indexed) ...[
-                              if (i > 0) const Gap(Spacing.xxs),
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                    Spacing.radiusSm - 2,
-                                  ),
-                                  child: ScreenshotThumbnail(
-                                    path: p,
-                                    detectSensitive: true,
+                            child: const SizedBox.expand(),
+                          )
+                        : Row(
+                            children: [
+                              for (final (i, p)
+                                  in previewPaths.take(3).indexed) ...[
+                                if (i > 0) const Gap(Spacing.xxs),
+                                Expanded(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                      Spacing.radiusSm - 2,
+                                    ),
+                                    child: ScreenshotThumbnail(
+                                      path: p,
+                                      detectSensitive: true,
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ],
-                          ],
-                        ),
-                ),
-                const Gap(Spacing.xs),
-                Text(
-                  name,
-                  style: theme.textTheme.titleSmall,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+                          ),
+                  ),
+                  const Gap(Spacing.xs),
+                  Text(
+                    name,
+                    style: theme.textTheme.titleSmall,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
